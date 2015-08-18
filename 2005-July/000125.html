@@ -1,0 +1,616 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] get info patch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20get%20info%20patch&In-Reply-To=%3C20050726223554.GA19330%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000124.html">
+   <LINK REL="Next"  HREF="000126.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] get info patch</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20get%20info%20patch&In-Reply-To=%3C20050726223554.GA19330%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] get info patch">deckrider at gmail.com
+       </A><BR>
+    <I>Wed Jul 27 00:35:55 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000124.html">[Qrc-devel] build is still broken
+</A></li>
+        <LI>Next message: <A HREF="000126.html">[Qrc-devel] nightly build
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#125">[ date ]</a>
+              <a href="thread.html#125">[ thread ]</a>
+              <a href="subject.html#125">[ subject ]</a>
+              <a href="author.html#125">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Well it looks like I'm not going to have time to work on qrc for a
+while.
+
+Here is as far as I've gotten with Get Info.
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+Index: gaym/src/gaym.h
+===================================================================
+--- gaym/src/gaym.h	(revision 247)
++++ gaym/src/gaym.h	(working copy)
+@@ -28,6 +28,7 @@
+ #include &lt;glib.h&gt;
+ 
+ #include &quot;roomlist.h&quot;
++#include &quot;connection.h&quot;
+ 
+ #define IRC_DEFAULT_SERVER &quot;www.gay.com&quot;
+ #define IRC_DEFAULT_PORT 7514
+@@ -52,6 +53,13 @@
+     GString *string;
+ };
+ 
++typedef struct _GaymProfile GaymProfile;
++struct _GaymProfile {
++    struct GaimGonnection *gc;
++    char *who;
++    GHashTable *profile;
++};
++
+ enum { IRC_USEROPT_SERVER, IRC_USEROPT_PORT, IRC_USEROPT_CHARSET };
+ enum gaym_state { IRC_STATE_NEW, IRC_STATE_ESTABLISHED };
+ 
+@@ -79,7 +87,6 @@
+     char *bio;
+ 
+     gboolean blist_updating;
+-    GHashTable *info_window_needed;
+     GHashTable *im_thumbnail_needed;
+ 
+     GString *motd;
+Index: gaym/src/gayminfo.c
+===================================================================
+--- gaym/src/gayminfo.c	(revision 247)
++++ gaym/src/gayminfo.c	(working copy)
+@@ -25,6 +25,10 @@
+ #include &quot;gayminfo.h&quot;
+ #include &quot;util.h&quot;
+ #include &quot;debug.h&quot;
++#include &quot;notify.h&quot;
++#include &quot;imgstore.h&quot;
++#include &quot;helpers.h&quot;
++#include &quot;gaym.h&quot;
+ 
+ char *gaym_thumbnail_strdup(const char *info)
+ {
+@@ -219,6 +223,195 @@
+     return;
+ }
+ 
++void gaym_display_profile(GaymProfile * gp)
++{
++    int i = 0;
++    char *tmp = NULL;
++    char *lookup = NULL;
++    char *title = g_strdup_printf(&quot;GayM - %s&quot;, gp-&gt;who);
++    char *primary = gp-&gt;who;
++
++    char *secondary = g_hash_table_lookup(gp-&gt;profile, &quot;profhead&quot;);
++
++    GString *string = g_string_new(&quot;&quot;);
++
++    char *line = &quot;&lt;p&gt;&lt;b&gt;%s:&lt;/b&gt; %s&lt;/p&gt;&lt;br /&gt;\n&quot;;
++    char *caption = &quot;&lt;hr /&gt;&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;br /&gt;\n&quot;;
++    char *image = &quot;&lt;p&gt;&lt;img id=%s&gt;&lt;/p&gt;&lt;br /&gt;\n&quot;;
++
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;headline&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;Headline&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;modified_date&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;Last Updated&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;loc_visible&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;Location&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;age&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;Age&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;anonymous&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;Anonymous&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;my-private-pics-unlocked&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line,
++                               _(&quot;Can see my private pictures&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup =
++        g_hash_table_lookup(gp-&gt;profile, &quot;their-private-pics-unlocked&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line,
++                               _(&quot;Can see their private pictures&quot;),
++                               lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;onhotlist&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;On my Hot List&quot;), lookup);
++        lookup = NULL;
++    }
++    lookup = g_hash_table_lookup(gp-&gt;profile, &quot;onbuddylist&quot;);
++    if (lookup) {
++        g_string_append_printf(string, line, _(&quot;On my Buddy List&quot;),
++                               lookup);
++        lookup = NULL;
++    }
++
++    for (i = 0; TRUE; i++) {
++        tmp = g_strdup_printf(&quot;pictures.%d.url&quot;, i);
++        char *id = g_hash_table_lookup(gp-&gt;profile, tmp);
++        g_free(tmp);
++        tmp = NULL;
++        if (id != NULL) {
++            tmp = g_strdup_printf(&quot;pictures.%d.caption&quot;, i);
++            lookup = g_hash_table_lookup(gp-&gt;profile, tmp);
++            g_free(tmp);
++            tmp = NULL;
++            if (lookup != NULL) {
++                g_string_append_printf(string, caption, lookup);
++            }
++            g_string_append_printf(string, image, id);
++        } else {
++            /* no more pictures to display */
++            break;
++        }
++    }
++
++    char *text = g_string_free(string, FALSE);
++
++    gaim_notify_userinfo((GaimConnection *) gp-&gt;gc, gp-&gt;who, title,
++                         primary, secondary, text, NULL, NULL);
++
++    g_free(title);
++    g_free(text);
++
++    g_hash_table_destroy(gp-&gt;profile);
++    g_free(gp-&gt;who);
++    g_free(gp);
++}
++
++void gaym_profile_cb(void *data, const char *result, size_t len)
++{
++    int i = 0;
++
++    GaymProfile *gp = (GaymProfile *) data;
++    g_return_if_fail(gp != NULL);
++
++    GaimConnection *gc = (GaimConnection *) gp-&gt;gc;
++    struct gaym_conn *gaym = gc-&gt;proto_data;
++
++    if (gp-&gt;profile == NULL) {
++        /* we just got profile.txt, so process it */
++        gp-&gt;profile = gaym_properties_new(result);
++        if (gp-&gt;profile == NULL) {
++            /* FIXME: display or log error message */
++            g_free(gp-&gt;who);
++            g_free(gp);
++            return;
++        }
++        char *status = g_hash_table_lookup(gp-&gt;profile, &quot;status&quot;);
++        if (status == NULL) {
++            /* FIXME: display or log error message */
++            g_hash_table_destroy(gp-&gt;profile);
++            g_free(gp-&gt;who);
++            g_free(gp);
++            return;
++        }
++        if (gaim_utf8_strcasecmp(status, &quot;available&quot;) == 0) {
++            /* this user has a profile */
++            char *count = g_hash_table_lookup(gp-&gt;profile,
++                                              &quot;pictures.count&quot;);
++            if (count == NULL) {
++                /* FIXME: display or log error message */
++                g_hash_table_destroy(gp-&gt;profile);
++                g_free(gp-&gt;who);
++                g_free(gp);
++                return;
++            }
++            for (i = atoi(count); i &gt; 0; i--) {
++                char *prop = g_strdup_printf(&quot;pictures.%d.url&quot;, i - 1);
++                char *path = g_hash_table_lookup(gp-&gt;profile, prop);
++                g_free(prop);
++                if (path) {
++                    g_hash_table_replace(gp-&gt;profile,
++                                         g_strdup(&quot;pictures.count&quot;),
++                                         g_strdup_printf(&quot;%d&quot;, i - 1));
++                    char *url =
++                        g_strdup_printf(&quot;<A HREF="http://%s%s">http://%s%s</A>&quot;, gaym-&gt;server,
++                                        path);
++                    gaim_url_fetch(url, FALSE, &quot;Mozilla/4.0&quot;, FALSE,
++                                   gaym_profile_cb, gp);
++                    g_free(url);
++                    return;
++                }
++            }
++            /* this user has a profile, but no pictures */
++            gaym_display_profile(gp);
++            return;
++        } else {
++            /* FIXME: indicate that this user has no profile */
++        }
++    } else {
++        /* we just got a picture back */
++        int id = gaim_imgstore_add(result, len, NULL);
++        char *count = g_hash_table_lookup(gp-&gt;profile, &quot;pictures.count&quot;);
++        char *prop = g_strdup_printf(&quot;pictures.%s.url&quot;, count);
++        g_hash_table_replace(gp-&gt;profile, prop, g_strdup_printf(&quot;%d&quot;, id));
++        for (i = atoi(count); i &gt; 0; i--) {
++            char *prop = g_strdup_printf(&quot;pictures.%d.url&quot;, i - 1);
++            char *path = g_hash_table_lookup(gp-&gt;profile, prop);
++            g_free(prop);
++            if (path) {
++                g_hash_table_replace(gp-&gt;profile,
++                                     g_strdup(&quot;pictures.count&quot;),
++                                     g_strdup_printf(&quot;%d&quot;, i));
++                char *url = g_strdup_printf(&quot;<A HREF="http://%s%s">http://%s%s</A>&quot;, gaym-&gt;server,
++                                            path);
++                gaim_url_fetch(url, FALSE, &quot;Mozilla/4.0&quot;, FALSE,
++                               gaym_profile_cb, gp);
++                g_free(url);
++                return;
++            }
++        }
++        /* we are finished getting all the pictures */
++        gaym_display_profile(gp);
++        return;
++    }
++}
++
+ /**
+  * vim:tabstop=4:shiftwidth=4:expandtab:
+  */
+Index: gaym/src/msgs.c
+===================================================================
+--- gaym/src/msgs.c	(revision 247)
++++ gaym/src/msgs.c	(working copy)
+@@ -109,115 +109,6 @@
+     g_free(d);
+ }
+ 
+-static void gaym_fetch_photo_cb(void *user_data, const char *info_data,
+-                                size_t len)
+-{
+-    if (!info_data || !user_data) {
+-        return;
+-    }
+-
+-    struct gaym_fetch_thumbnail_data *d = user_data;
+-
+-    char *info, *t;
+-
+-    struct gaym_conn *gaym = d-&gt;gc-&gt;proto_data;
+-
+-    char *hashurl =
+-        g_hash_table_lookup(gaym-&gt;confighash, &quot;view-profile-url&quot;);
+-    g_return_if_fail(hashurl != NULL);
+-
+-    int id = gaim_imgstore_add(info_data, len, NULL);
+-    if (d-&gt;stats &amp;&amp; d-&gt;bio)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Stats:&lt;/b&gt; %s&lt;br&gt;&lt;b&gt;Bio:&lt;/b&gt; %s&lt;br&gt;&lt;img id=%d&gt;&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;stats, d-&gt;bio, id, hashurl, d-&gt;who);
+-    else if (d-&gt;stats)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Stats:&lt;/b&gt; %s&lt;br&gt;&lt;img id=%d&gt;&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;stats, id, hashurl, d-&gt;who);
+-    else if (d-&gt;bio)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Bio:&lt;/b&gt; %s&lt;br&gt;&lt;img id=%d&gt;&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;bio, id, hashurl, d-&gt;who);
+-    else
+-        info =
+-            g_strdup_printf
+-            (&quot;No Info Found&lt;br&gt;&lt;img id=%d&gt;&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             id, hashurl, d-&gt;who);
+-
+-    gaim_notify_userinfo(d-&gt;gc, d-&gt;who,
+-                         t = g_strdup_printf(&quot;Gay.com - %s&quot;, d-&gt;who),
+-                         d-&gt;who, NULL, info, NULL, NULL);
+-    g_free(t);
+-
+-    if (d) {
+-        if (d-&gt;who)
+-            g_free(d-&gt;who);
+-        if (d-&gt;bio)
+-            g_free(d-&gt;bio);
+-        if (d-&gt;stats)
+-            g_free(d-&gt;stats);
+-        g_free(d);
+-    }
+-    gaim_imgstore_unref(id);
+-}
+-
+-static void gaym_fetch_info_cb(void *user_data, const char *info_data,
+-                               size_t len)
+-{
+-    struct gaym_fetch_thumbnail_data *d = user_data;
+-    char *picpath;
+-    char *picurl;
+-    char *info, *t;
+-    char *match = &quot;pictures.0.url=&quot;;
+-
+-    struct gaym_conn *gaym = d-&gt;gc-&gt;proto_data;
+-
+-    char *hashurl =
+-        g_hash_table_lookup(gaym-&gt;confighash, &quot;view-profile-url&quot;);
+-    g_return_if_fail(hashurl != NULL);
+-
+-    if (d-&gt;stats &amp;&amp; d-&gt;bio)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Stats:&lt;/b&gt; %s&lt;br&gt;&lt;b&gt;Bio:&lt;/b&gt; %s&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;stats, d-&gt;bio, hashurl, d-&gt;who);
+-    else if (d-&gt;stats)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Stats:&lt;/b&gt; %s&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;stats, hashurl, d-&gt;who);
+-    else if (d-&gt;bio)
+-        info =
+-            g_strdup_printf
+-            (&quot;&lt;b&gt;Bio:&lt;/b&gt; %s&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             d-&gt;bio, hashurl, d-&gt;who);
+-    else
+-        info =
+-            g_strdup_printf
+-            (&quot;No Info Found&lt;br&gt;&lt;a href='%s%s'&gt;Full Profile&lt;/a&gt;&quot;,
+-             hashurl, d-&gt;who);
+-
+-    picpath = return_string_between(match, &quot;\n&quot;, info_data);
+-    if (!picpath || strlen(picpath) == 0) {
+-        gaim_notify_userinfo(d-&gt;gc, d-&gt;who,
+-                             t = g_strdup_printf(&quot;Gay.com - %s&quot;, d-&gt;who),
+-                             d-&gt;who, NULL, info, NULL, NULL);
+-        g_free(t);
+-        return;
+-    }
+-
+-    picurl = g_strdup_printf(&quot;<A HREF="http://www.gay.com%s">http://www.gay.com%s</A>&quot;, picpath);
+-    if (picurl) {
+-        gaim_url_fetch(picurl, FALSE, &quot;Mozilla/4.0 (compatible; MSIE 5.0)&quot;,
+-                       FALSE, gaym_fetch_photo_cb, user_data);
+-        return;
+-    }
+-}
+-
+ void gaym_msg_no_such_nick(struct gaym_conn *gaym, const char *name,
+                            const char *from, char **args)
+ {
+@@ -234,26 +125,6 @@
+     gcom_nick_to_gaym(args[1]);
+ 
+     gaym_buddy_status(gaym, args[1], FALSE, NULL);
+-
+-    char *normalized = g_strdup(gaim_normalize(gaym-&gt;account, args[1]));
+-
+-    if (g_hash_table_lookup(gaym-&gt;info_window_needed, normalized)) {
+-        g_hash_table_remove(gaym-&gt;info_window_needed, normalized);
+-
+-        char *hashurl =
+-            g_hash_table_lookup(gaym-&gt;confighash, &quot;view-profile-url&quot;);
+-        g_return_if_fail(hashurl != NULL);
+-
+-        char *buf;
+-        buf =
+-            g_strdup_printf
+-            (&quot;That user is not logged on. Check &lt;a href='%s%s'&gt;here&lt;/a&gt; to see if that user has a profile.&quot;,
+-             hashurl, args[1]);
+-        gaim_notify_userinfo(gaim_account_get_connection(gaym-&gt;account),
+-                             NULL, NULL, &quot;No such user&quot;, NULL, buf, NULL,
+-                             NULL);
+-    }
+-    g_free(normalized);
+ }
+ 
+ void gaym_msg_whois(struct gaym_conn *gaym, const char *name,
+@@ -273,39 +144,14 @@
+ 
+     gaym_buddy_status(gaym, args[1], TRUE, args[5]);
+ 
+-    char *normalized = g_strdup(gaim_normalize(gaym-&gt;account, args[1]));
+-
+-    struct gaym_fetch_thumbnail_data *data;
+-
+-    // Update, but then release the reference. It was already opened
+-    // during conversation-created.
++    /**
++     * Update, but then release the reference. It was already opened
++     * during conversation-created.
++     */
+     gaym_update_channel_member(gaym, args[1], args[5]);
+     gaym_unreference_channel_member(gaym, args[1]);
+     gaim_signal_emit(gaim_accounts_get_handle(), &quot;info-updated&quot;,
+                      gaym-&gt;account, args[1]);
+-
+-    if (g_hash_table_lookup(gaym-&gt;info_window_needed, normalized)) {
+-
+-        data = g_new0(struct gaym_fetch_thumbnail_data, 1);
+-        data-&gt;gc = gaim_account_get_connection(gaym-&gt;account);
+-        data-&gt;who = g_strdup(args[1]);
+-        data-&gt;bio = gaym_bio_strdup(args[5]);
+-        data-&gt;stats = gaym_stats_strdup(args[5]);
+-        g_hash_table_remove(gaym-&gt;info_window_needed, normalized);
+-        char *hashurl = g_hash_table_lookup(gaym-&gt;confighash,
+-                                            &quot;ohm.profile-url&quot;);
+-        g_return_if_fail(hashurl != NULL);
+-
+-        char *infourl = g_strdup_printf(&quot;%s?pw=%s&amp;name=%s&quot;, hashurl,
+-                                        gaym-&gt;chat_key, args[1]);
+-        if (infourl) {
+-            gaim_url_fetch(infourl, FALSE,
+-                           &quot;Mozilla/4.0 (compatible; MSIE 5.0)&quot;, FALSE,
+-                           gaym_fetch_info_cb, data);
+-            g_free(infourl);
+-        }
+-    }
+-    g_free(normalized);
+ }
+ 
+ void gaym_msg_login_failed(struct gaym_conn *gaym, const char *name,
+Index: gaym/src/gayminfo.h
+===================================================================
+--- gaym/src/gayminfo.h	(revision 247)
++++ gaym/src/gayminfo.h	(working copy)
+@@ -87,6 +87,7 @@
+ void gaym_buddy_status(struct gaym_conn *gaym, char *name,
+                        gboolean online, char *info);
+ 
++void gaym_profile_cb(void *data, const char *result, size_t len);
+ 
+ void gaym_update_channel_member(struct gaym_conn *gaym, const char *nick,
+                                 const char *info);
+Index: gaym/src/gaym.c
+===================================================================
+--- gaym/src/gaym.c	(revision 247)
++++ gaym/src/gaym.c	(working copy)
+@@ -494,21 +494,16 @@
+     gaym-&gt;msgs = g_hash_table_new(g_str_hash, g_str_equal);
+     gaym_msg_table_build(gaym);
+     gaym-&gt;roomlist_filter = NULL;
+-    /**
+-     * The last parameter needs to be NULL here, since the same
+-     * field is added for both the key and the value (and if we
+-     * free it twice, thats bad and causes crashing!).
+-     */
+-    gaym-&gt;info_window_needed =
+-        g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+ 
+     gaym-&gt;entry_order =
+         g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+ 
+     /**
+-     * This is similar to gaym-&gt;info_window_needed, except this is
+-     * for thumbails inside the IM conversation window if the
++     * For thumbails inside the IM conversation window if the
+      * person is not already on the buddy list
++     * The last parameter needs to be NULL here, since the same
++     * field is added for both the key and the value (and if we
++     * free it twice, thats bad and causes crashing!).
+      */
+     gaym-&gt;im_thumbnail_needed =
+         g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+@@ -684,7 +679,6 @@
+ 
+     g_hash_table_destroy(gaym-&gt;cmds);
+     g_hash_table_destroy(gaym-&gt;msgs);
+-    g_hash_table_destroy(gaym-&gt;info_window_needed);
+     g_hash_table_destroy(gaym-&gt;entry_order);
+     g_hash_table_destroy(gaym-&gt;im_thumbnail_needed);
+     if (gaym-&gt;motd)
+@@ -739,18 +733,27 @@
+ static void gaym_get_info(GaimConnection * gc, const char *who)
+ {
+     struct gaym_conn *gaym = gc-&gt;proto_data;
+-    const char *args[1];
+-    args[0] = who;
++    g_return_if_fail(gaym != NULL);
++    g_return_if_fail(gaym-&gt;confighash != NULL);
++    g_return_if_fail(gaym-&gt;chat_key != NULL);
+ 
+-    char *normalized = g_strdup(gaim_normalize(gc-&gt;account, who));
+-    /**
+-     * We are adding the same char* to both the key and the value.
+-     * If this changes, we need to change the corresponding
+-     * g_hash_table_new_full() so that things are properly cleaned
+-     * up during the remove/destroy phase.
+-     */
+-    g_hash_table_insert(gaym-&gt;info_window_needed, normalized, normalized);
+-    gaym_cmd_whois(gaym, &quot;whois&quot;, NULL, args);
++    char *hashurl =
++        g_hash_table_lookup(gaym-&gt;confighash, &quot;ohm.profile-url&quot;);
++    g_return_if_fail(hashurl != NULL);
++
++    GaymProfile *gp = g_new0(GaymProfile, 1);
++    gp-&gt;gc = (struct GaimGonnection *) gc;
++    gp-&gt;who = g_strdup(gaim_normalize(gc-&gt;account, who));
++    gp-&gt;profile = NULL;
++
++    char *infourl = g_strdup_printf(&quot;%s?pw=%s&amp;name=%s&quot;, hashurl,
++                                    gaym-&gt;chat_key, who);
++
++    if (infourl) {
++        gaim_url_fetch(infourl, FALSE, &quot;Mozilla/4.0&quot;, FALSE,
++                       gaym_profile_cb, gp);
++        g_free(infourl);
++    }
+ }
+ 
+ static void gaym_set_away(GaimConnection * gc, const char *state,
+@@ -1125,11 +1128,11 @@
+ 
+ static guint gaym_nick_hash(const char *nick)
+ {
+-    char *lc=NULL;
++    char *lc = NULL;
+     guint bucket;
+-    
+-    if(!nick)
+-	return NULL;
++
++    if (!nick)
++        return NULL;
+     lc = g_utf8_strdown(nick, -1);
+     bucket = g_str_hash(lc);
+     g_free(lc);
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000124.html">[Qrc-devel] build is still broken
+</A></li>
+	<LI>Next message: <A HREF="000126.html">[Qrc-devel] nightly build
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#125">[ date ]</a>
+              <a href="thread.html#125">[ thread ]</a>
+              <a href="subject.html#125">[ subject ]</a>
+              <a href="author.html#125">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

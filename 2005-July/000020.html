@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] 004276 - Change Bio / Profile Mapping
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20004276%20-%20Change%20Bio%20/%20Profile%20Mapping&In-Reply-To=%3C20050707135158.GA19016%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] 004276 - Change Bio / Profile Mapping</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20004276%20-%20Change%20Bio%20/%20Profile%20Mapping&In-Reply-To=%3C20050707135158.GA19016%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] 004276 - Change Bio / Profile Mapping">deckrider at gmail.com
+       </A><BR>
+    <I>Thu Jul  7 15:51:59 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[Qrc-devel] 0.34.0 release work
+</A></li>
+        <LI>Next message: <A HREF="000021.html">[Qrc-devel] Bug Fix Release
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'm getting ready to begin work on this.
+
+My plans are to switch from using ISON to WHOIS for managing the buddy
+list.  WHOIS will take a list of comma-separated nicks and return more
+information than ISON returns.
+
+The gay.com IRC server does support AWAY (to set an away message) and
+WHO (which can show either G(one) or H(ere).  However, no one seems to
+currently utilize that mechanism.  This fact, in combination with the
+fact that WHO does not support multiple nicks, is why I'm heading to
+using WHOIS to manage the buddy list.  (AWAY may still be useful to us
+to set our own away messages, and I will keep my eyes open as to how it
+might be used.)
+
+This will allow tracking of additional information (such as Bio) in the
+buddy list, which can then appear near the buddy's name as well as in
+the tooltip.
+
+I plan to use this as an informal status mechanism, ultimately allowing
+Gaim's Away mechanism to update the Bio string to show when a GayM user
+is away (this practice is already informally used by gay.com members).
+When the user is not away, the normal Bio message would be set.
+
+By the way, I've also investigated Gay.com's java applet which has an
+&quot;invisible&quot; mode.  The result of enabling invisible is that a &quot;NOTIFY
+OFFLINE&quot; is issued to current subscribers.  We don't currently use that
+method--and ISON shows these users as online anyway.  I don't think this
+is a good method to use for communicating/detecting state/availability.
+
+Please let me know if you have any comments or suggestions on this.
+
+Thanks,
+Dave.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050707/c556cc15/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050707/c556cc15/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[Qrc-devel] 0.34.0 release work
+</A></li>
+	<LI>Next message: <A HREF="000021.html">[Qrc-devel] Bug Fix Release
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

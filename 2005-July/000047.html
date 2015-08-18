@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C1121998744.16892.24.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   <LINK REL="Next"  HREF="000054.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C1121998744.16892.24.camel%40localhost%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Fri Jul 22 04:19:04 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+        <LI>Next message: <A HREF="000054.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Actually, gaym_fetch_info_cb() should use the photos found in
+</I>&gt;<i> <A HREF="http://www.gay.com/messenger/get-profile.txt">http://www.gay.com/messenger/get-profile.txt</A> (ohm.profile-url from
+</I>&gt;<i> confit.txt) and not the thumbnail found from the whois.  The whois
+</I>&gt;<i> thumbnail is the smaller one used for buddy list, chatroom member list,
+</I>&gt;<i> etc.  So while we do need to refactor this aspect, I disagree with this
+</I>&gt;<i> approach.
+</I>&gt;<i> 
+</I>
+I'm not sure what you mean, here. If there is a photo URL specified in
+get-profile.txt, it is still used. As Evan said, if another user has an
+adult picture, and the gaym user is not a &quot;premium&quot; member, then the
+gaym user will be able to see the thumbnail, but not the full photo. I'd
+like to see at least this thumbnail, rather than nothing at all.
+
+
+&gt;<i> My impression here is that this indicates a highjacked thumbnail, which
+</I>&gt;<i> is often used by bots.  Not sure we want to embrace this practice.  Can
+</I>&gt;<i> we discuss?
+</I>
+See comment above.
+
+&gt;<i> &gt; *msgs_names now populates the list if gaym-&gt;nameconv is null. So, on a
+</I>&gt;<i> &gt; join_msg, indicating a successful room join, a names command is immediately
+</I>&gt;<i> &gt; sent out. The response of that names message is what triggers list
+</I>&gt;<i> &gt; population.
+</I>&gt;<i> 
+</I>&gt;<i> I'm not sure I understand why we need this extra network call.  Are you
+</I>&gt;<i> saying the original join result does not give the names in the order you
+</I>&gt;<i> want?  What order does the join result give?  What does the java applet
+</I>&gt;<i> do?
+</I>&gt;<i> 
+</I>
+When you join a room, the gay.com server responds with a series of
+message #690, one for each user. Unfortunately, these messages come in
+the order of &quot;newest first&quot;. If they came in the order &quot;oldest first,&quot;
+there would be no problem. Assume that there were 5 people in the room
+when you enter, and then one more enters after you. Then if you simply
+sort by the order that the name list was populated, you'd see:
+
+7
+6 &lt;---you
+1
+2
+3
+4
+5
+
+Part of this solution has to do with the way gaim handles user joins.
+There is only one signal: chat-buddy-joined. There is no way to
+differentiate the behavior between joins that occur when you enter the
+channel, and joins that occur after you enter the channel. Gaim just
+automatically sorts the list by alpha, so it was never really an issue.
+The best way to handle this would be a patch to Gaim that lets us handle
+this properly. However, one of my goals personally throughout this
+project has been to completely avoid requiring a patch to Gaim, since
+many people are unlikely to bother.
+
+The extra &quot;names&quot; call gives us a way to populate the list in one shot.
+On further thought (i.e., as I've been typing this) I realize that a
+temporary list could be populated as the 690's flow in, and then
+reversed at the end. The trick is detecting the &quot;end&quot;. There is no
+message to demarcate the end, so you have to insert *some* command of
+your own that the server can respond to, that will signal the end.
+
+I'm fairly certain that the flow of 690 messages will never be
+interrupted. I did a lot of tests, and could not get them to be
+interrupted by an intermediate command. I.e., the text flow always looks
+like:
+
+690 gaydude
+690 guy
+690 person
+NAMES
+690 queer
+690 lost_dyke
+690 jailbait
+690 final_690
+NAMES RESPONSE
+
+I will make the changes now to avoid the NAMES command. I will replace
+it with a PING, or something. Are there any thoughts about which command
+the gay.com server will give the fastest response for? PING seems the
+most likely candidate.
+
+
+Jason
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+	<LI>Next message: <A HREF="000054.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,142 @@
+From gaym at jasonlebrun.info  Sat Nov 18 04:01:07 2006
+From: gaym at jasonlebrun.info (JBL)
+Date: Fri, 17 Nov 2006 19:01:07 -0800
+Subject: [Qrc-devel] Webpage Update
+Message-ID: <455E7773.40802@jasonlebrun.info>
+
+Hi everyone,
+
+    I've installed a wiki and put up some rudimentary text for the gaym 
+project. It's better than what was there! If you're intersted in helping 
+to shape it up (it's based on pmwiki) either with content or graphics, 
+let me know! Also, show all of your developer friends who might be 
+interested in developing and testing gaym. :-)
+
+Jason
+
+
+
+From gaym at jasonlebrun.info  Sun Nov 19 01:47:06 2006
+From: gaym at jasonlebrun.info (JBL)
+Date: Sat, 18 Nov 2006 16:47:06 -0800
+Subject: [Qrc-devel] [gaymplugin] Re: Webpage Update
+In-Reply-To: <ejnnh8+8edl@eGroups.com>
+References: <ejnnh8+8edl@eGroups.com>
+Message-ID: <455FA98A.5080402@jasonlebrun.info>
+
+Oh, right...
+
+http://qrc.berlios.de
+
+
+dcbri74 wrote:
+>
+>
+> This sounds great! What's the address?
+>
+> --- In gaymplugin at yahoogroups.com 
+> <mailto:gaymplugin%40yahoogroups.com>, JBL <gaym at ...> wrote:
+> >
+> > Hi everyone,
+> >
+> > I've installed a wiki and put up some rudimentary text for the gaym
+> > project. It's better than what was there! If you're intersted in
+> helping
+> > to shape it up (it's based on pmwiki) either with content or graphics,
+> > let me know! Also, show all of your developer friends who might be
+> > interested in developing and testing gaym. :-)
+> >
+> > Jason
+> >
+>
+> __._,_.___
+> Messages in this topic 
+> <http://groups.yahoo.com/group/gaymplugin/message/723;_ylc=X3oDMTMzbTRua29qBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARtc2dJZAM3MjQEc2VjA2Z0cgRzbGsDdnRwYwRzdGltZQMxMTYzODc5MjU4BHRwY0lkAzcyMw--> 
+> (2) Reply (via web post) 
+> <http://groups.yahoo.com/group/gaymplugin/post;_ylc=X3oDMTJwMzAzaXZzBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARtc2dJZAM3MjQEc2VjA2Z0cgRzbGsDcnBseQRzdGltZQMxMTYzODc5MjU4?act=reply&messageNum=724> 
+> | Start a new topic 
+> <http://groups.yahoo.com/group/gaymplugin/post;_ylc=X3oDMTJmaWQ3cGRuBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNudHBjBHN0aW1lAzExNjM4NzkyNTg-> 
+>
+> Messages 
+> <http://groups.yahoo.com/group/gaymplugin/messages;_ylc=X3oDMTJmODZtcjltBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNtc2dzBHN0aW1lAzExNjM4NzkyNTg-> 
+> | Files 
+> <http://groups.yahoo.com/group/gaymplugin/files;_ylc=X3oDMTJncTg1azdwBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNmaWxlcwRzdGltZQMxMTYzODc5MjU4> 
+> | Photos 
+> <http://groups.yahoo.com/group/gaymplugin/photos;_ylc=X3oDMTJmazhrZzVkBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNwaG90BHN0aW1lAzExNjM4NzkyNTg-> 
+> | Polls 
+> <http://groups.yahoo.com/group/gaymplugin/polls;_ylc=X3oDMTJnbnJjMnZ0BF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNwb2xscwRzdGltZQMxMTYzODc5MjU4> 
+> | Members 
+> <http://groups.yahoo.com/group/gaymplugin/members;_ylc=X3oDMTJmanEwYTVtBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNtYnJzBHN0aW1lAzExNjM4NzkyNTg-> 
+>
+> Yahoo! Groups 
+> <http://groups.yahoo.com/;_ylc=X3oDMTJlbmpnOGhoBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNnZnAEc3RpbWUDMTE2Mzg3OTI1OA--> 
+>
+> Change settings via the Web 
+> <http://groups.yahoo.com/group/gaymplugin/join;_ylc=X3oDMTJnNGozZWRvBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNzdG5ncwRzdGltZQMxMTYzODc5MjU4> 
+> (Yahoo! ID required)
+> Change settings via email: Switch delivery to Daily Digest 
+> <mailto:gaymplugin-digest at yahoogroups.com?subject=Email%20Delivery:%20Digest> 
+> | Switch format to Traditional 
+> <mailto:gaymplugin-traditional at yahoogroups.com?subject=Change%20Delivery%20Format:%20Traditional> 
+>
+> Visit Your Group 
+> <http://groups.yahoo.com/group/gaymplugin;_ylc=X3oDMTJlZ2hobGRnBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDZnRyBHNsawNocGYEc3RpbWUDMTE2Mzg3OTI1OA--> 
+> | Yahoo! Groups Terms of Use <http://docs.yahoo.com/info/terms/> | 
+> Unsubscribe <mailto:gaymplugin-unsubscribe at yahoogroups.com?subject=>
+> Recent Activity
+>
+>    *
+>        1
+>       New Members
+>       <http://groups.yahoo.com/group/gaymplugin/members;_ylc=X3oDMTJnaGk4YjU4BF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDdnRsBHNsawN2bWJycwRzdGltZQMxMTYzODc5MjU4>
+>
+> Visit Your Group 
+> <http://groups.yahoo.com/group/gaymplugin;_ylc=X3oDMTJmNmE3aHRiBF9TAzk3MzU5NzE0BGdycElkAzEzNjM1MzM1BGdycHNwSWQDMTcwNzI4MTkxNARzZWMDdnRsBHNsawN2Z2hwBHN0aW1lAzExNjM4NzkyNTg-> 
+>
+> SPONSORED LINKS
+>
+>     * Groupware
+>       <http://groups.yahoo.com/gads;_ylc=X3oDMTJkMmNkNnIzBF9TAzk3MzU5NzE0BF9wAzEEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNzbG1vZARzdGltZQMxMTYzODc5MjYw?t=ms&k=Groupware&w1=Groupware&w2=Groupware+software&w3=Mens&w4=Groupware+product&w5=Gay+chat&c=5&s=86&g=2&.sig=DwuB4MZH0LEl66WDy2OJ8Q>
+>     * Groupware software
+>       <http://groups.yahoo.com/gads;_ylc=X3oDMTJkZTQ4NzVsBF9TAzk3MzU5NzE0BF9wAzIEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNzbG1vZARzdGltZQMxMTYzODc5MjYw?t=ms&k=Groupware+software&w1=Groupware&w2=Groupware+software&w3=Mens&w4=Groupware+product&w5=Gay+chat&c=5&s=86&g=2&.sig=Rye9I6-t_XwV_XXg-81omQ>
+>     * Mens
+>       <http://groups.yahoo.com/gads;_ylc=X3oDMTJkaThzcG1qBF9TAzk3MzU5NzE0BF9wAzMEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNzbG1vZARzdGltZQMxMTYzODc5MjYw?t=ms&k=Mens&w1=Groupware&w2=Groupware+software&w3=Mens&w4=Groupware+product&w5=Gay+chat&c=5&s=86&g=2&.sig=Z9v-lsGUTRzVzSSQ7w8hCQ>
+>     * Groupware product
+>       <http://groups.yahoo.com/gads;_ylc=X3oDMTJkN2U4MGVnBF9TAzk3MzU5NzE0BF9wAzQEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNzbG1vZARzdGltZQMxMTYzODc5MjYw?t=ms&k=Groupware+product&w1=Groupware&w2=Groupware+software&w3=Mens&w4=Groupware+product&w5=Gay+chat&c=5&s=86&g=2&.sig=4TZWxcsNCvfiKcDvS5crag>
+>     * Gay chat
+>       <http://groups.yahoo.com/gads;_ylc=X3oDMTJkazVhOWt1BF9TAzk3MzU5NzE0BF9wAzUEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNzbG1vZARzdGltZQMxMTYzODc5MjYw?t=ms&k=Gay+chat&w1=Groupware&w2=Groupware+software&w3=Mens&w4=Groupware+product&w5=Gay+chat&c=5&s=86&g=2&.sig=IrpM_mwnQibEO55x_YUSAQ>
+>
+> Need traffic?
+>
+> Drive customers 
+> <http://us.ard.yahoo.com/SIG=12hgnuh9m/M=493064.8985663.9760769.8674578/D=groups/S=1707281914:NC/Y=YAHOO/EXP=1163886460/A=3848644/R=0/SIG=131l83flq/*http://searchmarketing.yahoo.com/arp/srchv2.php?o=US2006&cmp=Yahoo&ctv=Groups5&s=Y&s2=&s3=&b=50>
+>
+> With search ads
+>
+> on Yahoo!
+>
+> Sell Online
+>
+> Yahoo! 
+> <http://us.ard.yahoo.com/SIG=12i7m6h09/M=493064.9337501.10154278.8674578/D=groups/S=1707281914:NC/Y=YAHOO/EXP=1163886460/A=4025302/R=0/SIG=12bsapn24/*http://us.rd.yahoo.com/evt=44092/*http://smallbusiness.yahoo.com/merchant> 
+> e-commerce
+>
+> comes with 24 hour
+>
+> phone support.
+>
+> Yahoo! Groups
+>
+> Start a group 
+> <http://groups.yahoo.com/start;_ylc=X3oDMTJwZ3N2N2F0BF9TAzk3MzU5NzE0BF9wAzMEZ3JwSWQDMTM2MzUzMzUEZ3Jwc3BJZAMxNzA3MjgxOTE0BHNlYwNuY21vZARzbGsDZ3JvdXBzMgRzdGltZQMxMTYzODc5MjU3>
+>
+> in 3 easy steps.
+>
+> Connect with others.
+>
+> .
+>
+> __,_._,___ 
+
+
+

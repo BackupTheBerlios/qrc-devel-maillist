@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20crash&In-Reply-To=%3C20050725123226.GZ18998%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000109.html">
+   <LINK REL="Next"  HREF="000112.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] crash</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20crash&In-Reply-To=%3C20050725123226.GZ18998%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] crash">deckrider at gmail.com
+       </A><BR>
+    <I>Mon Jul 25 14:32:27 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000109.html">[Qrc-devel] thumbnail dimensions
+</A></li>
+        <LI>Next message: <A HREF="000112.html">[Qrc-devel] crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Not sure what I was doing...perhaps tooltip stuff?
+
+Also, on tooltips...we should not display items for which nothing
+exists....look at gaym.c for this.  Don't do &quot;Age:?&quot;...just don't show
+the age and save the line.
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 1084376480 (LWP 27290)]
+namelist_tooltip_timeout (data=0x0) at gaym-extras.c:600
+600         if (!cm-&gt;age &amp;&amp; !cm-&gt;location &amp;&amp; !cm-&gt;bio)
+
+(gdb) bt full
+#0  namelist_tooltip_timeout (data=0x0) at gaym-extras.c:600
+        path = (GtkTreePath *) 0x8413aa8
+        iter = {stamp = -1790377838, user_data = 0x8324c78, user_data2 = 0x0,
+  user_data3 = 0x0}
+        model = (GtkTreeModel *) 0x83401c8
+        name = (gchar *) 0x840c338 &quot;deckrider&quot;
+        scr_w = 135509176
+        scr_h = 1073961284
+        w = -1073769032
+        h = 1073961920
+        x = 72
+        y = 138203832
+        mon_num = 0
+        screen = (GdkScreen *) 0x0
+        layout = (PangoLayout *) 0x40778034
+        tooltiptext = 0x83401c8 &quot;\uffff&quot;
+        mon_size = {x = 1086882788, y = 135566696, width = -1073769000,
+  height = 1086872183}
+        rect = (GdkRectangle *) 0xbfff95d0
+        timeout = (guint *) 0x83a6e00
+        tipwindow = (GtkWidget *) 0x813b4b8
+        tv = (GtkWidget *) 0x8340c80
+        gaym = (struct gaym_conn *) 0x82cc840
+        cm = (GaymChannelMember *) 0x0
+#1  0x405a6c9c in g_main_context_wakeup () from /usr/lib/libglib-2.0.so.0
+No symbol table info available.
+#2  0x405a4582 in g_main_depth () from /usr/lib/libglib-2.0.so.0
+No symbol table info available.
+#3  0x405a55f8 in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
+No symbol table info available.
+#4  0x405a5930 in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
+No symbol table info available.
+#5  0x405a5ed3 in g_main_loop_run () from /usr/lib/libglib-2.0.so.0
+No symbol table info available.
+#6  0x40264bb3 in gtk_main () from /usr/lib/libgtk-x11-2.0.so.0
+No symbol table info available.
+#7  0x080f8353 in main ()
+No symbol table info available.
+
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000109.html">[Qrc-devel] thumbnail dimensions
+</A></li>
+	<LI>Next message: <A HREF="000112.html">[Qrc-devel] crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

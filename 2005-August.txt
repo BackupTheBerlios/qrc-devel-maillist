@@ -1,0 +1,590 @@
+From gaym at jasonlebrun.info  Tue Aug  2 09:15:33 2005
+From: gaym at jasonlebrun.info (Jason LeBrun)
+Date: Tue, 02 Aug 2005 02:15:33 -0500
+Subject: [Qrc-devel] Sort-of release
+Message-ID: <1122966933.7738.14.camel@localhost>
+
+Hi everyone,
+
+	There's a new version of gaym up on the berlios web page. Currently,
+the only available files are a windows .exe installar, and a linux
+tar.bz2. If anyone would like to make .debs or .rpms, that would be
+great. 
+
+	If you experience any weird behavior, please file a bug report on the
+berlios page, or at LEAST send an email to qrc-devel at berlios.de (NOT the
+yahoo group). If you are able to get a backtrace, either through GDB or
+DrMinGW, that would be a big help! 
+
+Jason
+
+
+
+From Evan at CoolRunningConcepts.com  Wed Aug  3 10:28:59 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Wed, 03 Aug 2005 03:28:59 -0500
+Subject: [Qrc-devel] Thumbnails
+In-Reply-To: <1122603721.19563.25.camel@localhost>
+References: <1122525550.19563.5.camel@localhost>
+	 <20050727232137.pb9gndcv5r4kk4co@coolrunningconcepts.com>
+	 <1122528089.19563.7.camel@localhost>
+	 <20050727233826.wvpmr9wkri84occc@coolrunningconcepts.com>
+	 <1122530966.19563.11.camel@localhost>
+	 <20050728010143.afkc6i0zvzkskkgg@coolrunningconcepts.com>
+	 <1122537428.19563.16.camel@localhost>
+	 <20050728042113.yuv116436ok8wows@coolrunningconcepts.com>
+	 <20050728192453.qvndm8y8awzoc04o@coolrunningconcepts.com>
+	 <1122603721.19563.25.camel@localhost>
+Message-ID: <1123057739.3115.6.camel@taro.coolrunningconcepts.com>
+
+Doesn't look like Thumbnails are showing in private IMs.  The popup
+works, but the place where there is usually an icon (like with Yahoo or
+AIM) is gone.
+
+Also, try turning the gaym-extras on and off a few times (BURP!)  
+
+Seems to not like that :(
+
+Its looking really good though.
+
+
+
+From Evan at CoolRunningConcepts.com  Thu Aug  4 08:52:27 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Thu, 04 Aug 2005 01:52:27 -0500
+Subject: [Qrc-devel] Display plugin.
+Message-ID: <1123138347.24127.10.camel@taro.coolrunningconcepts.com>
+
+This is likely buggy, but its not crashing and it looks better than gaim
+(to me), and it should be possible to add thumbs for each person that
+speaks without too much trouble - dunno about getting the backgrounds -
+likely not possible.
+
+Anyway - also removes "repeats" in the channel!  You never see it if
+someone repeats the same thing over and over (should likely do this for
+join/parts for people that are using a broken hammer that takes them in
+and out of a room 20 times to find the right one).
+
+Been playing with the colors .. its possible the best bet would be to
+increment the color index when a new person speaks and save it in a hash
+instead of trying to use the username to generate an index.  Then again,
+maybe its ok.
+
+The code is attached if you wanna play with it.
+
+-- Evan
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: displayoptions.c
+Type: text/x-csrc
+Size: 15406 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050804/d2d7fa16/attachment.c>
+
+From tilghman at mail.jeffandtilghman.com  Sat Aug 20 17:41:05 2005
+From: tilghman at mail.jeffandtilghman.com (Tilghman Lesher)
+Date: Sat, 20 Aug 2005 10:41:05 -0500
+Subject: [Qrc-devel] Bug in revision 272
+Message-ID: <200508201041.05482.tilghman@mail.jeffandtilghman.com>
+
+Just found a bug in revision 272:  If you disconnect without closing a
+room window, then reconnect and rejoin that room, two photos will
+appear in the footer of that window, one of which is the last photo to
+appear on the previous connection, the other is the photo of any
+currently selected user.
+
+-- 
+Tilghman
+
+
+From tilghman at mail.jeffandtilghman.com  Sat Aug 20 17:52:53 2005
+From: tilghman at mail.jeffandtilghman.com (Tilghman Lesher)
+Date: Sat, 20 Aug 2005 10:52:53 -0500
+Subject: [Qrc-devel] Bug in revision 272
+In-Reply-To: <200508201041.05482.tilghman@mail.jeffandtilghman.com>
+References: <200508201041.05482.tilghman@mail.jeffandtilghman.com>
+Message-ID: <200508201052.53888.tilghman@mail.jeffandtilghman.com>
+
+On Saturday 20 August 2005 10:41, Tilghman Lesher wrote:
+> Just found a bug in revision 272:  If you disconnect without
+> closing a room window, then reconnect and rejoin that room, two
+> photos will appear in the footer of that window, one of which is
+> the last photo to appear on the previous connection, the other is
+> the photo of any currently selected user.
+
+Here's a snapshot of that window:
+http://drunkcoder.com/doublepicbug.jpg
+
+-- 
+Tilghman
+
+
+From gaym at jasonlebrun.info  Mon Aug 22 06:04:51 2005
+From: gaym at jasonlebrun.info (Jason LeBrun)
+Date: Sun, 21 Aug 2005 23:04:51 -0500
+Subject: [Qrc-devel] Bug in revision 272
+In-Reply-To: <200508201052.53888.tilghman@mail.jeffandtilghman.com>
+References: <200508201041.05482.tilghman@mail.jeffandtilghman.com>
+	 <200508201052.53888.tilghman@mail.jeffandtilghman.com>
+Message-ID: <1124683491.17337.49.camel@localhost>
+
+I've committed code that fixes this bug, so SVN head fixes it. I'll post
+new windows releases and tarballs soon. Thanks to Tilghman and Evan for
+the report. Incidentally, it was also making a second sort button.
+
+You didn't notice, because for some reason, you are not getting the
+sort-order icons. Are you using the windows version or the linux
+version? Can you give me a gaim -d debug dump of startup? That is, run
+gaim -d, and email me all the debug output (don't log into any
+protocols).
+
+Does ANYONE actively use the Windows version?
+
+Thanks,
+
+Jason
+
+On Sat, 2005-08-20 at 10:52 -0500, Tilghman Lesher wrote:
+> On Saturday 20 August 2005 10:41, Tilghman Lesher wrote:
+> > Just found a bug in revision 272:  If you disconnect without
+> > closing a room window, then reconnect and rejoin that room, two
+> > photos will appear in the footer of that window, one of which is
+> > the last photo to appear on the previous connection, the other is
+> > the photo of any currently selected user.
+> 
+> Here's a snapshot of that window:
+> http://drunkcoder.com/doublepicbug.jpg
+> 
+
+
+
+From tilghman at mail.jeffandtilghman.com  Mon Aug 22 06:29:58 2005
+From: tilghman at mail.jeffandtilghman.com (Tilghman Lesher)
+Date: Sun, 21 Aug 2005 23:29:58 -0500
+Subject: [Qrc-devel] Bug in revision 272
+In-Reply-To: <1124683491.17337.49.camel@localhost>
+References: <200508201041.05482.tilghman@mail.jeffandtilghman.com> <200508201052.53888.tilghman@mail.jeffandtilghman.com> <1124683491.17337.49.camel@localhost>
+Message-ID: <200508212329.58514.tilghman@mail.jeffandtilghman.com>
+
+On Sunday 21 August 2005 23:04, Jason LeBrun wrote:
+> I've committed code that fixes this bug, so SVN head fixes it. I'll
+> post new windows releases and tarballs soon. Thanks to Tilghman and
+> Evan for the report. Incidentally, it was also making a second sort
+> button.
+>
+> You didn't notice, because for some reason, you are not getting the
+> sort-order icons. Are you using the windows version or the linux
+> version? Can you give me a gaim -d debug dump of startup? That is,
+> run gaim -d, and email me all the debug output (don't log into any
+> protocols).
+
+Linux version.
+
+-----snip-----
+[tilghman at molybdenum tmp]$ gaim -d
+sound: Initializing sound output drivers.
+plugins: registering plugin-load signal
+plugins: registering plugin-unload signal
+plugins: probing /usr/lib/gaim/libgaym.so
+plugins: probing /usr/lib/gaim/autorecon.so
+plugins: probing /usr/lib/gaim/docklet.so
+plugins: probing /usr/lib/gaim/extplacement.so
+plugins: probing /usr/lib/gaim/gaim-remote.so
+plugins: probing /usr/lib/gaim/gestures.so
+plugins: probing /usr/lib/gaim/history.so
+plugins: probing /usr/lib/gaim/iconaway.so
+plugins: probing /usr/lib/gaim/idle.so
+plugins: probing /usr/lib/gaim/libgg.so
+plugins: probing /usr/lib/gaim/libirc.so
+plugins: probing /usr/lib/gaim/libjabber.so
+plugins: probing /usr/lib/gaim/libmsn.so
+plugins: probing /usr/lib/gaim/libnapster.so
+plugins: probing /usr/lib/gaim/libnovell.so
+plugins: probing /usr/lib/gaim/liboscar.so
+plugins: probing /usr/lib/gaim/libsilcgaim.so
+plugins: probing /usr/lib/gaim/libyahoo.so
+plugins: probing /usr/lib/gaim/libzephyr.so
+plugins: probing /usr/lib/gaim/notify.so
+plugins: probing /usr/lib/gaim/relnot.so
+plugins: probing /usr/lib/gaim/spellchk.so
+plugins: probing /usr/lib/gaim/ssl-gnutls.so
+plugins: probing /usr/lib/gaim/ssl-nss.so
+plugins: probing /usr/lib/gaim/ssl.so
+plugins: probing /usr/lib/gaim/statenotify.so
+plugins: probing /usr/lib/gaim/ticker.so
+plugins: probing /usr/lib/gaim/timestamp.so
+plugins: probing /usr/lib/gaim/libgaym.la
+plugins: probing /usr/lib/gaim/docklet.la
+plugins: probing /usr/lib/gaim/gaim-remote.la
+plugins: probing /usr/lib/gaim/gestures.la
+plugins: probing /usr/lib/gaim/perl.so
+plugins: probing /usr/lib/gaim/perl.la
+plugins: probing /usr/lib/gaim/tcl.so
+plugins: probing /usr/lib/gaim/tcl.la
+plugins: probing /usr/lib/gaim/ssl.la
+plugins: probing /usr/lib/gaim/ssl-gnutls.la
+plugins: probing /usr/lib/gaim/ssl-nss.la
+plugins: probing /usr/lib/gaim/ticker.la
+plugins: probing /usr/lib/gaim/autorecon.la
+plugins: probing /usr/lib/gaim/extplacement.la
+plugins: probing /usr/lib/gaim/history.la
+plugins: probing /usr/lib/gaim/iconaway.la
+plugins: probing /usr/lib/gaim/idle.la
+plugins: probing /usr/lib/gaim/notify.la
+plugins: probing /usr/lib/gaim/relnot.la
+plugins: probing /usr/lib/gaim/spellchk.la
+plugins: probing /usr/lib/gaim/statenotify.la
+plugins: probing /usr/lib/gaim/timestamp.la
+plugins: probing /usr/lib/gaim/libgg.la
+plugins: probing /usr/lib/gaim/libirc.la
+plugins: probing /usr/lib/gaim/libjabber.la
+plugins: probing /usr/lib/gaim/libmsn.la
+plugins: probing /usr/lib/gaim/libnapster.la
+plugins: probing /usr/lib/gaim/libnovell.la
+plugins: probing /usr/lib/gaim/liboscar.la
+plugins: probing /usr/lib/gaim/libyahoo.la
+plugins: probing /usr/lib/gaim/libzephyr.la
+plugins: probing /usr/lib/gaim/libbot-challenger.so
+plugins: probing /usr/lib/gaim/libbot-challenger.la
+plugins: probing /usr/lib/gaim/libgaym-extras.so
+plugins: probing /usr/lib/gaim/libgaym-extras.la
+plugins: probing /home/tilghman/.gaim/smileys
+plugins: probing /home/tilghman/.gaim/prefs.xml
+plugins: probing /home/tilghman/.gaim/accounts.xml
+plugins: probing /home/tilghman/.gaim/blist.xml
+plugins: probing /home/tilghman/.gaim/icons
+plugins: probing /home/tilghman/.gaim/accels
+plugins: probing /home/tilghman/.gaim/logs
+plugins: registering plugin-load signal
+plugins: registering plugin-unload signal
+plugins: registering plugin-load signal
+plugins: registering plugin-unload signal
+blist import: Reading /home/tilghman/.gaim/blist.xml
+blist import: Finished reading /home/tilghman/.gaim/blist.xml
+prefs: Reading /home/tilghman/.gaim/prefs.xml
+prefs: Finished reading /home/tilghman/.gaim/prefs.xml
+plugins: Loading saved plugin /usr/lib/gaim/docklet.so
+tray icon: plugin loaded
+tray icon: created
+plugins: Loading saved plugin /usr/lib/gaim/libbot-challenger.so
+plugins: Loading saved plugin /usr/lib/gaim/statenotify.so
+plugins: Loading saved plugin /usr/lib/gaim/libgaym-extras.so
+g_log: Unable to load stock 
+pixmap /usr/local/share/pixmaps/gaim/gaym/alpha.png
+
+g_log: Unable to load stock 
+pixmap /usr/local/share/pixmaps/gaim/gaym/entry.png
+
+g_log: Unable to load stock 
+pixmap /usr/local/share/pixmaps/gaim/gaym/pic.png
+
+pounces: Error reading pounces: Failed to open file 
+'/home/tilghman/.gaim/pounces.xml': No such file or directory
+status: Error reading statuses: Failed to open file 
+'/home/tilghman/.gaim/status.xml': No such file or directory
+Session Management: ICE initialized.
+Session Management: Connecting with no previous ID
+Session Management: Handling new ICE connection... done.
+Session Management: Connected to manager (KDE) with client ID 
+1035334e26f2ee000112468458000000072360484
+Session Management: Using gaim as command
+Session Management: Received first save_yourself
+Session Management: Received save_complete
+tray icon: embedded
+accounts: Writing accounts to disk.
+-----snip-----
+
+Interestingly enough, the above pixmaps are not in /usr/local,
+but can be found in /usr, where all the other gaim pixmaps
+are located.  That may or may not be another bug, but I don't
+see any undesireable behavior (maybe I'm just missing it).
+
+> Does ANYONE actively use the Windows version?
+
+I have a few friends who do, but I do not.
+
+-- 
+Tilghman
+
+
+From tilghman at mail.jeffandtilghman.com  Mon Aug 22 06:38:12 2005
+From: tilghman at mail.jeffandtilghman.com (Tilghman Lesher)
+Date: Sun, 21 Aug 2005 23:38:12 -0500
+Subject: [Qrc-devel] An issue with revision 274
+Message-ID: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+
+-----snip-----
+[root at molybdenum trunk]# autoreconf --force --install --symlink
+-----snip-----
+configure.ac:151: required file `display-options/Makefile.in' not 
+found
+Makefile.am:17: required directory ./display-options does not exist
+autoreconf-2.5x: automake failed with exit status: 1
+-----snip-----
+
+Looks like a directory failed to get committed.
+
+-- 
+Tilghman
+
+
+From evan at coolrunningconcepts.com  Mon Aug 22 06:57:54 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 21 Aug 2005 22:57:54 -0600
+Subject: [Qrc-devel] Bug in revision 272
+In-Reply-To: <200508212329.58514.tilghman@mail.jeffandtilghman.com>
+References: <200508201041.05482.tilghman@mail.jeffandtilghman.com>
+	<200508201052.53888.tilghman@mail.jeffandtilghman.com>
+	<1124683491.17337.49.camel@localhost>
+	<200508212329.58514.tilghman@mail.jeffandtilghman.com>
+Message-ID: <20050821225754.kk4qq3zp4fswwg8k@coolrunningconcepts.com>
+
+Quoting Tilghman Lesher <tilghman at mail.jeffandtilghman.com>:
+
+>> You didn't notice, because for some reason, you are not getting the
+>> sort-order icons. Are you using the windows version or the linux
+
+This is a common problem.   It looks like the icons are using the --prefix
+option for the install directory sometimes instead of the one gaim is 
+installed
+in, so run ./configure with --prefix=/usr and it will work.
+
+I started one person on the Windows version.  He gets lock-ups.  Dunno why - I
+haven't had time to test it.
+
+-- Evan
+
+
+
+
+From evan at coolrunningconcepts.com  Mon Aug 22 06:59:19 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 21 Aug 2005 22:59:19 -0600
+Subject: [Qrc-devel] An issue with revision 274
+In-Reply-To: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+Message-ID: <20050821225919.zb9gbjdu7k9wkwk0@coolrunningconcepts.com>
+
+Quoting Tilghman Lesher <tilghman at mail.jeffandtilghman.com>:
+
+> -----snip-----
+> [root at molybdenum trunk]# autoreconf --force --install --symlink
+> -----snip-----
+> configure.ac:151: required file `display-options/Makefile.in' not
+> found
+> Makefile.am:17: required directory ./display-options does not exist
+> autoreconf-2.5x: automake failed with exit status: 1
+> -----snip-----
+>
+> Looks like a directory failed to get committed.
+
+Did the "display" stuff get committed?   Its pretty experimental - I use it
+daily, but there are known bugs.
+
+-- Evan
+
+
+
+
+From evan at coolrunningconcepts.com  Mon Aug 22 07:08:02 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 21 Aug 2005 23:08:02 -0600
+Subject: [Qrc-devel] Get Info Dialog
+In-Reply-To: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+Message-ID: <20050821230802.z1hy7go3i2hw00k8@coolrunningconcepts.com>
+
+Is anyone working on the Get Info dialog?
+
+A friend of mine won't switch to Gaim because hes a paying member and 
+can't see
+pictures beyond the first from within the program - he'd rather not 
+have to use
+the browser to see the other pics.
+
+Apparently, the biggest problem is that its not obvious if more than picture
+exists, so its annoying to waste the time for a browser to load a web 
+page just
+to find out that no additional information (or pictures) are available.
+
+If no one else is playing with it - I might.
+
+
+
+
+From gaym at jasonlebrun.info  Mon Aug 22 07:26:21 2005
+From: gaym at jasonlebrun.info (Jason LeBrun)
+Date: Mon, 22 Aug 2005 00:26:21 -0500
+Subject: [Qrc-devel] Get Info Dialog
+In-Reply-To: <20050821230802.z1hy7go3i2hw00k8@coolrunningconcepts.com>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+	 <20050821230802.z1hy7go3i2hw00k8@coolrunningconcepts.com>
+Message-ID: <1124688382.17337.51.camel@localhost>
+
+I think that, if more than one picture exists, you can tell after the
+fetch of profile.txt?name
+
+Maybe I'll get the "free trial" account some time and try and figure it
+out really fast :) 
+
+I have no desire to pay for the extra features. I wouldn't use them.
+
+Jason
+
+On Sun, 2005-08-21 at 23:08 -0600, evan at coolrunningconcepts.com wrote:
+> Is anyone working on the Get Info dialog?
+> 
+> A friend of mine won't switch to Gaim because hes a paying member and 
+> can't see
+> pictures beyond the first from within the program - he'd rather not 
+> have to use
+> the browser to see the other pics.
+> 
+> Apparently, the biggest problem is that its not obvious if more than picture
+> exists, so its annoying to waste the time for a browser to load a web 
+> page just
+> to find out that no additional information (or pictures) are available.
+> 
+> If no one else is playing with it - I might.
+> 
+> 
+> _______________________________________________
+> Qrc-devel mailing list
+> Qrc-devel at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/qrc-devel
+
+
+
+From evan at coolrunningconcepts.com  Mon Aug 22 07:53:58 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 21 Aug 2005 23:53:58 -0600
+Subject: [Qrc-devel] Get Info Dialog
+In-Reply-To: <1124688382.17337.51.camel@localhost>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+	<20050821230802.z1hy7go3i2hw00k8@coolrunningconcepts.com>
+	<1124688382.17337.51.camel@localhost>
+Message-ID: <20050821235358.bt01cb9vsbpcws4w@coolrunningconcepts.com>
+
+Quoting Jason LeBrun <gaym at jasonlebrun.info>:
+
+> I think that, if more than one picture exists, you can tell after the
+> fetch of profile.txt?name
+
+Yeah - I can look and see what information is available.  I have his 
+password so
+I can test things pretty easily :)
+
+> Maybe I'll get the "free trial" account some time and try and figure it
+> out really fast :)
+>
+> I have no desire to pay for the extra features. I wouldn't use them.
+
+Me neither!
+
+
+
+From evan at coolrunningconcepts.com  Mon Aug 22 19:12:47 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Mon, 22 Aug 2005 11:12:47 -0600
+Subject: [Qrc-devel] Thumbnails
+In-Reply-To: <1124688382.17337.51.camel@localhost>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com>
+	<20050821230802.z1hy7go3i2hw00k8@coolrunningconcepts.com>
+	<1124688382.17337.51.camel@localhost>
+Message-ID: <20050822111247.zhomnbqym20ow4cs@coolrunningconcepts.com>
+
+How can I force a thumbnail to update?
+
+I changed my gay.com picture a few days ago and I was still getting the old
+thumbnail, at least in gaym (not sure about anything else).  Anyway, since it
+wasn't updating, I deleted gothwolf.jpg and the gothwolf/ directory from the
+icons/gaym directory (why is there both?) and now I have no thumbnail, and
+can't seem to find a way to get it to load a new one :(
+
+Also ... the size of that icons/gaym directory is HUGE.  I'm showing 6401
+subdirectories in there and 650+ jpg files, and a du -k is showing 41738 ...
+which is nearly 42MB of icons!    I know reiserfs is pretty efficient about
+lots of directories, but everything has its limits.  I'd hate to see the
+performance on file systems that aren't as efficient with huge numbers 
+of files
+in a directory.   Might want to break things down to having another 53
+directories based on the starting letter of the nick [a-zA-Z.] where 
+'.' is any
+non-letter.  Might also want to expire some of that old shit.
+
+-- Evan
+
+
+
+
+From tilghman at mail.jeffandtilghman.com  Thu Aug 25 05:19:47 2005
+From: tilghman at mail.jeffandtilghman.com (Tilghman Lesher)
+Date: Wed, 24 Aug 2005 22:19:47 -0500
+Subject: [Qrc-devel] Thumbnails
+In-Reply-To: <20050822111247.zhomnbqym20ow4cs@coolrunningconcepts.com>
+References: <200508212338.12603.tilghman@mail.jeffandtilghman.com> <1124688382.17337.51.camel@localhost> <20050822111247.zhomnbqym20ow4cs@coolrunningconcepts.com>
+Message-ID: <200508242219.47509.tilghman@mail.jeffandtilghman.com>
+
+On Monday 22 August 2005 12:12, evan at coolrunningconcepts.com wrote:
+> Also ... the size of that icons/gaym directory is HUGE.  I'm
+> showing 6401 subdirectories in there and 650+ jpg files, and a du
+> -k is showing 41738 ... which is nearly 42MB of icons!    I know
+> reiserfs is pretty efficient about lots of directories, but
+> everything has its limits.  I'd hate to see the performance on file
+> systems that aren't as efficient with huge numbers of files
+> in a directory.   Might want to break things down to having another
+> 53 directories based on the starting letter of the nick [a-zA-Z.]
+> where '.' is any
+> non-letter.  Might also want to expire some of that old shit.
+
+Hmmm.  Maybe something like this?  (Apply to trunk.)
+
+-- 
+Tilghman
+-------------- next part --------------
+Index: gaym/src/gayminfo.c
+===================================================================
+--- gaym/src/gayminfo.c	(revision 277)
++++ gaym/src/gayminfo.c	(working copy)
+@@ -140,9 +140,15 @@
+     }
+ 
+     if (len && !g_strrstr_len(pic_data, len, "Server Error")) {
+-        char *dir =
+-            g_build_filename(gaim_user_dir(), "icons", "gaym", d->who,
+-                             NULL);
++        char *dir, hash[3][2];
++        int i;
++
++        for (i=0;i<3;i++) {
++            hash[i][0] = d->who[i];
++            hash[i][1] = '\0';
++        }
++        dir = g_build_filename(gaim_user_dir(), "icons", "gaym",
++                               hash[0], hash[1], hash[2], d->who, NULL);
+         char *filename = g_strdup(d->filename);
+         char *path = g_build_filename(dir, filename, NULL);
+         gaim_debug_misc("gayminfo", "dir: %s\n", dir);
+@@ -237,10 +243,16 @@
+         gboolean do_fetch = 1;
+         GError *err = NULL;
+         if (!ib || gaim_utf8_strcasecmp(thumbnail, ib->thumbnail)) {
+-            char *dirname =
+-                g_build_filename(gaim_user_dir(), "icons", "gaym",
+-                                 gaim_normalize(gaym->account, name),
+-                                 NULL);
++            char *normalized_account = gaim_normalize(gaym->account, name);
++            char *dirname, hash[3][2];
++            int i;
++            for (i=0; i<3; i++) {
++                hash[i][0] = normalized_account[i];
++                hash[i][1] = '\0';
++            }
++            dir = g_build_filename(gaim_user_dir(), "icons", "gaym",
++                                   hash[0], hash[1], hash[2],
++                                   normalized_account, NULL);
+             GDir *gdir = g_dir_open(dirname, 0, &err);
+             if (gdir) {
+                 const char *filename;
+

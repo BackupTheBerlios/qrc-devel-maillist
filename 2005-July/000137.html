@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] BUG: gaym-extras
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20BUG%3A%20gaym-extras&In-Reply-To=%3C1122686882.679.3.camel%40taro.coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000139.html">
+   <LINK REL="Next"  HREF="000140.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] BUG: gaym-extras</H1>
+    <B>Evan Langlois</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20BUG%3A%20gaym-extras&In-Reply-To=%3C1122686882.679.3.camel%40taro.coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] BUG: gaym-extras">Evan at CoolRunningConcepts.com
+       </A><BR>
+    <I>Sat Jul 30 03:28:02 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000139.html">[Qrc-devel] Thumbnails
+</A></li>
+        <LI>Next message: <A HREF="000140.html">[Qrc-devel] New commit
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#137">[ date ]</a>
+              <a href="thread.html#137">[ thread ]</a>
+              <a href="subject.html#137">[ subject ]</a>
+              <a href="author.html#137">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OKay,
+
+gaym-extras seems to be causing some weird bugs.  It looks like its
+interfering with other protocols, because its crashing when using aim,
+yahoo, and irc.  It works fine with gaym, but here's what happened when
+I tried to close an IRC PVT (from freenode's nickserv or whatever) ...
+
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread -1216153936 (LWP 671)]
+0x63656e6e in ?? ()
+(gdb) bt
+#0  0x63656e6e in ?? ()
+#1  0xb7b51349 in g_hash_table_lookup () from /usr/lib/libglib-2.0.so.0
+#2  0xbfff806c in ?? ()
+#3  0xb75f114f in gaym_unreference_channel_member (gaym=0x6e6f632d,
+    name=0x841bb00 &quot;\001&quot;) at gaym.c:838
+Previous frame inner to this frame (corrupt stack?)
+(gdb)
+
+
+Sorry I don't have debugging turned on for gaim, so the places where
+gaim and the default protocols are called is blank, but notice that
+gaym_unreference_channel_member is called for IRC!
+
+Can someone look into this.  I think all the instabilities and crashes
+are due to the plugin trying to mess with stuff in all protocols and not
+just gaym.
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000139.html">[Qrc-devel] Thumbnails
+</A></li>
+	<LI>Next message: <A HREF="000140.html">[Qrc-devel] New commit
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#137">[ date ]</a>
+              <a href="thread.html#137">[ thread ]</a>
+              <a href="subject.html#137">[ subject ]</a>
+              <a href="author.html#137">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

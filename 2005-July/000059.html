@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] chatsort / 690
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20chatsort%20/%20690&In-Reply-To=%3C20050722133315.GB29614%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000056.html">
+   <LINK REL="Next"  HREF="000060.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] chatsort / 690</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20chatsort%20/%20690&In-Reply-To=%3C20050722133315.GB29614%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] chatsort / 690">deckrider at gmail.com
+       </A><BR>
+    <I>Fri Jul 22 15:33:15 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000056.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+        <LI>Next message: <A HREF="000060.html">[Qrc-devel] Re: chatsort / 690 / thumbnail
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, Jul 21, 2005 at 10:15:27PM -0600,  wrote:
+&gt;<i> Reverse the list before the join and again after the join.  I know this
+</I>&gt;<i> sounds strange, but this way, there is never any worry about a race
+</I>&gt;<i> condition.  And there are no extra network calls.  To me, its an easy
+</I>&gt;<i> trade off to have c code that isn't fully optimized to save an
+</I>&gt;<i> extra network call to the server.  Especially if we are considerate to
+</I>&gt;<i> those who have dialup connections.
+</I>
+Skip this suggestion, it sucks.
+
+Here's what I would like to see...
+
+1.  Back out yesterday's chatsort-related changes in gaym/src
+
+2.  Copy this bit of code to the 690 process in msgs.c from
+    gaym_privacy_change() in conversation.c and use it instead of
+    invoking gaym_privacy_change() (change the names and move
+    gaim_conversation_get_ui_ops() as appropriate):
+
+    gaim_conv_chat_set_users(chat,
+                g_list_append(gaim_conv_chat_get_users(chat), cb));
+
+    if (ops != NULL &amp;&amp; ops-&gt;chat_add_user != NULL)
+                ops-&gt;chat_add_user(conv, user, new_arrival);
+
+3.  change g_list_append() above to g_list_prepend().
+
+Done.  Simple and direct.  No race conditions or network calls.  And
+more efficient, since we all know that g_list_append() is a pig.
+
+The downside is we bypass the signals.  But I don't think we need them
+anyway during the 690s.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050722/426bbb68/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050722/426bbb68/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000056.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+	<LI>Next message: <A HREF="000060.html">[Qrc-devel] Re: chatsort / 690 / thumbnail
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

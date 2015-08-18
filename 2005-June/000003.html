@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Fork reintegration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-June/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Fork%20reintegration&In-Reply-To=%3C20050619021916.173ptzwmg4m8c4os%40coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000002.html">
+   <LINK REL="Next"  HREF="000004.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Fork reintegration</H1>
+    <B>evan at coolrunningconcepts.com</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Fork%20reintegration&In-Reply-To=%3C20050619021916.173ptzwmg4m8c4os%40coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] Fork reintegration">evan at coolrunningconcepts.com
+       </A><BR>
+    <I>Sun Jun 19 09:19:16 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000002.html">[Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+</A></li>
+        <LI>Next message: <A HREF="000004.html">[Qrc-devel] Fork reintegration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I would eventually like to re-integrate the &quot;fork&quot;.
+
+This would basically mean either a bot-detection plugin and some minor changes
+to the challenger plugin, or roll it all into the challenger plugin.  This
+would depend on the ability for the challenger plugin to access the lists that
+the bot-detection code generates.  Is there an easy (and safe) way for one
+plugin to detect if another plugin is in use, and then access the its data
+through some structure?
+
+I would also need the to coordinate certain things where the code currently
+sends a string right to gaym_bot_detect() ... such as when a new window should
+open and it does a WHOIS to get the photo.   Here the bioline is checked for
+&quot;bad&quot; URLs.  I've yet to figure out what level the bot-detection plugin would
+need to &quot;hook into&quot; to catch this data without having to call gaym_bot_detect
+directly, as this would ideally be moved into its own bot-detection plugin.
+Basically, gaym_bot_detect needs a string to look at (be it a message or
+bioline) and the name of the user that sent that string, and which
+protocol/network is being used.  If 1 hook can be done for all messages
+including the WHOIS message and all public and private messages, that would be
+great.
+
+I think if this can be placed into a separate plugin that can work with or
+without the challenger code and the challenger code can optionally use
+information from the bot-detection code (if its loaded) then the code paths
+should be much easier to develope without keeping things forked.  
+Reintegration
+would help everyone since it seems no one is even looking at the bot-detection
+code as long as its forked.  Forked gaym is at
+<A HREF="http://gaym.coolrunningconcepts.com">http://gaym.coolrunningconcepts.com</A>
+
+Suggestions welcome!
+
+-- Evan
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000002.html">[Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+</A></li>
+	<LI>Next message: <A HREF="000004.html">[Qrc-devel] Fork reintegration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

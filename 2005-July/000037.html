@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: Chat Room Thumbnails
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20Chat%20Room%20Thumbnails&In-Reply-To=%3C20050717234431.GE2525%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000036.html">
+   <LINK REL="Next"  HREF="000038.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: Chat Room Thumbnails</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20Chat%20Room%20Thumbnails&In-Reply-To=%3C20050717234431.GE2525%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Re: Chat Room Thumbnails">deckrider at gmail.com
+       </A><BR>
+    <I>Mon Jul 18 01:44:32 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000036.html">[Qrc-devel] Chat Room Thumbnails
+</A></li>
+        <LI>Next message: <A HREF="000038.html">[Qrc-devel] Re: Chat Room Thumbnails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It seems that scrolling doesn't work well unless there is a character
+after the photo.  This patch is slightly different from the earlier one,
+in that it adds a single space after the picture so scrolling isn't so
+irritating.
+
+On Sun, Jul 17, 2005 at 03:22:08PM -0600,  wrote:
+&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> Here is a small dirty patch that shows thumbnail photos in the chat room
+</I>&gt;<i> as people join.  I generated the patch from SVN revision 215.
+</I>&gt;<i> 
+</I>&gt;<i> This is mostly to show that its possible to do this and to generate some
+</I>&gt;<i> comment.  Ultimately, I would prefer a chat room user list that looks
+</I>&gt;<i> like the buddy list.  However, since that seems like it might be a lot
+</I>&gt;<i> more work, and since there are some Gaim people who have indicated they
+</I>&gt;<i> are working in that direction, perhaps something similar to this
+</I>&gt;<i> approach might be ok for the interim?
+</I>&gt;<i> 
+</I>&gt;<i> I thought it might be nice to put the thumbnail in the extra join
+</I>&gt;<i> message, but also thought that might delay the join announcement, so I'm
+</I>&gt;<i> simply adding the photo to the chat area when it becomes available.
+</I>&gt;<i> 
+</I>&gt;<i> Again, the patch could probably be better, right now its just a proof of
+</I>&gt;<i> concept and a tool to generate discussion.  Any comments?
+</I>
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+Index: gaym/src/msgs.c
+===================================================================
+--- gaym/src/msgs.c	(revision 215)
++++ gaym/src/msgs.c	(working copy)
+@@ -105,6 +105,44 @@
+     g_free(d);
+ }
+ 
++typedef struct _ChatThumbnailData ChatThumbnailData;
++struct _ChatThumbnailData {
++    struct gaym_conn *gaym;
++    char *nick;
++    char *channel;
++};
++
++void gaym_chat_thumbnail_cb(void *user_data, const char *pic_data,
++                            size_t len)
++{
++    int id = 0;
++
++    if (!user_data || !pic_data) {
++        return;
++    }
++
++    ChatThumbnailData *d = user_data;
++
++    if (GAIM_CONNECTION_IS_VALID(d-&gt;gaym-&gt;account-&gt;gc) &amp;&amp; len) {
++        id = gaim_imgstore_add(pic_data, len, NULL);
++
++        GaimConversation *conv =
++            gaim_find_conversation_with_account(d-&gt;channel,
++                                                d-&gt;gaym-&gt;account);
++        char *picture = g_strdup_printf(&quot;%s:  &lt;img id=%d&gt; &quot;, d-&gt;nick, id);
++        gaim_conversation_write(conv, &quot;THUMB&quot;, picture,
++                                GAIM_MESSAGE_SYSTEM | GAIM_MESSAGE_NO_LOG,
++                                time(NULL));
++        gaim_imgstore_unref(id);
++    } else {
++        gaim_debug_error(&quot;gaym&quot;, &quot;Fetching buddy icon failed.\n&quot;);
++    }
++
++    g_free(d-&gt;nick);
++    g_free(d-&gt;channel);
++    g_free(d);
++}
++
+ static void gaym_fetch_photo_cb(void *user_data, const char *info_data,
+                                 size_t len)
+ {
+@@ -703,6 +741,24 @@
+ 
+     gaym_buddy_status(gaym, nick, TRUE, args[1]);
+ 
++    ChatThumbnailData *d = g_new0(ChatThumbnailData, 1);
++    d-&gt;nick = g_strdup(nick);
++    d-&gt;channel = g_strdup(args[0]);
++    d-&gt;gaym = gaym;
++    char *thumbpath = gaym_thumbnail_strdup(args[1]);
++    char *hashurl = NULL;
++    hashurl =
++        g_hash_table_lookup(gaym-&gt;confighash,
++                            &quot;mini-profile-panel.thumbnail-prefix&quot;);
++    char *url = g_strdup_printf(&quot;%s%s&quot;, hashurl, thumbpath);
++
++    if (hashurl &amp;&amp; thumbpath) {
++        gaim_url_fetch(url, FALSE, &quot;Mozilla/4.0&quot;, FALSE,
++                       gaym_chat_thumbnail_cb, d);
++    }
++    g_free(thumbpath);
++    g_free(url);
++
+     gboolean gaym_botfilter_permit =
+         gaym_botfilter_check(gc, nick, bio, FALSE);
+ 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050717/7ca84f7b/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050717/7ca84f7b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000036.html">[Qrc-devel] Chat Room Thumbnails
+</A></li>
+	<LI>Next message: <A HREF="000038.html">[Qrc-devel] Re: Chat Room Thumbnails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

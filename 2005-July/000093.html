@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r239%20-%20in%20qrc/trunk%3A%20gaym/src%0A%09gaym-extras&In-Reply-To=%3C1122268288.19747.47.camel%40taro.coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   <LINK REL="Next"  HREF="000103.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras</H1>
+    <B>Evan Langlois</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r239%20-%20in%20qrc/trunk%3A%20gaym/src%0A%09gaym-extras&In-Reply-To=%3C1122268288.19747.47.camel%40taro.coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras">Evan at CoolRunningConcepts.com
+       </A><BR>
+    <I>Mon Jul 25 07:11:26 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+        <LI>Next message: <A HREF="000103.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, 2005-07-24 at 19:58 -0500, Jason LeBrun wrote:
+&gt;<i> Yeah, sorry, it's all kinda rolled into one. What's about to happen is
+</I>&gt;<i> that you will be able to click a button that will change the sorting of
+</I>&gt;<i> the room namelist. Bear with me here ;-)
+</I>
+Ah ... ok.  But .. without the plugin enabled it still does this sort?
+Or is my chatsort plugin just a leftover from a previous install?
+
+&gt;<i> It is. I turned off icon scaling, because after looking at config.txt, I
+</I>&gt;<i> noticed that there is a place that specifies the thumbnail size (57 x
+</I>&gt;<i> 77). I thought they all fit that spec. Since I hadn't seen an icon yet
+</I>&gt;<i> that didn't fit, I assumed it was always followed. I can easily remedy
+</I>&gt;<i> this by uncommenting a line. :)
+</I>
+Well, in the IM windows, the box around the icon changes size.  If you
+scale the icon to the box the aspect ratio could be aweful.  Although, I
+noticed some pics have really tiny thumbs for some odd reason.  You
+could scale it, but I don't think there is enough information to scale.
+If the box size can change, great.  If you have to change the icon size,
+don't bother.
+
+&gt;<i> In order to see &quot;Get Info&quot; you have to click another button, and then
+</I>&gt;<i> close another window. This functionality is different than that, so I
+</I>&gt;<i> don't consider it duplication. I will add a feature to disable it. The
+</I>&gt;<i> font can be made smaller, I just have to find the right gtk call ;-)
+</I>
+I'm voting for just a smaller font, with maybe the Age &amp; Location
+abbreviated like in stats, or use bold for the field names.  Other than
+that and odd resizing of the window .. it works really well!
+
+Now there is no more reason for anyone to use Chat Client!
+
+&gt;<i> David mentioned that he is working on completely overhauling the
+</I>&gt;<i> mini-profile. So I assume he will include your ideas.
+</I>
+Adding the profile heading to the Age/Location/Bio information you have
+in the channel and IM windows may be beneficial.  Once you get used to
+seeing this information, you miss it!   Its usually as informative as
+the BIO, or better.
+
+&gt;<i> &gt; I also miss my small joins with blue bios .. but I'll make a plugin to get it
+</I>&gt;<i> &gt; back one of these days :/
+</I>&gt;<i> 
+</I>&gt;<i> I can include this in the gaym-extras plugin.
+</I>
+I made a stand-alone plugin for it.  It just changes the size of the
+system messages (and un-bolds them) - working on getting the BIO parsed
+out and to another color - and eventually someone (maybe me) can add the
+user interface options to make it all configurable ... I just can't
+stand the big bold join/parts anymore.  
+
+The main issue is that you can easily turn it off and system messages go
+back to normal, but it needs to get a GaimConversationUiOps structure,
+and all I could think of was to throw a signal in there so that you get
+a GaimConv on joining a chanenl and can grab the UiOps from there.
+Works fine unless you turn it off and then back on again ... you'll have
+to rejoin the channel to get it working.
+
+So .. there's probably a better way!  Suggestions welcome.  However, I
+think this method has more possibilities for the future in twisting the
+display capabilities
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+	<LI>Next message: <A HREF="000103.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,12 @@
+From noc at rogers.com  Sun Oct 23 19:58:25 2005
+From: noc at rogers.com (Some Guy)
+Date: Sun, 23 Oct 2005 13:58:25 -0400
+Subject: [Qrc-devel] Plugin broken in Linux?
+Message-ID: <200510231358.25970.noc@rogers.com>
+
+Did some code in the win32 plugin not get backported to the linux/unix 
+version? Password parsing is broken now.
+
+S.
+
+

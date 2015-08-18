@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Lets make a release of qrc-0.34.0 soon
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-June/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Lets%20make%20a%20release%20of%20qrc-0.34.0%20soon&In-Reply-To=%3C20050625172139.GA6737%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Lets make a release of qrc-0.34.0 soon</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Lets%20make%20a%20release%20of%20qrc-0.34.0%20soon&In-Reply-To=%3C20050625172139.GA6737%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Lets make a release of qrc-0.34.0 soon">deckrider at gmail.com
+       </A><BR>
+    <I>Sat Jun 25 19:21:40 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Qrc-devel] nightly build fixed
+</A></li>
+        <LI>Next message: <A HREF="000012.html">[Qrc-devel] Lets make a release of qrc-0.34.0 soon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Everyone,
+
+I would like to make a release of qrc-0.34.0 soon.
+
+While we still have much to do, I think it is time to make a new release
+so that people don't have to find some nightly build to use the new
+features that have been added since 2004-12-13.
+
+Of course, we should be arguably better that the 0.21.0 or 0.33.0
+releases, and should not have regressed in comparison to those releases
+(in any way).
+
+To that end, I've committed &quot;Bio-Based Chat Room Activity Filtering&quot; to
+svn.  This is to address the deficiency (regression) caused when I
+earlier removed hard coded bot filtering strings.  It is a patch I
+constructed some time ago and and discarded because it didn't seem all
+that effective (I was trying to make something that handled both chat
+room and IM issues).  In light of bot-challenger, I've reworked it to
+apply only to chat rooms.  Otherwise, its primary difference from the
+earlier approach is that none of the strings are hard coded, it can be
+turned on/off, and it doesn't add to the ignore list when triggered.
+
+This commit merits some discussion.  First, let me note that this is
+only an interim solution so that we can make a release soon.  It is not
+by any means the last word on bot-filtering.  It is only an attempt to
+get qrc to a state where we can build an interim release.
+
+Second, it may be rightly argued that this belongs in a plugin.
+However, gaim-1.3.1 does not provide signal access to join messages
+(which is where data from the user's bio is currently seen outside of
+the prpl itself).  This means we either need to provide a patch to gaim
+or otherwise come up with some exceptional hacking.  In other words,
+this is not easily available for a short term interim release.
+
+Third, I would still like to see some more of Evan's bot filtering ideas
+and patches in qrc, but I would like to follow a more &quot;correct&quot; approach
+to these so that they don't end up getting discarded or re-worked later
+(as my commit will be when we properly integrate Evan's).
+
+Finally, I would like to remove &quot;Only buddies may open an IM session to
+me&quot;, and then have perhaps a week of feature freeze / testing before
+releasing qrc-0.34.0.
+
+Please let me know what your thoughts are on all of this.  I think as of
+now, we should have no regressions from any of the previous interim
+releases, but I can't say this on my own.  Verification and testing from
+others is needed.
+
+Thanks,
+Dave.
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050625/e1eb4b33/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050625/e1eb4b33/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Qrc-devel] nightly build fixed
+</A></li>
+	<LI>Next message: <A HREF="000012.html">[Qrc-devel] Lets make a release of qrc-0.34.0 soon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C20050721183545.GA29906%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C20050721183545.GA29906%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src">deckrider at gmail.com
+       </A><BR>
+    <I>Thu Jul 21 20:35:45 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">[Qrc-devel] Roomlist order
+</A></li>
+        <LI>Next message: <A HREF="000044.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, Jul 21, 2005 at 07:58:08PM +0200, Jason LeBrun at BerliOS wrote:
+&gt;<i> Author: jblebrun
+</I>&gt;<i> Date: 2005-07-21 19:58:07 +0200 (Thu, 21 Jul 2005)
+</I>&gt;<i> New Revision: 219
+</I>&gt;<i> 
+</I>&gt;<i> Modified:
+</I>&gt;<i>    qrc/trunk/gaym/src/gaym.h
+</I>&gt;<i>    qrc/trunk/gaym/src/gayminfo.h
+</I>&gt;<i>    qrc/trunk/gaym/src/msgs.c
+</I>&gt;<i> Log:
+</I>&gt;<i> *THIS REVISION NOT SUITABLE FOR RELEASE! 
+</I>&gt;<i> 
+</I>&gt;<i> *Changed the way the room list is populated initially. 
+</I>
+I assume this is the chat room member list and not the room list (room
+list being things like &quot;Denver&quot;, &quot;Sacramento&quot;, etc.).  True?
+
+&gt;<i> It is more inefficient, but it allows for proper sorting by entry
+</I>&gt;<i> order, via the chatsort plugin. This method is a point of debate, due
+</I>&gt;<i> to the notable change in roomlist formation. I will fork this code if
+</I>&gt;<i> people are unhappy with it.
+</I>&gt;<i> 
+</I>&gt;<i> *Info dialog shows thumbnail instead of full photo, if no full photo is
+</I>&gt;<i> available (adult photos)
+</I>&gt;<i> 
+</I>&gt;<i> gaym.h: added join_flags to gaym_conn struct, which is populated during
+</I>&gt;<i> richnames list, but USED during the subsequent &quot;Names&quot; messages that allows
+</I>&gt;<i> us to populate roomlist in entry order.
+</I>&gt;<i> 
+</I>&gt;<i> gayminfo.h: added thumbnail field to fetch_thumbail_data struct. (Why the
+</I>&gt;<i> hell did I name it that, if it didn't even have a thumbnail in it?)
+</I>
+Actually, gaym_fetch_info_cb() should use the photos found in
+<A HREF="http://www.gay.com/messenger/get-profile.txt">http://www.gay.com/messenger/get-profile.txt</A> (ohm.profile-url from
+confit.txt) and not the thumbnail found from the whois.  The whois
+thumbnail is the smaller one used for buddy list, chatroom member list,
+etc.  So while we do need to refactor this aspect, I disagree with this
+approach.
+
+&gt;<i> msgs.c:
+</I>&gt;<i> *richnames messages no longer populate roomlist, they just populate a flags
+</I>&gt;<i> list. 
+</I>&gt;<i> 
+</I>&gt;<i> *info_needed_callback fallsback to thumbnail photo if no full photo exists.
+</I>
+My impression here is that this indicates a highjacked thumbnail, which
+is often used by bots.  Not sure we want to embrace this practice.  Can
+we discuss?
+
+&gt;<i> *msgs_names now populates the list if gaym-&gt;nameconv is null. So, on a
+</I>&gt;<i> join_msg, indicating a successful room join, a names command is immediately
+</I>&gt;<i> sent out. The response of that names message is what triggers list
+</I>&gt;<i> population.
+</I>
+I'm not sure I understand why we need this extra network call.  Are you
+saying the original join result does not give the names in the order you
+want?  What order does the join result give?  What does the java applet
+do?
+
+&gt;<i> Modified: qrc/trunk/gaym/src/gaym.h
+</I>&gt;<i> ===================================================================
+</I>&gt;<i> --- qrc/trunk/gaym/src/gaym.h	2005-07-21 02:10:29 UTC (rev 218)
+</I>&gt;<i> +++ qrc/trunk/gaym/src/gaym.h	2005-07-21 17:58:07 UTC (rev 219)
+</I>&gt;<i> @@ -77,7 +77,7 @@
+</I>&gt;<i>      gboolean blist_updating;
+</I>&gt;<i>      GHashTable *info_window_needed;
+</I>&gt;<i>      GHashTable *im_thumbnail_needed;
+</I>&gt;<i> -
+</I>&gt;<i> +    GList *join_flags; //Temporary holding space for join flags. 
+</I>&gt;<i>      GString *motd;
+</I>&gt;<i>      GString *names;
+</I>&gt;<i>      char *nameconv;
+</I>&gt;<i> 
+</I>&gt;<i> Modified: qrc/trunk/gaym/src/gayminfo.h
+</I>&gt;<i> ===================================================================
+</I>&gt;<i> --- qrc/trunk/gaym/src/gayminfo.h	2005-07-21 02:10:29 UTC (rev 218)
+</I>&gt;<i> +++ qrc/trunk/gaym/src/gayminfo.h	2005-07-21 17:58:07 UTC (rev 219)
+</I>&gt;<i> @@ -37,6 +37,7 @@
+</I>&gt;<i>      char *who;
+</I>&gt;<i>      char *bio;
+</I>&gt;<i>      char *stats;
+</I>&gt;<i> +    char *thumbnail;
+</I>&gt;<i>  };
+</I>&gt;<i>  void gaym_fetch_thumbnail_cb(void *user_data, const char *pic_data,
+</I>&gt;<i>                               size_t len);
+</I>&gt;<i> 
+</I>&gt;<i> Modified: qrc/trunk/gaym/src/msgs.c
+</I>&gt;<i> ===================================================================
+</I>&gt;<i> --- qrc/trunk/gaym/src/msgs.c	2005-07-21 02:10:29 UTC (rev 218)
+</I>&gt;<i> +++ qrc/trunk/gaym/src/msgs.c	2005-07-21 17:58:07 UTC (rev 219)
+</I>&gt;<i> @@ -199,6 +199,20 @@
+</I>&gt;<i>  
+</I>&gt;<i>      picpath = return_string_between(match, &quot;\n&quot;, info_data);
+</I>&gt;<i>      if (!picpath || strlen(picpath) == 0) {
+</I>&gt;<i> +
+</I>&gt;<i> +	if(d-&gt;thumbnail) {
+</I>&gt;<i> +            hashurl =
+</I>&gt;<i> +                g_hash_table_lookup(gaym-&gt;confighash,
+</I>&gt;<i> +                                    &quot;mini-profile-panel.thumbnail-prefix&quot;);
+</I>&gt;<i> +	    picurl = g_strdup_printf(&quot;%s%s&quot;,hashurl,d-&gt;thumbnail);
+</I>&gt;<i> +	    if(picurl) {
+</I>&gt;<i> +		gaim_url_fetch(picurl, FALSE, &quot;Mozilla/4.0 (compatible; MSIE 5.0)&quot;,
+</I>&gt;<i> +                       FALSE, gaym_fetch_photo_cb, user_data);
+</I>&gt;<i> +	    
+</I>&gt;<i> +		return; 
+</I>&gt;<i> +	    }
+</I>&gt;<i> +	    
+</I>&gt;<i> +	}
+</I>&gt;<i>          gaim_notify_userinfo(d-&gt;gc, d-&gt;who,
+</I>&gt;<i>                               t = g_strdup_printf(&quot;Gay.com - %s&quot;, d-&gt;who),
+</I>&gt;<i>                               d-&gt;who, NULL, info, NULL, NULL);
+</I>&gt;<i> @@ -207,6 +221,7 @@
+</I>&gt;<i>      }
+</I>&gt;<i>  
+</I>&gt;<i>      picurl = g_strdup_printf(&quot;<A HREF="http://www.gay.com%s">http://www.gay.com%s</A>&quot;, picpath);
+</I>&gt;<i> +   
+</I>&gt;<i>      if (picurl) {
+</I>&gt;<i>          gaim_url_fetch(picurl, FALSE, &quot;Mozilla/4.0 (compatible; MSIE 5.0)&quot;,
+</I>&gt;<i>                         FALSE, gaym_fetch_photo_cb, user_data);
+</I>&gt;<i> @@ -283,6 +298,7 @@
+</I>&gt;<i>          data-&gt;who = g_strdup(args[1]);
+</I>&gt;<i>          data-&gt;bio = gaym_bio_strdup(args[5]);
+</I>&gt;<i>          data-&gt;stats = gaym_stats_strdup(args[5]);
+</I>&gt;<i> +	data-&gt;thumbnail = gaym_thumbnail_strdup(args[5]);
+</I>&gt;<i>  
+</I>&gt;<i>          char *infourl = g_strdup_printf(&quot;%s?pw=%s&amp;name=%s&quot;, hashurl,
+</I>&gt;<i>                                          gaym-&gt;hash_pw, args[1]);
+</I>&gt;<i> @@ -414,7 +430,7 @@
+</I>&gt;<i>          if (!convo) {
+</I>&gt;<i>              gaim_debug(GAIM_DEBUG_ERROR, &quot;gaym&quot;,
+</I>&gt;<i>                         &quot;Got a NAMES list for %s, which doesn't exist\n&quot;,
+</I>&gt;<i> -                       args[2]);
+</I>&gt;<i> +                       args[1]);
+</I>&gt;<i>              g_string_free(gaym-&gt;names, TRUE);
+</I>&gt;<i>              gaym-&gt;names = NULL;
+</I>&gt;<i>              g_free(gaym-&gt;nameconv);
+</I>&gt;<i> @@ -442,44 +458,47 @@
+</I>&gt;<i>              gaym-&gt;nameconv = NULL;
+</I>&gt;<i>          } else {
+</I>&gt;<i>              GList *users = NULL;
+</I>&gt;<i> -            GList *flags = NULL;
+</I>&gt;<i>  
+</I>&gt;<i> -            while (*cur) {
+</I>&gt;<i> -                GaimConvChatBuddyFlags f = GAIM_CBFLAGS_NONE;
+</I>&gt;<i> +	    gaim_debug_misc(&quot;gaym&quot;,&quot;Using names for initial list population&quot;);
+</I>&gt;<i> +	    while (*cur) {
+</I>&gt;<i>                  end = strchr(cur, ' ');
+</I>&gt;<i> -                if (!end)
+</I>&gt;<i> -                    end = cur + strlen(cur);
+</I>&gt;<i> -                if (*cur == '@') {
+</I>&gt;<i> -                    f = GAIM_CBFLAGS_OP;
+</I>&gt;<i> -                    cur++;
+</I>&gt;<i> -                } else if (*cur == '%') {
+</I>&gt;<i> -                    f = GAIM_CBFLAGS_HALFOP;
+</I>&gt;<i> -                    cur++;
+</I>&gt;<i> -                } else if (*cur == '+') {
+</I>&gt;<i> -                    f = GAIM_CBFLAGS_VOICE;
+</I>&gt;<i> -                    cur++;
+</I>&gt;<i> -                }
+</I>&gt;<i> +                //if (!end)
+</I>&gt;<i> +                //    end = cur + strlen(cur);
+</I>&gt;<i> +                //if (*cur == '@') {
+</I>&gt;<i> +                //    f = GAIM_CBFLAGS_OP;
+</I>&gt;<i> +                //    cur++;
+</I>&gt;<i> +                //} else if (*cur == '%') {
+</I>&gt;<i> +                //    f = GAIM_CBFLAGS_HALFOP;
+</I>&gt;<i> +                //    cur++;
+</I>&gt;<i> +                //} else if (*cur == '+') {
+</I>&gt;<i> +                //    f = GAIM_CBFLAGS_VOICE;
+</I>&gt;<i> +                //    cur++;
+</I>&gt;<i> +                // }
+</I>&gt;<i>                  tmp = g_strndup(cur, end - cur);
+</I>&gt;<i> +
+</I>&gt;<i> +		gcom_nick_to_gaym(tmp);
+</I>&gt;<i>                  users = g_list_prepend(users, tmp);
+</I>&gt;<i> -                flags = g_list_prepend(flags, GINT_TO_POINTER(f));
+</I>&gt;<i> +                //flags = g_list_prepend(flags, GINT_TO_POINTER(f));
+</I>&gt;<i>                  cur = end;
+</I>&gt;<i>                  if (*cur)
+</I>&gt;<i>                      cur++;
+</I>&gt;<i>              }
+</I>&gt;<i> -            users = g_list_reverse(users);
+</I>&gt;<i> -            flags = g_list_reverse(flags);
+</I>&gt;<i> +	    //users = g_list_reverse(users);
+</I>&gt;<i> +            //flags = g_list_reverse(flags);
+</I>&gt;<i>  
+</I>&gt;<i>              if (users != NULL) {
+</I>&gt;<i>                  GList *l;
+</I>&gt;<i>  
+</I>&gt;<i>                  gaim_conv_chat_add_users(GAIM_CONV_CHAT(convo), users,
+</I>&gt;<i> -                                         flags);
+</I>&gt;<i> +                                         gaym-&gt;join_flags);
+</I>&gt;<i>  
+</I>&gt;<i> +		
+</I>&gt;<i>                  for (l = users; l != NULL; l = l-&gt;next)
+</I>&gt;<i>                      g_free(l-&gt;data);
+</I>&gt;<i>  
+</I>&gt;<i>                  g_list_free(users);
+</I>&gt;<i> -                g_list_free(flags);
+</I>&gt;<i> +                g_list_free(gaym-&gt;join_flags);
+</I>&gt;<i> +		gaym-&gt;join_flags=NULL;
+</I>&gt;<i>              }
+</I>&gt;<i>          }
+</I>&gt;<i>          g_free(names);
+</I>&gt;<i> @@ -689,6 +708,8 @@
+</I>&gt;<i>          }
+</I>&gt;<i>  
+</I>&gt;<i>          serv_got_joined_chat(gc, id++, args[0]);
+</I>&gt;<i> +	
+</I>&gt;<i> +	gaym_cmd_names(gaym, &quot;names&quot;, NULL, args);
+</I>&gt;<i>          g_free(nick);
+</I>&gt;<i>          return;
+</I>&gt;<i>      }
+</I>&gt;<i> @@ -1236,7 +1257,7 @@
+</I>&gt;<i>  {
+</I>&gt;<i>      GaimConnection *gc = gaim_account_get_connection(gaym-&gt;account);
+</I>&gt;<i>      GaimConversation *convo;
+</I>&gt;<i> -    GaimConvChatBuddyFlags flags = GAIM_CBFLAGS_NONE;
+</I>&gt;<i> +    GaimConvChatBuddyFlags flags;
+</I>&gt;<i>      char *channel = args[1];
+</I>&gt;<i>      char *nick = args[2];
+</I>&gt;<i>      char *extra = args[4];
+</I>&gt;<i> @@ -1266,10 +1287,12 @@
+</I>&gt;<i>      }
+</I>&gt;<i>  
+</I>&gt;<i>      flags = chat_pecking_order(extra);
+</I>&gt;<i> +    
+</I>&gt;<i> +    //g_hash_table_insert(gaym-&gt;join_flags, g_strdup(nick), flags);
+</I>&gt;<i> +    gaym-&gt;join_flags=g_list_prepend(gaym-&gt;join_flags, GINT_TO_POINTER(flags));
+</I>&gt;<i> +    //gaim_conv_chat_add_user(GAIM_CONV_CHAT(convo), nick, NULL, flags,
+</I>&gt;<i> +    //                        FALSE);
+</I>&gt;<i>  
+</I>&gt;<i> -    gaim_conv_chat_add_user(GAIM_CONV_CHAT(convo), nick, NULL, flags,
+</I>&gt;<i> -                            FALSE);
+</I>&gt;<i> -
+</I>&gt;<i>      /**
+</I>&gt;<i>       * Make the ignore.png icon appear next to the nick.
+</I>&gt;<i>       */
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Qrc-svn mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/qrc-devel">Qrc-svn at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/qrc-svn">http://lists.berlios.de/mailman/listinfo/qrc-svn</A>
+</I>&gt;<i> 
+</I>
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050721/897b41d6/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050721/897b41d6/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">[Qrc-devel] Roomlist order
+</A></li>
+	<LI>Next message: <A HREF="000044.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

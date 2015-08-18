@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Thumbnail compatibility
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Thumbnail%20compatibility&In-Reply-To=%3C1122831877.19563.122.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000151.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Thumbnail compatibility</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Thumbnail%20compatibility&In-Reply-To=%3C1122831877.19563.122.camel%40localhost%3E"
+       TITLE="[Qrc-devel] Thumbnail compatibility">jason at jasonlebrun.info
+       </A><BR>
+    <I>Sun Jul 31 19:44:37 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000151.html">[Qrc-devel] GTKIMHTML
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#152">[ date ]</a>
+              <a href="thread.html#152">[ thread ]</a>
+              <a href="subject.html#152">[ subject ]</a>
+              <a href="author.html#152">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Is there any sort of psuedo-standard way for a plugin to inquire the what the
+</I>&gt;<i> thumbnail picture for a user is, which would be compatible to multiple prpls. 
+</I>&gt;<i> Basically, I want to always get what would be displayed in the IM window or
+</I>&gt;<i> Buddy List.
+</I>&gt;<i> 
+</I>
+GaimBuddyIcon* icon=gaim_buddy_icons_find(account, username);
+char* icon_data=gaim_buddy_icon_get_data(icon);
+
+There is no way that I know of, however, to trigger an icon fetch, so it
+only works for users in your buddy list, or who you are having a
+conversation with. 
+
+
+&gt;<i> This possible?   I modified the display mangling plugin I did to make system
+</I>&gt;<i> messages small and it no longer forwards the display to a gaim function but
+</I>&gt;<i> actually has a local copy of the function.  Now I can change whatever I want
+</I>&gt;<i> about it gets displayed ... assuming I know how and that the display widget has
+</I>&gt;<i> enough capability.
+</I>
+Can we make the usernames into profile links? I wanted to do that, but
+it's impossible in the original display function, since HTML always
+gets unescaped.
+
+&gt;<i> Are there docs on what sort of formatting and layout are available?  I haven't
+</I>&gt;<i> decided what configuration options I want yet, but perhaps some sort of theme
+</I>&gt;<i> system?   May also add a &quot;ignore repeats&quot; flag since it would be fairly simple
+</I>&gt;<i> - I only want to see the first one .. not all of em!
+</I>
+<A HREF="http://gaim.sourceforge.net/api/gtkimhtml_8h.html">http://gaim.sourceforge.net/api/gtkimhtml_8h.html</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000151.html">[Qrc-devel] GTKIMHTML
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#152">[ date ]</a>
+              <a href="thread.html#152">[ thread ]</a>
+              <a href="subject.html#152">[ subject ]</a>
+              <a href="author.html#152">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

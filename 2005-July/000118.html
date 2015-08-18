@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src	gaym-extras
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r237%20-%20in%20qrc/trunk%3A%20gaym/src%0A%09gaym-extras&In-Reply-To=%3C1122350892.16975.51.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000110.html">
+   <LINK REL="Next"  HREF="000120.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src	gaym-extras</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r237%20-%20in%20qrc/trunk%3A%20gaym/src%0A%09gaym-extras&In-Reply-To=%3C1122350892.16975.51.camel%40localhost%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src	gaym-extras">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Tue Jul 26 06:08:12 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000110.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+        <LI>Next message: <A HREF="000120.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> And as I think of it, I believe one of the following is already a place
+</I>&gt;<i> for this:
+</I>&gt;<i> 
+</I>&gt;<i>    GaimPlugin-&gt;extra;
+</I>&gt;<i>    GaimPluginInfo-&gt;extra_info;
+</I>
+Even if we register function pointers in an extra_info structure, the
+pointers must be registered in some sort of structure. For example, we
+might say that the extra_info points to:
+
+struct GaymAPI {
+	GaymBuddy* (*get_gaym_buddy);
+	char* (*something_else);
+}
+
+In this case, the structures must be known by both gaym and gaym-extras.
+This means that gaym-extras needs to see at *least* one of gaym's
+headers. Since this is the case, why not just call the already exported
+function directly? 
+
+Jason
+
+
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000110.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+	<LI>Next message: <A HREF="000120.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

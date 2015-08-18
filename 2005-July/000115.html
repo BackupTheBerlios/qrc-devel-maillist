@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r239%20-%20in%20qrc/trunk%3A%20gaym/src%20gaym-extras&In-Reply-To=%3C20050725183609.GB7933%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000111.html">
+   <LINK REL="Next"  HREF="000094.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r239%20-%20in%20qrc/trunk%3A%20gaym/src%20gaym-extras&In-Reply-To=%3C20050725183609.GB7933%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src gaym-extras">deckrider at gmail.com
+       </A><BR>
+    <I>Mon Jul 25 20:36:10 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000111.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras
+</A></li>
+        <LI>Next message: <A HREF="000094.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, Jul 25, 2005 at 12:15:47PM -0500, Evan Langlois wrote:
+&gt;<i> On Mon, 2005-07-25 at 06:12 -0600, David Everly wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I disagree.  The extra IRC info is what we should use and it should be
+</I>&gt;<i> &gt; consistently positioned/located across the application.  The only http
+</I>&gt;<i> &gt; call should be for the thumbnail from the IRC info.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The mini-profile should likewise not display the IRC info, but
+</I>&gt;<i> &gt; everything that is available within it.
+</I>&gt;<i> 
+</I>&gt;<i> A good interface has nothing to do with where gay.com puts their
+</I>&gt;<i> information.
+</I>
+A good interface reflects the intention of the protocol.  The only
+intention I think its valid to deviate from is when you can get some
+paid feature at an unpaid price without too much standing on one's head
+to do it.  Polling instead of using notifications is one concession in
+that area (and is also a good example of why its bad to do this, because
+it causes you do work with the protocol in a network-inefficient manner.
+
+&gt;<i> I'll consider other arguments, but the simply doesn't care where the
+</I>&gt;<i> information comes from - why should you?
+</I>
+The interface should not break the grouping of information.
+
+The IRC-related stuff is more temporal.
+
+The IRC-related stuff does not require additional http requests.  We
+should minimize additional http requests when populating chat, IM, buddy
+frames.  (Clearly, thumbnail is an exception, and is meant to be so, as
+evidenced by gay.com's own client).
+
+The profile stuff should be grouped together, and &quot;Get Info&quot; is the
+logical collection of profile stuff.  It is not so &quot;immediate&quot; in that
+it is not meant to be changed as often as the bio (notifications are
+sent when the bio is changed).
+
+On the larger question, I think we should follow these rules (and we
+should settle this at some point by discussing at this level rather than
+re-hashing this issue every time something new comes up):
+
+   - Presentation should be as Gaim-like as possible and should be our
+     default starting position.  If we deviate, we should have a good
+     rationale.  &quot;I like it better&quot;, &quot;Field X is more informative to me
+     than field Y&quot;, &quot;Some other application does it this way&quot; are all
+     not good enough reasons to deviate.  Like it or not, we are
+     supporting integrated chat by working with Gaim, so we should try
+     to do it as similarly as possible so as to make it easier for our
+     users to understand.
+
+   - Protocol interaction should be as much like Gay.com as possible,
+     especially for efficiency and to keep us out of trouble by putting
+     too much stress on the Gay.com servers and making them angry with
+     us.  Exceptions to this are instances when Gaim consistency
+     requires a slightly different approach.  And a long-standing
+     exception is allowing the users to have buddy lists with complete
+     names instead of truncated names.
+
+   - We should respect logical protocol grouping and reflect that
+     grouping within the user interface.
+
+Without respecting such guidelines, what I want to know is what
+rationale do we have against someone who wants to display everything in
+the user's full profile in the IM or Chat windows?  Clearly there just
+isn't enough space for this, but when you say &quot;I want field X from the
+user's profile to be displayed in these windows&quot;, I want to know how you
+can objectively justify that field and not the inclusion of some 20 other
+fields?  &quot;I think this field is as relevant or more relevant than this
+other field&quot; is _not_ an objective answer, because someone with a
+different opinion can come in and disagree.  Respecting the grouping
+inherent in the protocol itself _is_ an objective measure, and can help
+us be more effective in our efforts and less arbitrary in our decisions.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000111.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras
+</A></li>
+	<LI>Next message: <A HREF="000094.html">[Qrc-devel] Re: [Qrc-svn] r239 - in qrc/trunk: gaym/src	gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

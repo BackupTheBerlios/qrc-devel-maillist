@@ -1,0 +1,163 @@
+From Evan at CoolRunningConcepts.com  Sat Sep 10 04:48:25 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Fri, 09 Sep 2005 21:48:25 -0500
+Subject: [Qrc-devel] Display Patch + Thumbnail cache broken!
+Message-ID: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+
+Hey - here's a patch to make display-options stable, and I think it may
+have been not blocking repeats properly.  It should now, and its stable.
+Still some issues with the clickable links only being sane for gay.com
+and I don't have the thumbnails in there yet - need to look at Jason's
+thumbnail code and add them.
+
+Anyone working on the "Get Info" display?
+
+Also .. has anyone else noticed that the gaym thumbnails aren't
+updating?   Sometimes I'm not getting new ones, and if the picture
+changes, I don't get the change.  I changed my gay.com picture and it
+never got the new one, so I deleted it hoping it would get the new one,
+so now I can't see my own thumbnail - its never fetched a new one.
+
+
+-- Evan
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: display.diff
+Type: text/x-patch
+Size: 1115 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050909/cf47f86d/attachment.bin>
+
+From Evan at CoolRunningConcepts.com  Sat Sep 10 05:17:18 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Fri, 09 Sep 2005 22:17:18 -0500
+Subject: [Qrc-devel] Display Patch + Thumbnail cache broken!
+In-Reply-To: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+References: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+Message-ID: <1126322239.14379.58.camel@taro.coolrunningconcepts.com>
+
+Forget the other patch, try this one instead.  The old one made /ME
+actions look really stupid.  This one should fix that a bit and make
+them a bit more readable.
+
+If you can't tell, most of this stuff is just a copy of one of gaim's
+internal functions horribly hacked up to make it output a bit nicer. 
+
+-- Evan
+
+From Evan at CoolRunningConcepts.com  Sat Sep 10 05:20:12 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Fri, 09 Sep 2005 22:20:12 -0500
+Subject: [Qrc-devel] Display Patch + Thumbnail cache broken!
+In-Reply-To: <1126322239.14379.58.camel@taro.coolrunningconcepts.com>
+References: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+	 <1126322239.14379.58.camel@taro.coolrunningconcepts.com>
+Message-ID: <1126322413.14379.60.camel@taro.coolrunningconcepts.com>
+
+GRR ... sorry .. here it is!
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: display.diff
+Type: text/x-patch
+Size: 1651 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050909/a42cbe98/attachment.bin>
+
+From jason at jasonlebrun.info  Sat Sep 10 20:34:30 2005
+From: jason at jasonlebrun.info (Jason LeBrun)
+Date: Sat, 10 Sep 2005 11:34:30 -0700
+Subject: [Qrc-devel] Display Patch + Thumbnail cache broken!
+In-Reply-To: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+References: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+Message-ID: <1126377270.8963.2.camel@localhost>
+
+Just got home (Sacramento) from my summer in Chicago, yesterday. 
+
+> Hey - here's a patch to make display-options stable, and I think it may
+> have been not blocking repeats properly.  It should now, and its stable.
+> Still some issues with the clickable links only being sane for gay.com
+> and I don't have the thumbnails in there yet - need to look at Jason's
+> thumbnail code and add them.
+
+I'll apply it soon. Note about thumbnail code: I got a fix introduced
+into Gaim's CVS head so we can use their buddy icon code for gay.com
+thumbnails (in Gaim 2.0). So, I'm not going to put a whole lot of extra
+effort into making the current thumbnail code perfect.
+
+
+> Anyone working on the "Get Info" display?
+
+Not me. It would be great if someone did, but I have a lot of other
+things I still need to fix, first.
+
+Jason
+
+
+
+
+
+From Evan at CoolRunningConcepts.com  Sun Sep 11 21:11:52 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Sun, 11 Sep 2005 14:11:52 -0500
+Subject: [Qrc-devel] Diff Attached
+In-Reply-To: <1126377270.8963.2.camel@localhost>
+References: <1126320505.14379.55.camel@taro.coolrunningconcepts.com>
+	 <1126377270.8963.2.camel@localhost>
+Message-ID: <1126465913.29983.1.camel@taro.coolrunningconcepts.com>
+
+On Sat, 2005-09-10 at 11:34 -0700, Jason LeBrun wrote: 
+> I'll apply it soon. Note about thumbnail code: I got a fix introduced
+> into Gaim's CVS head so we can use their buddy icon code for gay.com
+> thumbnails (in Gaim 2.0). So, I'm not going to put a whole lot of extra
+> effort into making the current thumbnail code perfect.
+
+Hmm ... Okay.  Is Gaim 2.0 CVS useable, and can gaym work with it at
+all?   I'm wondering if we've hit a plato where the code is useable
+enough that we should start concentrating on Gaim 2.0 instead.
+
+> > Anyone working on the "Get Info" display?
+> 
+> Not me. It would be great if someone did, but I have a lot of other
+> things I still need to fix, first.
+
+OK .. The current code uses an <img> tag for the picture.  Can I do the
+same to load up every thumbnail in the mini-profile and attach some sort
+of callback to change the image data for the large picture when any of
+the smaller ones are clicked?  Thats kinda the plan, although I don't
+know the exact steps to do it just yet (looking into the existing code
+to figure out how).  Hints appreciated.
+
+Also, if I use the <img> tag inside the display plugin ... is there some
+easy function to call that to get the right thumbnail, caching it if its
+loaded and load one if not cached?   Basically, with such a large
+scrollback, we could be keeping thumbs around forever if they are in the
+chatroom message display (next to what they said), and I'm not sure when
+they would actually be removed from scrollback so we can free it.
+Ideas?  Comments?
+
+Ideally, I want clicking the name or thumb to do a Get Info as well, and
+change up the Get Info so that pulling up the whole profile is rarely
+necessary - as much info as the mini profile has should be in the
+dialog.
+
+This is the extent of the changes I care to make at the moment.
+
+Right now, I've made the following two hac^h^h^hchanges.
+* Using the /whois command actually does the same as "Get Info".  The
+dialog appears
+* The profile "heading" is attached to the Get Info display.
+
+Diff is attached for these changes, please look over and add em.
+I should probably get an account so I can comitt these myself.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: newdiff
+Type: text/x-patch
+Size: 6255 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050911/7ca4a843/attachment.bin>
+

@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20%28no%20subject%29&In-Reply-To=%3C1122759400.19563.58.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000142.html">
+   <LINK REL="Next"  HREF="000144.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] (no subject)</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20%28no%20subject%29&In-Reply-To=%3C1122759400.19563.58.camel%40localhost%3E"
+       TITLE="[Qrc-devel] (no subject)">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Sat Jul 30 23:36:40 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000142.html">[Qrc-devel] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="000144.html">[Qrc-devel] Re: [Qrc-svn] r257 - in qrc/trunk: gaym/src gaym-extras/pixmaps gaym-extras/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Yay!  Names rock.  If there is no Location given, and the name is pretty long,
+</I>&gt;<i> then it gets cut slightly.  Looks like the code doesn't know that an italic
+</I>&gt;<i> takes up more room - can probably just bump up the width slightly.  Also it
+</I>&gt;<i> looks like the height is off too.  There is a nice border on the top and sides
+</I>&gt;<i> of the thumbnail in the popup, but some users have just a BIO and nothing else
+</I>&gt;<i> in the popup, so the thumbnail is on the very edge of the popup.  It doesn't
+</I>&gt;<i> look like it gets cut off .. but the zero border makes you wonder if it did or
+</I>&gt;<i> not.
+</I>
+If you find users that have oddly rendering bio popups, give me their
+names, so I can check them out. Same with bizarre corner icons in the
+chat panes.
+
+&gt;<i> Is the sort icon/letters supposed to show the current sort or supposed to show
+</I>&gt;<i> what it will sort as if you click it.  It doesn't quite seem like its
+</I>&gt;<i> consistent - maybe its me.  It starts as E and sorts right, but as you change
+</I>&gt;<i> it, it stops making sense.
+</I>
+Logic bug. Should be fixed, with tooltips to help.
+
+&gt;<i> Did you get the icons?  Not like em?
+</I>
+Just put 'em in the latest commit.
+
+&gt;<i> &gt; That's fine. Hopefully HEAD will become stable today.
+</I>&gt;<i> So far so good.  Its really fast at pulling those pics from the cache
+</I>
+When you join a room, it runs down the list, compares URLs with the
+cache, and pipelines however many fetches it needs. You could have up to
+100 HTTP requests firing off at once. I might have to change that, I'm
+not sure if that is a bad thing or not.
+
+
+&gt;<i> Oops .. wait .. SIGABRT .. looks like maybe a NULL pointer was passed 
+</I>&gt;<i> (maybe as
+</I>&gt;<i> a function pointer for a callback) to some gaim function and it logged it and
+</I>&gt;<i> through an abort.  Maybe it was an assert?    If I can make it happen 
+</I>&gt;<i> again and
+</I>&gt;<i> figure out when it does it, I'll recompile gaim with DEBUG set so I can 
+</I>&gt;<i> see what
+</I>&gt;<i> that last function is.
+</I>
+Asserts (g_return_if_fail) shouldn't cause aborts, just logged error
+messages. I have been pretty aggressive about handling NULL pointers,
+and I think most of the code is null-safe. Usually my problems are
+un-initialized pointers, lately.
+
+Jason
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000142.html">[Qrc-devel] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="000144.html">[Qrc-devel] Re: [Qrc-svn] r257 - in qrc/trunk: gaym/src gaym-extras/pixmaps gaym-extras/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

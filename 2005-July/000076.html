@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r238 - qrc/trunk/gaym-extras
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r238%20-%20qrc/trunk/gaym-extras&In-Reply-To=%3C20050724121139.GK18998%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000075.html">
+   <LINK REL="Next"  HREF="000077.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r238 - qrc/trunk/gaym-extras</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r238%20-%20qrc/trunk/gaym-extras&In-Reply-To=%3C20050724121139.GK18998%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r238 - qrc/trunk/gaym-extras">deckrider at gmail.com
+       </A><BR>
+    <I>Sun Jul 24 14:11:39 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000075.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+        <LI>Next message: <A HREF="000077.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Sweet!
+
+Is it possible to show a tooltip with all the information like is on the
+buddy list?
+
+On Sun, Jul 24, 2005 at 10:53:11AM +0200, Jason LeBrun at BerliOS wrote:
+&gt;<i> Author: jblebrun
+</I>&gt;<i> Date: 2005-07-24 10:53:02 +0200 (Sun, 24 Jul 2005)
+</I>&gt;<i> New Revision: 238
+</I>&gt;<i> 
+</I>&gt;<i> Modified:
+</I>&gt;<i>    qrc/trunk/gaym-extras/gaym-extras.c
+</I>&gt;<i> Log:
+</I>&gt;<i> Hey, why not show the bio, too. 
+</I>&gt;<i> 
+</I>&gt;<i> OK, it's not in a beautiful place... but I can't figure out how to get it somewhere better.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Modified: qrc/trunk/gaym-extras/gaym-extras.c
+</I>&gt;<i> ===================================================================
+</I>&gt;<i> --- qrc/trunk/gaym-extras/gaym-extras.c	2005-07-24 08:18:06 UTC (rev 237)
+</I>&gt;<i> +++ qrc/trunk/gaym-extras/gaym-extras.c	2005-07-24 08:53:02 UTC (rev 238)
+</I>&gt;<i> @@ -22,9 +22,7 @@
+</I>&gt;<i>  #define CHATSORT_PLUGIN_ID &quot;gtk-chaticon&quot;
+</I>&gt;<i>  
+</I>&gt;<i>  GHashTable *icons;
+</I>&gt;<i> -GHashTable *icon_spots;
+</I>&gt;<i>  GHashTable *pending_updates;
+</I>&gt;<i> -GaimConvWindow *hider_window;
+</I>&gt;<i>  
+</I>&gt;<i>  typedef struct _GaymChatIcon {
+</I>&gt;<i>  
+</I>&gt;<i> @@ -39,15 +37,14 @@
+</I>&gt;<i>      GdkPixbufAnimationIter *iter;
+</I>&gt;<i>      gboolean animate;
+</I>&gt;<i>      guint32 icon_timer;
+</I>&gt;<i> +    GtkWidget *bio_area;
+</I>&gt;<i>  
+</I>&gt;<i>  } GaymChatIcon;
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> -void
+</I>&gt;<i> -gaym_gtkconv_update_thumbnail(GaimConversation * conv,
+</I>&gt;<i> -                              struct gaym_fetch_thumbnail_data
+</I>&gt;<i> -                              *thumbnail_data)
+</I>&gt;<i> +void gaym_gtkconv_update_thumbnail(GaimConversation * conv, struct gaym_fetch_thumbnail_data
+</I>&gt;<i> +                                   *thumbnail_data)
+</I>&gt;<i>  {
+</I>&gt;<i>      GaimGtkConversation *gtkconv;
+</I>&gt;<i>  
+</I>&gt;<i> @@ -234,10 +231,6 @@
+</I>&gt;<i>      gtk_tree_selection_get_selected(selection, &amp;model, &amp;iter);
+</I>&gt;<i>      gtk_tree_model_get(model, &amp;iter, CHAT_USERS_NAME_COLUMN, &amp;name, -1);
+</I>&gt;<i>  
+</I>&gt;<i> -    gaim_debug_misc(&quot;chatsort&quot;, &quot;Click: %s\n&quot;, name);
+</I>&gt;<i> -    gtk_button_set_label(g_hash_table_lookup(icon_spots, c), name);
+</I>&gt;<i> -
+</I>&gt;<i> -
+</I>&gt;<i>      /* Remove the current icon stuff */
+</I>&gt;<i>      GaymChatIcon *icon_data = g_hash_table_lookup(icons, c);
+</I>&gt;<i>      if (icon_data-&gt;event != NULL)
+</I>&gt;<i> @@ -249,6 +242,7 @@
+</I>&gt;<i>      gaim_debug_misc(&quot;chaticon&quot;, &quot;got thumbnail url %s for %s\n&quot;,
+</I>&gt;<i>                      cm-&gt;thumbnail, name);
+</I>&gt;<i>  
+</I>&gt;<i> +    gtk_label_set_text(GTK_LABEL(icon_data-&gt;bio_area), cm-&gt;bio);
+</I>&gt;<i>      // Fetch thumbnail.
+</I>&gt;<i>  
+</I>&gt;<i>      struct gaym_fetch_thumbnail_data *data;
+</I>&gt;<i> @@ -283,15 +277,10 @@
+</I>&gt;<i>      gtk_tree_selection_set_mode(select, GTK_SELECTION_SINGLE);
+</I>&gt;<i>  
+</I>&gt;<i>      oldls = gtk_tree_view_get_model(GTK_TREE_VIEW(gtkchat-&gt;list));
+</I>&gt;<i> -    GtkBox *vbox = GTK_BOX(gtkchat-&gt;list-&gt;parent-&gt;parent);
+</I>&gt;<i>  
+</I>&gt;<i>      GtkBox *hbox = GTK_BOX(gtkconv-&gt;lower_hbox);
+</I>&gt;<i> +    GtkBox *vbox_big = GTK_BOX(gtkconv-&gt;lower_hbox-&gt;parent);
+</I>&gt;<i>  
+</I>&gt;<i> -    GtkWidget *button = gtk_button_new_with_label(&quot;A Button&quot;);
+</I>&gt;<i> -    gtk_box_pack_end(vbox, GTK_WIDGET(button), FALSE, FALSE, 0);
+</I>&gt;<i> -    gtk_widget_show(button);
+</I>&gt;<i> -
+</I>&gt;<i> -
+</I>&gt;<i>      g_signal_connect(G_OBJECT(select), &quot;changed&quot;, G_CALLBACK(changed_cb),
+</I>&gt;<i>                       c);
+</I>&gt;<i>  
+</I>&gt;<i> @@ -329,7 +318,11 @@
+</I>&gt;<i>      // g_signal_connect(G_OBJECT(icon_data-&gt;event), &quot;button-press-event&quot;,
+</I>&gt;<i>      // G_CALLBACK(icon_menu), conv);
+</I>&gt;<i>      gtk_widget_show(icon_data-&gt;event);
+</I>&gt;<i> -    g_hash_table_insert(icon_spots, c, button);
+</I>&gt;<i> +
+</I>&gt;<i> +    icon_data-&gt;bio_area = gtk_label_new(_(&quot;&quot;));
+</I>&gt;<i> +    gtk_box_pack_start(vbox_big, icon_data-&gt;bio_area, FALSE, FALSE, 0);
+</I>&gt;<i> +    gtk_widget_show(icon_data-&gt;bio_area);
+</I>&gt;<i> +
+</I>&gt;<i>      g_hash_table_insert(icons, c, icon_data);
+</I>&gt;<i>  
+</I>&gt;<i>  }
+</I>&gt;<i> @@ -337,7 +330,6 @@
+</I>&gt;<i>  static gboolean plugin_load(GaimPlugin * plugin)
+</I>&gt;<i>  {
+</I>&gt;<i>      icons = g_hash_table_new(g_direct_hash, g_direct_equal);
+</I>&gt;<i> -    icon_spots = g_hash_table_new(g_direct_hash, g_direct_equal);
+</I>&gt;<i>      pending_updates = g_hash_table_new(g_direct_hash, g_direct_equal);
+</I>&gt;<i>  
+</I>&gt;<i>      gaim_signal_connect(gaim_conversations_get_handle(), &quot;chat-joined&quot;,
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Qrc-svn mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/qrc-devel">Qrc-svn at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/qrc-svn">http://lists.berlios.de/mailman/listinfo/qrc-svn</A>
+</I>&gt;<i> 
+</I>
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050724/4824e41a/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050724/4824e41a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000075.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+	<LI>Next message: <A HREF="000077.html">[Qrc-devel] Re: [Qrc-svn] r237 - in qrc/trunk: gaym/src gaym-extras
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#76">[ date ]</a>
+              <a href="thread.html#76">[ thread ]</a>
+              <a href="subject.html#76">[ subject ]</a>
+              <a href="author.html#76">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

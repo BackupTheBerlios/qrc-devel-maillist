@@ -1,0 +1,1071 @@
+From deckrider at gmail.com  Sun Jun 19 02:46:17 2005
+From: deckrider at gmail.com (David Everly)
+Date: Sat, 18 Jun 2005 18:46:17 -0600
+Subject: [Qrc-devel] reply address of list manager
+Message-ID: <20050619004616.GK2729@elbert.is-a-geek.org>
+
+I noticed when subscribing to this list, I could not simply hit reply to
+confirm my subscription, but had to edit the address from "@berlios.de"
+to "@lists.berlios.de".
+
+The same problem is happening on qrc-svn.  Anyone know the fix to it?
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050618/2e32bd3e/attachment.pgp>
+
+From deckrider at gmail.com  Sun Jun 19 06:28:47 2005
+From: deckrider at gmail.com (David Everly)
+Date: Sat, 18 Jun 2005 22:28:47 -0600
+Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+Message-ID: <20050619042846.GL2729@elbert.is-a-geek.org>
+
+This is fixed and committed.  Please test and let me know what
+you think (I'm leaving the bug open until I hear some feedback).
+
+My objectives while addressing the bug were:
+
+   - to try and satisfy both those who wanted to join the first
+     available room as well as those who wanted to join a certain room.
+
+   - make it work consistently from both the room list and the buddy
+     list
+
+   - only use prpl functionality (not extra gtk stuff)
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050618/fd36b9c7/attachment.pgp>
+
+From evan at coolrunningconcepts.com  Sun Jun 19 08:45:04 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 19 Jun 2005 01:45:04 -0500
+Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+In-Reply-To: <20050619042846.GL2729@elbert.is-a-geek.org>
+References: <20050619042846.GL2729@elbert.is-a-geek.org>
+Message-ID: <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com>
+
+Quoting David Everly <deckrider at gmail.com>:
+
+> This is fixed and committed.  Please test and let me know what
+> you think (I'm leaving the bug open until I hear some feedback).
+
+If you join (and save to your buddy list) an =* room, do you get the 
+right-click
+options of "Room 1" and "Room 2" like you used to?
+
+-- Evan
+
+
+
+
+From evan at coolrunningconcepts.com  Sun Jun 19 09:19:16 2005
+From: evan at coolrunningconcepts.com (evan at coolrunningconcepts.com)
+Date: Sun, 19 Jun 2005 02:19:16 -0500
+Subject: [Qrc-devel] Fork reintegration
+In-Reply-To: <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com>
+References: <20050619042846.GL2729@elbert.is-a-geek.org>
+	<20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com>
+Message-ID: <20050619021916.173ptzwmg4m8c4os@coolrunningconcepts.com>
+
+I would eventually like to re-integrate the "fork".
+
+This would basically mean either a bot-detection plugin and some minor changes
+to the challenger plugin, or roll it all into the challenger plugin.  This
+would depend on the ability for the challenger plugin to access the lists that
+the bot-detection code generates.  Is there an easy (and safe) way for one
+plugin to detect if another plugin is in use, and then access the its data
+through some structure?
+
+I would also need the to coordinate certain things where the code currently
+sends a string right to gaym_bot_detect() ... such as when a new window should
+open and it does a WHOIS to get the photo.   Here the bioline is checked for
+"bad" URLs.  I've yet to figure out what level the bot-detection plugin would
+need to "hook into" to catch this data without having to call gaym_bot_detect
+directly, as this would ideally be moved into its own bot-detection plugin.
+Basically, gaym_bot_detect needs a string to look at (be it a message or
+bioline) and the name of the user that sent that string, and which
+protocol/network is being used.  If 1 hook can be done for all messages
+including the WHOIS message and all public and private messages, that would be
+great.
+
+I think if this can be placed into a separate plugin that can work with or
+without the challenger code and the challenger code can optionally use
+information from the bot-detection code (if its loaded) then the code paths
+should be much easier to develope without keeping things forked.  
+Reintegration
+would help everyone since it seems no one is even looking at the bot-detection
+code as long as its forked.  Forked gaym is at
+http://gaym.coolrunningconcepts.com
+
+Suggestions welcome!
+
+-- Evan
+
+
+
+From deckrider at gmail.com  Sun Jun 19 18:59:42 2005
+From: deckrider at gmail.com (David Everly)
+Date: Sun, 19 Jun 2005 10:59:42 -0600
+Subject: [Qrc-devel] Fork reintegration
+In-Reply-To: <20050619021916.173ptzwmg4m8c4os@coolrunningconcepts.com>
+References: <20050619042846.GL2729@elbert.is-a-geek.org> <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com> <20050619021916.173ptzwmg4m8c4os@coolrunningconcepts.com>
+Message-ID: <20050619165941.GA14071@elbert.is-a-geek.org>
+
+On Sun, Jun 19, 2005 at 02:19:16AM -0500, evan at coolrunningconcepts.com wrote:
+> I would eventually like to re-integrate the "fork".
+> 
+> This would basically mean either a bot-detection plugin and some minor 
+> changes
+> to the challenger plugin, or roll it all into the challenger plugin.  This
+> would depend on the ability for the challenger plugin to access the lists 
+> that
+> the bot-detection code generates.  Is there an easy (and safe) way for one
+> plugin to detect if another plugin is in use, and then access the its data
+> through some structure?
+
+There are a number of possibilities.  We should probably work through
+the various scenarios so as to narrow the list to choose from.
+
+> I would also need the to coordinate certain things where the code currently
+> sends a string right to gaym_bot_detect() ... such as when a new window 
+> should
+> open and it does a WHOIS to get the photo.   Here the bioline is checked for
+> "bad" URLs.  I've yet to figure out what level the bot-detection plugin 
+> would
+> need to "hook into" to catch this data without having to call 
+> gaym_bot_detect
+> directly, as this would ideally be moved into its own bot-detection plugin.
+> Basically, gaym_bot_detect needs a string to look at (be it a message or
+> bioline) and the name of the user that sent that string, and which
+> protocol/network is being used.  If 1 hook can be done for all messages
+> including the WHOIS message and all public and private messages, that would 
+> be
+> great.
+
+Signals are what we should look at first for this:
+
+   http://gaim.sourceforge.net/api/pages.html
+
+Also look at gaim-1.3.1/plugins/signals-test.c
+
+> I think if this can be placed into a separate plugin that can work with or
+> without the challenger code and the challenger code can optionally use
+> information from the bot-detection code (if its loaded) then the code paths
+> should be much easier to develope without keeping things forked.  
+> Reintegration
+> would help everyone since it seems no one is even looking at the 
+> bot-detection
+> code as long as its forked.  Forked gaym is at
+> http://gaym.coolrunningconcepts.com
+
+I'll be glad if we can work together to achieve this.  Perhaps we can
+get a few working sessions on gay.com to this end.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050619/1b17ef70/attachment.pgp>
+
+From deckrider at gmail.com  Sun Jun 19 19:02:46 2005
+From: deckrider at gmail.com (David Everly)
+Date: Sun, 19 Jun 2005 11:02:46 -0600
+Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+In-Reply-To: <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com>
+References: <20050619042846.GL2729@elbert.is-a-geek.org> <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com>
+Message-ID: <20050619170246.GB14071@elbert.is-a-geek.org>
+
+On Sun, Jun 19, 2005 at 01:45:04AM -0500, evan at coolrunningconcepts.com wrote:
+> Quoting David Everly <deckrider at gmail.com>:
+> 
+> >This is fixed and committed.  Please test and let me know what
+> >you think (I'm leaving the bug open until I hear some feedback).
+> 
+> If you join (and save to your buddy list) an =* room, do you get the 
+> right-click
+> options of "Room 1" and "Room 2" like you used to?
+
+I wasn't able to find a mechanism for achieving that in the room list.
+
+I'm not entirely opposed to it, but was hoping to be consistent between
+the room list and the buddy list.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050619/63f59c10/attachment.pgp>
+
+From rob1982 at gmail.com  Mon Jun 20 07:07:32 2005
+From: rob1982 at gmail.com (rob)
+Date: Mon, 20 Jun 2005 01:07:32 -0400
+Subject: [Qrc-devel] Re: Qrc-devel digest, Vol 1 #1 - 4 msgs
+In-Reply-To: <20050619100010.5557.46078.Mailman@bat.berlios.de>
+References: <20050619100010.5557.46078.Mailman@bat.berlios.de>
+Message-ID: <42B64F14.3000003@gmail.com>
+
+qrc-devel-request at berlios.de wrote:
+
+>Send Qrc-devel mailing list submissions to
+>	qrc-devel at lists.berlios.de
+>
+>To subscribe or unsubscribe via the World Wide Web, visit
+>	http://lists.berlios.de/mailman/listinfo/qrc-devel
+>or, via email, send a message with subject or body 'help' to
+>	qrc-devel-request at lists.berlios.de
+>
+>You can reach the person managing the list at
+>	qrc-devel-admin at lists.berlios.de
+>
+>When replying, please edit your Subject line so it is more specific
+>than "Re: Contents of Qrc-devel digest..."
+>
+>
+>Today's Topics:
+>
+>   1. reply address of list manager (David Everly)
+>   2. Bug 004322 (Roomlist should allow joining =* also) (David Everly)
+>   3. Re: Bug 004322 (Roomlist should allow joining =* also) (evan at coolrunningconcepts.com)
+>   4. Fork reintegration (evan at coolrunningconcepts.com)
+>
+>--__--__--
+>
+>Message: 1
+>Date: Sat, 18 Jun 2005 18:46:17 -0600
+>To: qrc-devel at lists.berlios.de
+>From: David Everly <deckrider at gmail.com>
+>Subject: [Qrc-devel] reply address of list manager
+>
+>
+>--Y+Z5jE7Arku/2GrR
+>Content-Type: text/plain; charset=us-ascii
+>Content-Disposition: inline
+>Content-Transfer-Encoding: quoted-printable
+>
+>I noticed when subscribing to this list, I could not simply hit reply to
+>confirm my subscription, but had to edit the address from "@berlios.de"
+>to "@lists.berlios.de".
+>
+>The same problem is happening on qrc-svn.  Anyone know the fix to it?
+>--=20
+>Encrypted Mail Preferred:
+>    Key ID:  8527B9AF
+>    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+>    Information:  http://www.gnupg.org/
+>                                                                           =
+>    =20
+>ASCII ribbon campaign:
+>()  against HTML email
+>/\  against Microsoft attachments
+>    Information:  http://www.expita.com/nomime.html
+>
+>--Y+Z5jE7Arku/2GrR
+>Content-Type: application/pgp-signature; name="signature.asc"
+>Content-Description: Digital signature
+>Content-Disposition: inline
+>
+>-----BEGIN PGP SIGNATURE-----
+>Version: GnuPG v1.4.1 (GNU/Linux)
+>
+>iD8DBQFCtMBYZCfddIUnua8RAgqTAKCn+xejEp1aivt8m+ly2vmOWfm1ZwCdEl3h
+>jAuhCtPCinsAxYSOPUrA1zk=
+>=wz9e
+>-----END PGP SIGNATURE-----
+>
+>--Y+Z5jE7Arku/2GrR--
+>
+>--__--__--
+>
+>Message: 2
+>Date: Sat, 18 Jun 2005 22:28:47 -0600
+>To: qrc-devel at lists.berlios.de
+>From: David Everly <deckrider at gmail.com>
+>Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+>
+>
+>--nrXiCraHbXeog9mY
+>Content-Type: text/plain; charset=us-ascii
+>Content-Disposition: inline
+>Content-Transfer-Encoding: quoted-printable
+>
+>This is fixed and committed.  Please test and let me know what
+>you think (I'm leaving the bug open until I hear some feedback).
+>
+>My objectives while addressing the bug were:
+>
+>   - to try and satisfy both those who wanted to join the first
+>     available room as well as those who wanted to join a certain room.
+>
+>   - make it work consistently from both the room list and the buddy
+>     list
+>
+>   - only use prpl functionality (not extra gtk stuff)
+>
+>--=20
+>Encrypted Mail Preferred:
+>    Key ID:  8527B9AF
+>    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+>    Information:  http://www.gnupg.org/
+>                                                                           =
+>    =20
+>ASCII ribbon campaign:
+>()  against HTML email
+>/\  against Microsoft attachments
+>    Information:  http://www.expita.com/nomime.html
+>
+>--nrXiCraHbXeog9mY
+>Content-Type: application/pgp-signature; name="signature.asc"
+>Content-Description: Digital signature
+>Content-Disposition: inline
+>
+>-----BEGIN PGP SIGNATURE-----
+>Version: GnuPG v1.4.1 (GNU/Linux)
+>
+>iD8DBQFCtPR+ZCfddIUnua8RAjfeAJ4koKhAOshV+V43/ovcJpeqZbTxCQCgkd0x
+>CORS7I7mR1g3byMaPsXxv6U=
+>=S1Lo
+>-----END PGP SIGNATURE-----
+>
+>--nrXiCraHbXeog9mY--
+>
+>--__--__--
+>
+>Message: 3
+>Date: Sun, 19 Jun 2005 01:45:04 -0500
+>From: evan at coolrunningconcepts.com
+>To: qrc-devel at lists.berlios.de
+>Subject: Re: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+>
+>Quoting David Everly <deckrider at gmail.com>:
+>
+>  
+>
+>>This is fixed and committed.  Please test and let me know what
+>>you think (I'm leaving the bug open until I hear some feedback).
+>>    
+>>
+>
+>If you join (and save to your buddy list) an =* room, do you get the 
+>right-click
+>options of "Room 1" and "Room 2" like you used to?
+>
+>-- Evan
+>
+>
+>
+>--__--__--
+>
+>Message: 4
+>Date: Sun, 19 Jun 2005 02:19:16 -0500
+>From: evan at coolrunningconcepts.com
+>To: qrc-devel at lists.berlios.de
+>Subject: [Qrc-devel] Fork reintegration
+>
+>I would eventually like to re-integrate the "fork".
+>
+>This would basically mean either a bot-detection plugin and some minor changes
+>to the challenger plugin, or roll it all into the challenger plugin.  This
+>would depend on the ability for the challenger plugin to access the lists that
+>the bot-detection code generates.  Is there an easy (and safe) way for one
+>plugin to detect if another plugin is in use, and then access the its data
+>through some structure?
+>
+>I would also need the to coordinate certain things where the code currently
+>sends a string right to gaym_bot_detect() ... such as when a new window should
+>open and it does a WHOIS to get the photo.   Here the bioline is checked for
+>"bad" URLs.  I've yet to figure out what level the bot-detection plugin would
+>need to "hook into" to catch this data without having to call gaym_bot_detect
+>directly, as this would ideally be moved into its own bot-detection plugin.
+>Basically, gaym_bot_detect needs a string to look at (be it a message or
+>bioline) and the name of the user that sent that string, and which
+>protocol/network is being used.  If 1 hook can be done for all messages
+>including the WHOIS message and all public and private messages, that would be
+>great.
+>
+>I think if this can be placed into a separate plugin that can work with or
+>without the challenger code and the challenger code can optionally use
+>information from the bot-detection code (if its loaded) then the code paths
+>should be much easier to develope without keeping things forked.  
+>Reintegration
+>would help everyone since it seems no one is even looking at the bot-detection
+>code as long as its forked.  Forked gaym is at
+>http://gaym.coolrunningconcepts.com
+>
+>Suggestions welcome!
+>
+>-- Evan
+>
+>
+>
+>--__--__--
+>
+>_______________________________________________
+>Qrc-devel mailing list
+>Qrc-devel at lists.berlios.de
+>http://lists.berlios.de/mailman/listinfo/qrc-devel
+>
+>
+>End of Qrc-devel Digest
+>
+>  
+>
+
+did anybody have any luck with evan's fork of gaym?
+
+-rob
+
+
+From rob1982 at gmail.com  Mon Jun 20 07:07:46 2005
+From: rob1982 at gmail.com (rob)
+Date: Mon, 20 Jun 2005 01:07:46 -0400
+Subject: [Qrc-devel] Re: Qrc-devel digest, Vol 1 #1 - 4 msgs
+In-Reply-To: <20050619100010.5557.46078.Mailman@bat.berlios.de>
+References: <20050619100010.5557.46078.Mailman@bat.berlios.de>
+Message-ID: <42B64F22.3010801@gmail.com>
+
+qrc-devel-request at berlios.de wrote:
+
+>Send Qrc-devel mailing list submissions to
+>	qrc-devel at lists.berlios.de
+>
+>To subscribe or unsubscribe via the World Wide Web, visit
+>	http://lists.berlios.de/mailman/listinfo/qrc-devel
+>or, via email, send a message with subject or body 'help' to
+>	qrc-devel-request at lists.berlios.de
+>
+>You can reach the person managing the list at
+>	qrc-devel-admin at lists.berlios.de
+>
+>When replying, please edit your Subject line so it is more specific
+>than "Re: Contents of Qrc-devel digest..."
+>
+>
+>Today's Topics:
+>
+>   1. reply address of list manager (David Everly)
+>   2. Bug 004322 (Roomlist should allow joining =* also) (David Everly)
+>   3. Re: Bug 004322 (Roomlist should allow joining =* also) (evan at coolrunningconcepts.com)
+>   4. Fork reintegration (evan at coolrunningconcepts.com)
+>
+>--__--__--
+>
+>Message: 1
+>Date: Sat, 18 Jun 2005 18:46:17 -0600
+>To: qrc-devel at lists.berlios.de
+>From: David Everly <deckrider at gmail.com>
+>Subject: [Qrc-devel] reply address of list manager
+>
+>
+>--Y+Z5jE7Arku/2GrR
+>Content-Type: text/plain; charset=us-ascii
+>Content-Disposition: inline
+>Content-Transfer-Encoding: quoted-printable
+>
+>I noticed when subscribing to this list, I could not simply hit reply to
+>confirm my subscription, but had to edit the address from "@berlios.de"
+>to "@lists.berlios.de".
+>
+>The same problem is happening on qrc-svn.  Anyone know the fix to it?
+>--=20
+>Encrypted Mail Preferred:
+>    Key ID:  8527B9AF
+>    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+>    Information:  http://www.gnupg.org/
+>                                                                           =
+>    =20
+>ASCII ribbon campaign:
+>()  against HTML email
+>/\  against Microsoft attachments
+>    Information:  http://www.expita.com/nomime.html
+>
+>--Y+Z5jE7Arku/2GrR
+>Content-Type: application/pgp-signature; name="signature.asc"
+>Content-Description: Digital signature
+>Content-Disposition: inline
+>
+>-----BEGIN PGP SIGNATURE-----
+>Version: GnuPG v1.4.1 (GNU/Linux)
+>
+>iD8DBQFCtMBYZCfddIUnua8RAgqTAKCn+xejEp1aivt8m+ly2vmOWfm1ZwCdEl3h
+>jAuhCtPCinsAxYSOPUrA1zk=
+>=wz9e
+>-----END PGP SIGNATURE-----
+>
+>--Y+Z5jE7Arku/2GrR--
+>
+>--__--__--
+>
+>Message: 2
+>Date: Sat, 18 Jun 2005 22:28:47 -0600
+>To: qrc-devel at lists.berlios.de
+>From: David Everly <deckrider at gmail.com>
+>Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+>
+>
+>--nrXiCraHbXeog9mY
+>Content-Type: text/plain; charset=us-ascii
+>Content-Disposition: inline
+>Content-Transfer-Encoding: quoted-printable
+>
+>This is fixed and committed.  Please test and let me know what
+>you think (I'm leaving the bug open until I hear some feedback).
+>
+>My objectives while addressing the bug were:
+>
+>   - to try and satisfy both those who wanted to join the first
+>     available room as well as those who wanted to join a certain room.
+>
+>   - make it work consistently from both the room list and the buddy
+>     list
+>
+>   - only use prpl functionality (not extra gtk stuff)
+>
+>--=20
+>Encrypted Mail Preferred:
+>    Key ID:  8527B9AF
+>    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+>    Information:  http://www.gnupg.org/
+>                                                                           =
+>    =20
+>ASCII ribbon campaign:
+>()  against HTML email
+>/\  against Microsoft attachments
+>    Information:  http://www.expita.com/nomime.html
+>
+>--nrXiCraHbXeog9mY
+>Content-Type: application/pgp-signature; name="signature.asc"
+>Content-Description: Digital signature
+>Content-Disposition: inline
+>
+>-----BEGIN PGP SIGNATURE-----
+>Version: GnuPG v1.4.1 (GNU/Linux)
+>
+>iD8DBQFCtPR+ZCfddIUnua8RAjfeAJ4koKhAOshV+V43/ovcJpeqZbTxCQCgkd0x
+>CORS7I7mR1g3byMaPsXxv6U=
+>=S1Lo
+>-----END PGP SIGNATURE-----
+>
+>--nrXiCraHbXeog9mY--
+>
+>--__--__--
+>
+>Message: 3
+>Date: Sun, 19 Jun 2005 01:45:04 -0500
+>From: evan at coolrunningconcepts.com
+>To: qrc-devel at lists.berlios.de
+>Subject: Re: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+>
+>Quoting David Everly <deckrider at gmail.com>:
+>
+>  
+>
+>>This is fixed and committed.  Please test and let me know what
+>>you think (I'm leaving the bug open until I hear some feedback).
+>>    
+>>
+>
+>If you join (and save to your buddy list) an =* room, do you get the 
+>right-click
+>options of "Room 1" and "Room 2" like you used to?
+>
+>-- Evan
+>
+>
+>
+>--__--__--
+>
+>Message: 4
+>Date: Sun, 19 Jun 2005 02:19:16 -0500
+>From: evan at coolrunningconcepts.com
+>To: qrc-devel at lists.berlios.de
+>Subject: [Qrc-devel] Fork reintegration
+>
+>I would eventually like to re-integrate the "fork".
+>
+>This would basically mean either a bot-detection plugin and some minor changes
+>to the challenger plugin, or roll it all into the challenger plugin.  This
+>would depend on the ability for the challenger plugin to access the lists that
+>the bot-detection code generates.  Is there an easy (and safe) way for one
+>plugin to detect if another plugin is in use, and then access the its data
+>through some structure?
+>
+>I would also need the to coordinate certain things where the code currently
+>sends a string right to gaym_bot_detect() ... such as when a new window should
+>open and it does a WHOIS to get the photo.   Here the bioline is checked for
+>"bad" URLs.  I've yet to figure out what level the bot-detection plugin would
+>need to "hook into" to catch this data without having to call gaym_bot_detect
+>directly, as this would ideally be moved into its own bot-detection plugin.
+>Basically, gaym_bot_detect needs a string to look at (be it a message or
+>bioline) and the name of the user that sent that string, and which
+>protocol/network is being used.  If 1 hook can be done for all messages
+>including the WHOIS message and all public and private messages, that would be
+>great.
+>
+>I think if this can be placed into a separate plugin that can work with or
+>without the challenger code and the challenger code can optionally use
+>information from the bot-detection code (if its loaded) then the code paths
+>should be much easier to develope without keeping things forked.  
+>Reintegration
+>would help everyone since it seems no one is even looking at the bot-detection
+>code as long as its forked.  Forked gaym is at
+>http://gaym.coolrunningconcepts.com
+>
+>Suggestions welcome!
+>
+>-- Evan
+>
+>
+>
+>--__--__--
+>
+>_______________________________________________
+>Qrc-devel mailing list
+>Qrc-devel at lists.berlios.de
+>http://lists.berlios.de/mailman/listinfo/qrc-devel
+>
+>
+>End of Qrc-devel Digest
+>
+>  
+>
+
+did anybody have any luck with evan's fork of gaym under win32?
+
+-rob
+
+
+From deckrider at gmail.com  Mon Jun 20 15:59:25 2005
+From: deckrider at gmail.com (David Everly)
+Date: Mon, 20 Jun 2005 07:59:25 -0600
+Subject: [Qrc-devel] Re: bz2 releases?
+In-Reply-To: <20050610130117.GI28092@elbert.is-a-geek.org>
+References: <20050610130117.GI28092@elbert.is-a-geek.org>
+Message-ID: <20050620135925.GA9819@elbert.is-a-geek.org>
+
+On Fri, Jun 10, 2005 at 07:01:17AM -0600,  wrote:
+> Does anyone object to providing .bz2 source package releases instead
+> of .gz?  The .bz2 packages are about 2/3 of the size of the .gz
+> packages, so it can save some space/bandwidth.
+
+I've heard no objections.  The conversion to bz2 packages is complete.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050620/e00d6f5b/attachment.pgp>
+
+From deckrider at gmail.com  Mon Jun 20 16:04:11 2005
+From: deckrider at gmail.com (David Everly)
+Date: Mon, 20 Jun 2005 08:04:11 -0600
+Subject: [Qrc-devel] nightly build fixed
+Message-ID: <20050620140410.GB9819@elbert.is-a-geek.org>
+
+Apparently, my nightly build script was too brittle, and although it
+would get the latest updates from svn, it kept producing builds marked
+as 2005-06-10.
+
+I only noticed it this morning.  But it is now fixed.  I've deleted any
+packages marked 2005-06-10, because they did not in fact contain builds
+from that date.
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050620/8980922b/attachment.pgp>
+
+From deckrider at gmail.com  Fri Jun 24 02:59:16 2005
+From: deckrider at gmail.com (David Everly)
+Date: Thu, 23 Jun 2005 18:59:16 -0600
+Subject: [Qrc-devel] Bug 004322 (Roomlist should allow joining =* also)
+In-Reply-To: <20050619170246.GB14071@elbert.is-a-geek.org>
+References: <20050619042846.GL2729@elbert.is-a-geek.org> <20050619014504.g0nnkx153cusog8o@coolrunningconcepts.com> <20050619170246.GB14071@elbert.is-a-geek.org>
+Message-ID: <20050624005916.GD1745@elbert.is-a-geek.org>
+
+On Sun, Jun 19, 2005 at 11:02:46AM -0600,  wrote:
+> On Sun, Jun 19, 2005 at 01:45:04AM -0500, evan at coolrunningconcepts.com wrote:
+> > Quoting David Everly <deckrider at gmail.com>:
+> > 
+> > >This is fixed and committed.  Please test and let me know what
+> > >you think (I'm leaving the bug open until I hear some feedback).
+> > 
+> > If you join (and save to your buddy list) an =* room, do you get the 
+> > right-click
+> > options of "Room 1" and "Room 2" like you used to?
+
+I've just committed a change to achieve this.  There is a preference
+item that determines how many instances will be shown in both the
+roomlist and the context menu.
+
+Please let me know if this is ok.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050623/0ad06952/attachment.pgp>
+
+From deckrider at gmail.com  Sat Jun 25 19:21:40 2005
+From: deckrider at gmail.com (David Everly)
+Date: Sat, 25 Jun 2005 11:21:40 -0600
+Subject: [Qrc-devel] Lets make a release of qrc-0.34.0 soon
+Message-ID: <20050625172139.GA6737@elbert.is-a-geek.org>
+
+Hi Everyone,
+
+I would like to make a release of qrc-0.34.0 soon.
+
+While we still have much to do, I think it is time to make a new release
+so that people don't have to find some nightly build to use the new
+features that have been added since 2004-12-13.
+
+Of course, we should be arguably better that the 0.21.0 or 0.33.0
+releases, and should not have regressed in comparison to those releases
+(in any way).
+
+To that end, I've committed "Bio-Based Chat Room Activity Filtering" to
+svn.  This is to address the deficiency (regression) caused when I
+earlier removed hard coded bot filtering strings.  It is a patch I
+constructed some time ago and and discarded because it didn't seem all
+that effective (I was trying to make something that handled both chat
+room and IM issues).  In light of bot-challenger, I've reworked it to
+apply only to chat rooms.  Otherwise, its primary difference from the
+earlier approach is that none of the strings are hard coded, it can be
+turned on/off, and it doesn't add to the ignore list when triggered.
+
+This commit merits some discussion.  First, let me note that this is
+only an interim solution so that we can make a release soon.  It is not
+by any means the last word on bot-filtering.  It is only an attempt to
+get qrc to a state where we can build an interim release.
+
+Second, it may be rightly argued that this belongs in a plugin.
+However, gaim-1.3.1 does not provide signal access to join messages
+(which is where data from the user's bio is currently seen outside of
+the prpl itself).  This means we either need to provide a patch to gaim
+or otherwise come up with some exceptional hacking.  In other words,
+this is not easily available for a short term interim release.
+
+Third, I would still like to see some more of Evan's bot filtering ideas
+and patches in qrc, but I would like to follow a more "correct" approach
+to these so that they don't end up getting discarded or re-worked later
+(as my commit will be when we properly integrate Evan's).
+
+Finally, I would like to remove "Only buddies may open an IM session to
+me", and then have perhaps a week of feature freeze / testing before
+releasing qrc-0.34.0.
+
+Please let me know what your thoughts are on all of this.  I think as of
+now, we should have no regressions from any of the previous interim
+releases, but I can't say this on my own.  Verification and testing from
+others is needed.
+
+Thanks,
+Dave.
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050625/e1eb4b33/attachment.pgp>
+
+From Evan at CoolRunningConcepts.com  Mon Jun 27 06:14:30 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Sun, 26 Jun 2005 23:14:30 -0500
+Subject: [Qrc-devel] Lets make a release of qrc-0.34.0 soon
+In-Reply-To: <20050625172139.GA6737@elbert.is-a-geek.org>
+References: <20050625172139.GA6737@elbert.is-a-geek.org>
+Message-ID: <1119845671.7070.8.camel@taro.coolrunningconcepts.com>
+
+On Sat, 2005-06-25 at 11:21 -0600, David Everly wrote:
+
+> To that end, I've committed "Bio-Based Chat Room Activity Filtering" to
+> svn.  This is to address the deficiency (regression) caused when I
+> earlier removed hard coded bot filtering strings.  It is a patch I
+> constructed some time ago and and discarded because it didn't seem all
+> that effective (I was trying to make something that handled both chat
+> room and IM issues).  In light of bot-challenger, I've reworked it to
+> apply only to chat rooms.  Otherwise, its primary difference from the
+> earlier approach is that none of the strings are hard coded, it can be
+> turned on/off, and it doesn't add to the ignore list when triggered.
+
+Please compare with the fork.  You are dividing up a filter for rooms
+and a filter for IMs, but you were the one that wanted to keep things
+consistent.  If you are going to put a bot filter in SVN, just merge in
+the fork.  Otherwise the lack of integration and rather limited
+usefulness is only going to give people a bad impression.
+
+I've not had a single bot IM me or spam a channel .. or rather .. not
+that I could see, and I have the challenge/response set to only
+challenge people already marked as bots so I'm never annoying the vast
+majority.  In fact, I'm pretty close to 100%.
+
+> This commit merits some discussion.  First, let me note that this is
+> only an interim solution so that we can make a release soon.  It is not
+> by any means the last word on bot-filtering.  It is only an attempt to
+> get qrc to a state where we can build an interim release.
+
+leave it out or put it all in.
+
+> Second, it may be rightly argued that this belongs in a plugin.
+> However, gaim-1.3.1 does not provide signal access to join messages
+> (which is where data from the user's bio is currently seen outside of
+> the prpl itself).  This means we either need to provide a patch to gaim
+> or otherwise come up with some exceptional hacking.  In other words,
+> this is not easily available for a short term interim release.
+
+Join issues can be solved with the same hack that is used for making
+system messages smaller.  In fact - you can catch & filter all text that
+way.
+
+> Third, I would still like to see some more of Evan's bot filtering ideas
+> and patches in qrc, but I would like to follow a more "correct" approach
+> to these so that they don't end up getting discarded or re-worked later
+> (as my commit will be when we properly integrate Evan's).
+
+I've been super busy lately - look through the code - it isn't THAT bad!
+
+> Finally, I would like to remove "Only buddies may open an IM session to
+> me", and then have perhaps a week of feature freeze / testing before
+> releasing qrc-0.34.0.
+
+I don't have a problem with that :)
+
+
+
+
+
+From deckrider at gmail.com  Tue Jun 28 19:39:41 2005
+From: deckrider at gmail.com (David Everly)
+Date: Tue, 28 Jun 2005 11:39:41 -0600
+Subject: [Qrc-devel] Lets make a release of qrc-0.34.0 soon
+In-Reply-To: <1119845671.7070.8.camel@taro.coolrunningconcepts.com>
+References: <20050625172139.GA6737@elbert.is-a-geek.org> <1119845671.7070.8.camel@taro.coolrunningconcepts.com>
+Message-ID: <20050628173941.GC25554@elbert.is-a-geek.org>
+
+Evan,
+
+Thank you for sharing your opinions on the topic of whether we are ready
+for an interim release.
+
+Please note that I'm unwilling to go with an "all or nothing" approach
+with respect to merging your changes into svn for this interim release.
+A few of the primary reasons are:
+
+  - Your changes are not yet appropriate for full merge.  Even your own
+    comments within the code indicate this.  Comments such as "This
+    seems to change all protocols."
+
+  - Your changes are to an older version, and as such cannot quickly be
+    merged into the current version.  There is not even a patch to
+    consider.  We are all busy.  It will take much time to compare your
+    source code with current svn and identify which are the relevant
+    differences.  (FYI...most projects require proposed patches to be
+    made against HEAD.  And with good reason.  Its very hard to know
+    what someone intends when their patch appears to roll back fixes and
+    improvements made since the patch was created.)
+
+  - The argument that "its not good enough" does not hold for an interim
+    release of beta software:  if it did, we wouldn't have made any
+    releases yet.  The question that must be answered for an interim
+    beta release, is "can we say that the release is  better than the
+    previous release?".  And if you are arguing that No Filtering is
+    better than Some Filtering, please make your case with detailed
+    facts.  The previous Filtering was similar to what is in svn now,
+    except what is in svn now is not hard coded.  This is better because
+    a user doesn't have to recompile the software just to
+    add/change/delete a filtering rule.
+
+But as a compromise, I've added the retrieval and use of GayBoi's spam
+list, in addition to the customizable filtering rules.  I've also heard
+from others that this is a greatly desired feature.
+
+In summary, I haven't seen any logic indicating that current svn is
+worse than what was in our previous interim beta releases
+(0.21.0/0.33.0).  But I remain open to additional facts in this regard.
+And in absence of such facts, I intend to proceed as proposed.
+
+And I remain committed to work with you so as to incrementally bring
+more of your changes into svn.  But this will require effort and
+cooperation on both of our parts--as our schedules permit.  And when we
+don't have time, it shouldn't force delay onto other aspects of the
+project.
+
+Thanks again for your input,
+Dave.
+
+On Sun, Jun 26, 2005 at 11:14:30PM -0500, Evan Langlois wrote:
+> On Sat, 2005-06-25 at 11:21 -0600, David Everly wrote:
+> 
+> > To that end, I've committed "Bio-Based Chat Room Activity Filtering"
+> > to svn.  This is to address the deficiency (regression) caused when
+> > I earlier removed hard coded bot filtering strings.  It is a patch I
+> > constructed some time ago and and discarded because it didn't seem
+> > all that effective (I was trying to make something that handled both
+> > chat room and IM issues).  In light of bot-challenger, I've reworked
+> > it to apply only to chat rooms.  Otherwise, its primary difference
+> > from the earlier approach is that none of the strings are hard
+> > coded, it can be turned on/off, and it doesn't add to the ignore
+> > list when triggered.
+> 
+> Please compare with the fork.  You are dividing up a filter for rooms
+> and a filter for IMs, but you were the one that wanted to keep things
+> consistent.  If you are going to put a bot filter in SVN, just merge
+> in the fork.  Otherwise the lack of integration and rather limited
+> usefulness is only going to give people a bad impression.
+> 
+> I've not had a single bot IM me or spam a channel .. or rather .. not
+> that I could see, and I have the challenge/response set to only
+> challenge people already marked as bots so I'm never annoying the vast
+> majority.  In fact, I'm pretty close to 100%.
+> 
+> > This commit merits some discussion.  First, let me note that this is
+> > only an interim solution so that we can make a release soon.  It is
+> > not by any means the last word on bot-filtering.  It is only an
+> > attempt to get qrc to a state where we can build an interim release.
+> 
+> leave it out or put it all in.
+> 
+> > Second, it may be rightly argued that this belongs in a plugin.
+> > However, gaim-1.3.1 does not provide signal access to join messages
+> > (which is where data from the user's bio is currently seen outside
+> > of the prpl itself).  This means we either need to provide a patch
+> > to gaim or otherwise come up with some exceptional hacking.  In
+> > other words, this is not easily available for a short term interim
+> > release.
+> 
+> Join issues can be solved with the same hack that is used for making
+> system messages smaller.  In fact - you can catch & filter all text
+> that way.
+> 
+> > Third, I would still like to see some more of Evan's bot filtering
+> > ideas and patches in qrc, but I would like to follow a more
+> > "correct" approach to these so that they don't end up getting
+> > discarded or re-worked later (as my commit will be when we properly
+> > integrate Evan's).
+> 
+> I've been super busy lately - look through the code - it isn't THAT
+> bad!
+> 
+> > Finally, I would like to remove "Only buddies may open an IM session
+> > to me", and then have perhaps a week of feature freeze / testing
+> > before releasing qrc-0.34.0.
+> 
+> I don't have a problem with that :)
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  http://www.gnupg.org/
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  http://www.expita.com/nomime.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/qrc-devel/attachments/20050628/9106c725/attachment.pgp>
+

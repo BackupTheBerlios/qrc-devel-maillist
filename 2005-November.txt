@@ -1,0 +1,121 @@
+From rob at mutatorr.net  Sun Nov 13 21:22:05 2005
+From: rob at mutatorr.net (rob)
+Date: Sun, 13 Nov 2005 15:22:05 -0500
+Subject: [Qrc-devel] gaim 2.0.0 compatibility?
+Message-ID: <4377A06D.7000102@mutatorr.net>
+
+Is gaym going to work with gaim 2.0.0 when it is released??
+
+-rob
+
+
+From gaym at jasonlebrun.info  Sun Nov 13 21:36:37 2005
+From: gaym at jasonlebrun.info (JBL)
+Date: Sun, 13 Nov 2005 12:36:37 -0800
+Subject: [Qrc-devel] gaim 2.0.0 compatibility?
+In-Reply-To: <4377A06D.7000102@mutatorr.net>
+References: <4377A06D.7000102@mutatorr.net>
+Message-ID: <4377A3D5.3020604@jasonlebrun.info>
+
+It will once I make it work :)
+
+There have been some API changes. Gaim 2.0 is frozen now, so I think it 
+would be safe for me to make a gaym 2.0 fork. I have been busy as hell 
+lately, so I haven't had much time to work on it. I'll try and get it 
+done soon.
+
+I *really* need people who can make debs and/or rpms. If anyone is 
+willing to help out with this, please let me know.
+
+Jason
+
+rob wrote:
+
+> Is gaym going to work with gaim 2.0.0 when it is released??
+>
+> -rob
+> _______________________________________________
+> Qrc-devel mailing list
+> Qrc-devel at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/qrc-devel
+>
+
+
+
+From Evan at CoolRunningConcepts.com  Mon Nov 14 00:27:58 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Sun, 13 Nov 2005 17:27:58 -0600
+Subject: [Qrc-devel] gaim 2.0.0 compatibility?
+In-Reply-To: <4377A3D5.3020604@jasonlebrun.info>
+References: <4377A06D.7000102@mutatorr.net>
+	 <4377A3D5.3020604@jasonlebrun.info>
+Message-ID: <1131924478.27744.141.camel@taro.coolrunningconcepts.com>
+
+On Sun, 2005-11-13 at 12:36 -0800, JBL wrote:
+> It will once I make it work :)
+
+FYI - I haven't touched gaym at all lately.  I've been busy with other
+things as well, so a fork would be safe :)  I assume you already got the
+little patch for displaying the profile header in GetInfo.
+
+> There have been some API changes. Gaim 2.0 is frozen now, so I think it 
+> would be safe for me to make a gaym 2.0 fork. I have been busy as hell 
+> lately, so I haven't had much time to work on it. I'll try and get it 
+> done soon.
+
+I hear the new API is supposed to have gaim-vv integrated.  This means
+that we can eventually support cameras if anyone cares (I don't).
+
+> I *really* need people who can make debs and/or rpms. If anyone is 
+> willing to help out with this, please let me know.
+
+I hate binaries :)
+
+Sorry
+
+
+
+
+From rob at mutatorr.net  Mon Nov 14 00:37:54 2005
+From: rob at mutatorr.net (rob)
+Date: Sun, 13 Nov 2005 18:37:54 -0500
+Subject: [Qrc-devel] gaim 2.0.0 compatibility?
+In-Reply-To: <4377A3D5.3020604@jasonlebrun.info>
+References: <4377A06D.7000102@mutatorr.net> <4377A3D5.3020604@jasonlebrun.info>
+Message-ID: <4377CE52.7080708@mutatorr.net>
+
+let me know when it's ready for 2.0.0...otherwise i'll keep at 1.5.0 
+until it's ready..
+
+-rob
+
+JBL wrote:
+> It will once I make it work :)
+>
+> There have been some API changes. Gaim 2.0 is frozen now, so I think 
+> it would be safe for me to make a gaym 2.0 fork. I have been busy as 
+> hell lately, so I haven't had much time to work on it. I'll try and 
+> get it done soon.
+>
+> I *really* need people who can make debs and/or rpms. If anyone is 
+> willing to help out with this, please let me know.
+>
+> Jason
+>
+> rob wrote:
+>
+>> Is gaym going to work with gaim 2.0.0 when it is released??
+>>
+>> -rob
+>> _______________________________________________
+>> Qrc-devel mailing list
+>> Qrc-devel at lists.berlios.de
+>> http://lists.berlios.de/mailman/listinfo/qrc-devel
+>>
+>
+>
+>
+>
+
+
+

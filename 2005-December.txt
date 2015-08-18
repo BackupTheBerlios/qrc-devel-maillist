@@ -1,0 +1,134 @@
+From rob at mutatorr.net  Sun Dec 18 02:02:57 2005
+From: rob at mutatorr.net (rob)
+Date: Sat, 17 Dec 2005 20:02:57 -0500
+Subject: [Qrc-devel] gaim beta
+Message-ID: <43A4B541.3090709@mutatorr.net>
+
+Now that gaim beta has been released; are we going to release a 2.0.0 
+compatible plugin?
+
+rob
+
+
+From gaym at jasonlebrun.info  Sun Dec 18 11:06:45 2005
+From: gaym at jasonlebrun.info (JBL)
+Date: Sun, 18 Dec 2005 02:06:45 -0800
+Subject: [Qrc-devel] gaim beta
+In-Reply-To: <43A4B541.3090709@mutatorr.net>
+References: <43A4B541.3090709@mutatorr.net>
+Message-ID: <43A534B5.5060400@jasonlebrun.info>
+
+If you have subversion, you can check out
+
+svn://svn.berlios.de/qrc/qrc/branches/fork-for-gaim-2
+
+It will compile against the gaim 2.0 headers.
+
+There are no packages yet, because it is still problematic. In 
+particular, some thumbnails don't seem to come up correctly. If anyone 
+can spot a problem, please send patches. I will try to fix it when i get 
+around to it.
+
+
+Jason
+
+rob wrote:
+
+> Now that gaim beta has been released; are we going to release a 2.0.0 
+> compatible plugin?
+>
+> rob
+> _______________________________________________
+> Qrc-devel mailing list
+> Qrc-devel at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/qrc-devel
+>
+
+
+
+From rob at mutatorr.net  Sun Dec 18 19:58:52 2005
+From: rob at mutatorr.net (rob)
+Date: Sun, 18 Dec 2005 13:58:52 -0500
+Subject: [Qrc-devel] gaim beta
+In-Reply-To: <43A534B5.5060400@jasonlebrun.info>
+References: <43A4B541.3090709@mutatorr.net> <43A534B5.5060400@jasonlebrun.info>
+Message-ID: <43A5B16C.8050008@mutatorr.net>
+
+I wanted packages :x
+
+JBL wrote:
+> If you have subversion, you can check out
+>
+> svn://svn.berlios.de/qrc/qrc/branches/fork-for-gaim-2
+>
+> It will compile against the gaim 2.0 headers.
+>
+> There are no packages yet, because it is still problematic. In 
+> particular, some thumbnails don't seem to come up correctly. If anyone 
+> can spot a problem, please send patches. I will try to fix it when i 
+> get around to it.
+>
+>
+> Jason
+>
+> rob wrote:
+>
+>> Now that gaim beta has been released; are we going to release a 2.0.0 
+>> compatible plugin?
+>>
+>> rob
+>> _______________________________________________
+>> Qrc-devel mailing list
+>> Qrc-devel at lists.berlios.de
+>> http://lists.berlios.de/mailman/listinfo/qrc-devel
+>>
+>
+>
+>
+
+
+
+From Evan at CoolRunningConcepts.com  Sat Dec 24 12:24:56 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Sat, 24 Dec 2005 05:24:56 -0600
+Subject: [Qrc-devel] Sparc
+Message-ID: <1135423496.10413.14.camel@taro.coolrunningconcepts.com>
+
+FYI,
+
+Gaim and Gaym (standard version - not the Gaim 2.0 branch) install fine
+on a sparc (Ultra E450) running linux 2.6 (with a matrox PCI card for
+video and Xorg .. I had to hack Xorg to get that to work!)
+
+but .. that old bug where the sort icons don't display is back - they
+must be going to the wrong directory still.
+
+
+
+
+
+From Evan at CoolRunningConcepts.com  Mon Dec 26 08:56:48 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Mon, 26 Dec 2005 01:56:48 -0600
+Subject: [Qrc-devel] Gaym BUG
+Message-ID: <1135583808.10049.5.camel@taro.coolrunningconcepts.com>
+
+gaym is HTMLizing quotes.  Looks really bad :(
+
+at least in the 2.0 fork
+
+
+
+
+From Evan at CoolRunningConcepts.com  Mon Dec 26 08:58:54 2005
+From: Evan at CoolRunningConcepts.com (Evan Langlois)
+Date: Mon, 26 Dec 2005 01:58:54 -0600
+Subject: [Qrc-devel] Gaym BUG
+Message-ID: <1135583934.10049.7.camel@taro.coolrunningconcepts.com>
+
+Gaym doesn't seem to be showing the blocked icon for ignored users in a
+channel anymore.
+
+
+
+

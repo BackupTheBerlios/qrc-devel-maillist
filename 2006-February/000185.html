@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [gaymplugin] Re: Call For Developers
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2006-February/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5Bgaymplugin%5D%20Re%3A%20Call%20For%20Developers&In-Reply-To=%3C1140056354.12656.45.camel%40taro.coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000184.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [gaymplugin] Re: Call For Developers</H1>
+    <B>Evan Langlois</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5Bgaymplugin%5D%20Re%3A%20Call%20For%20Developers&In-Reply-To=%3C1140056354.12656.45.camel%40taro.coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] Re: [gaymplugin] Re: Call For Developers">Evan at CoolRunningConcepts.com
+       </A><BR>
+    <I>Thu Feb 16 03:19:14 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000184.html">[Qrc-devel] Re: [gaymplugin] Re: Call For Developers
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#185">[ date ]</a>
+              <a href="thread.html#185">[ thread ]</a>
+              <a href="subject.html#185">[ subject ]</a>
+              <a href="author.html#185">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, 2006-02-15 at 11:36 -0800, Jason LeBrun wrote:
+&gt;<i> IF YOU ARE INTERESTED IN DEVELOPMENT, OR DISCUSSION RELATED TO 
+</I>&gt;<i> DEVELOPMENT PLEASE SUBSCRIBE TO <A HREF="https://lists.berlios.de/mailman/listinfo/qrc-devel">qrc-devel at berlios.de.</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/qrc-devel">http://lists.berlios.de/mailman/listinfo/qrc-devel</A>
+</I>
+Most people don't know about the development list and considering the
+status of development, talk anywhere is better than nothing.  However,
+between the last message and this one, everyone should now know there is
+a development list and how to subscribe.  Thanks!
+
+&gt;<i> No further development discussion should occur on this list. This list 
+</I>&gt;<i> is for usage-level discussion.
+</I>
+Unless development picks up, there will be no more user level stuff!
+Gaim2 will soon become the default, and we can't compile against the
+latest.
+
+&gt;<i> 1. We ain't porting nothin' to Win32 (or Win64). 'nuff said.
+</I>&gt;<i> 
+</I>&gt;<i> 1.5. I prefer SVN 1000 times more than CVS. If Sourceforge supports SVN 
+</I>&gt;<i> repositories, I'll be happy to move back there.
+</I>
+Seems as though Sourceforge now has SVN.  I need to go figure out what
+my login and password were - not too hard.
+
+BTW - I got work hooked on SVN.  So, unlike before, I'm actually
+familiar with it!
+
+&gt;<i> 2. While Garrett may have been a little catty and abrasive, responding 
+</I>&gt;<i> with bitterness and concluding with &quot;GO AWAY&quot; is no more constructive, 
+</I>&gt;<i> despite the existence of good points.
+</I>
+A user that is going to come into our project and call it crap because
+its not Windows native API has no business using Gaim.  There is Chat
+Client and Chattage.
+
+What I would like to see is someone with a Mac and Adium X.  I want to
+know if they can compile our plugin!   There are quite a few Mac users
+that have trouble with the gay.com java interface and we'd be an
+excellent alternative.
+
+&gt;<i> 3. I've not worked on the plugin much lately, because it works for me, 
+</I>&gt;<i> and frankly, I've got an essentially infinite number of more important 
+</I>&gt;<i> things to do. The project has be come too much for one person to manage 
+</I>&gt;<i> everything. I have put countless hours into the project (I'd say I was 
+</I>&gt;<i> the primary developer for most of the project). I no longer feel like 
+</I>&gt;<i> trying to fix every bug in two plugins, and come up with packages for 
+</I>&gt;<i> distributions that I don't have, and have no interest in installing.
+</I>
+I can agree with you on the package thing.   I have no problem with
+leaving things as source for Linux personally, and just release tarballs
+as we tag releases.  IMHO, it's up to the distribution maintainers or
+users to provide binaries.  We'd be more than happy to put up the files
+or link to repositories, but we need to concentrate on the code, not
+packaging.
+
+As of Gaim2.00 Beta 2, the latest SVN no longer compiles, and this is in
+addition to lots of bugs too numerous to mention here.   I've modified
+mine so that it compiles cleanly and fixes a couple of the xml escape
+problems, but there were so many changes to the tooltip stuff that I
+just ended up commenting out some stuff since I'm not at all familiar
+with the tooltip code.
+
+I want to go through the old IRC plugin and back port all the new
+changes from it, as well as fix the slash commands that are broken,
+figure out some of the issues with crashes, get the channel &quot;number&quot; in
+the window title after the name (':1' instead of ':*'), get the IRC
+'#channel' name out of the hammer dialog, and then start working on
+features.
+
+&gt;<i> 4. There's no need to scrap gaym-extras anymore then the other parts. No 
+</I>&gt;<i> one is working on gaym-extras because no one is working on anything. 
+</I>&gt;<i> Gaym-extras adds features that are important to the majority of gay.com 
+</I>&gt;<i> chatters. I will, however, be OK with making the 1.x version gaym-extras 
+</I>&gt;<i> an unsupported, use-at-your-own-risk plugin. The API for buddy icons 
+</I>&gt;<i> really made that one a mess. I got it fixed for 2.0, so it is much neater.
+</I>
+With the changes to the gaim 2 API, its gaym-extras that seems to have
+the most difficult to resolve problems, the most changes, and is the
+least critical.  Mine doesn't even sort the room-list anymore, which was
+the best feature IMHO.  And I believe you wrote ALL of that code didn't
+you?   The rest of us have barely looked at it, or at least I haven't
+other than a couple changes to make it compile.
+
+&gt;<i> So, here's the minimum of what we need to move this forward:
+</I>&gt;<i> 
+</I>&gt;<i> *A package maintainer. This person will take snapshots of the SVN tree, 
+</I>&gt;<i> and create packages. This person should also do as much testing of the 
+</I>&gt;<i> plugin as possible to find bugs.
+</I>
+Any takers?
+
+&gt;<i> *A prpl lead. This person should at the very least fix bugs in the prpl.
+</I>
+I'll volunteer for this one, but I can't check anything in unless we
+move back to Sourceforge.
+
+&gt;<i> *A GUI lead. This person should at the very least fix bugs in the 
+</I>&gt;<i> gaym-extras plugin. If the first two positions were filled, I'd be happy 
+</I>&gt;<i> to step in here.
+</I>
+The GUI plugin is nice, but it only loads thumbnails at random these
+days, the tooltips just broke, and the room-sort is broke.  Soon, there
+won't be anything left.
+
+I still have yet to see a display plugin similar to my old one :(  I
+know it was a horrible aweful hack, but it was much more readable, at
+least to me, and prevented repeats.
+
+-- Evan
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000184.html">[Qrc-devel] Re: [gaymplugin] Re: Call For Developers
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#185">[ date ]</a>
+              <a href="thread.html#185">[ thread ]</a>
+              <a href="subject.html#185">[ subject ]</a>
+              <a href="author.html#185">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

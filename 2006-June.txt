@@ -1,0 +1,39 @@
+From cweyl at alumni.drew.edu  Thu Jun 29 01:57:24 2006
+From: cweyl at alumni.drew.edu (Chris Weyl)
+Date: Wed, 28 Jun 2006 16:57:24 -0700
+Subject: [Qrc-devel] gaim for gaim2 status?
+Message-ID: <7dd7ab490606281657r5eb12966od066659d8a182c02@mail.gmail.com>
+
+Hey!
+
+So.  Just having found this list, I'll try this again...  I maintain
+the gaim-gaym package for fedora extras, and as of today, gaim
+2.0.0beta3 is the default version for the upcoming fedora core 6.
+(Due out in roughly a month, if memory serves).  gaim2 is also the
+default in the test releases of fc (rawhide, fc6t2, etc) as of today,
+so gaim-gaym is officially broken.  I don't want that to happen,
+especially as I'd like to keep on chatting on gay.com.  :)
+
+I've had a heck of a time tracking things down, but --
+
+1. Is sourceforge or berlios the "real" home of the source repositories, etc?
+2. I assume this is the actual, correct list for this conversation.  Heh.
+3. I'm given to understand that there is support for gaim2 beta3 in
+SVN/CVS.  Is this correct, and if so...
+4. Could someone make a tarball of a known working CVS checkout, and
+post it to sf/berlios?  (A md5sum check of posted upstream tarballs is
+policy for extras builds.)
+
+I'm happy to help out in other areas of development, as time allows,
+but right now my focus is on making sure gaim-gaym isn't broken for
+who-knows-how-many as they switch to fc6 in the not-too-distant
+future.
+
+Thanks! :)
+                                   -Chris
+
+-- 
+Chris Weyl
+Ex astris, scientia
+
+

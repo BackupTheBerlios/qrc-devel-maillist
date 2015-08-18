@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Bot Detection, part II
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Bot%20Detection%2C%20part%20II&In-Reply-To=%3C1121060323.30982.32.camel%40taro.coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000024.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Bot Detection, part II</H1>
+    <B>Evan Langlois</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Bot%20Detection%2C%20part%20II&In-Reply-To=%3C1121060323.30982.32.camel%40taro.coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] Bot Detection, part II">Evan at CoolRunningConcepts.com
+       </A><BR>
+    <I>Mon Jul 11 07:38:40 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000024.html">[Qrc-devel] Bio is now available from Buddy List
+</A></li>
+        <LI>Next message: <A HREF="000026.html">[Qrc-devel] java properties
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On the task of fightning bots and developing plugins ...
+
+So, you have one of those new AI bots that wants to talk to you.  Its
+BIO is clean - no URLS, like this one ...
+
+
+Stats: Male | 19
+Bio: Pvt is okay
+
+
+Now here is the conversation:
+
+
+gothwolf: Hi bot
+amauglard: hello
+gothwolf: lets test your AI
+gothwolf: whats your name?
+amauglard: see my profile with pics there -&gt; geocities.com/johncampage ** BOT ALERT **
+gothwolf: got ya
+
+
+You'll notice that the bot detector finally detected it when he posted
+the URL, and if I had &quot;Ignore Bots&quot; turned on, he would have been put on
+ignore at that point.   However, you'll notice that I already knew it
+was a bot when I talked to him!
+
+How?
+
+Well, the /trace command will give an IP, and I've already logged the
+most common IPs of bots.  There are so far only about 16 in total.  Of
+these 16, 3 are from cantv.net and 1 of those 3 is on spamhaus.   Of the
+other 13, 7 are on spamhaus.  Over 50% hit ratio is over 50% chance that
+any new IP we see that is a bot, will be on the spamhaus site, and few
+real users will ever be listed on spamhaus as a spammer (providing you
+use the known spammer one and not the open-relay one, but this could be
+optional).  Anyway ...
+
+1 - the same IPs are used for multiple bots - once an IP is detected, a
+database can block the whole IP and all the bots at that address.   This
+is a huge win for incorporating an IP check and an IP list.
+
+2 - Similarly, a reverse of the /trace IP to get the domain name can be
+fed into any URL based scan, so that instead of blocking large lists of
+IPs, we can block large spam operations by domain, such as the
+&quot;genericrev.cantv.net&quot; provider that many bots resolve to (the 3 IPs I
+mentioned above)
+
+3 - new bots could be detected by checking their IP against spamhaus or
+possibly other RBLs.   Some of these IPs had multiple listings and are
+registered in China.  I bet if you look them up and read the full
+description you'd find the IP linked to international spam gangs.   Much
+of the email spam can be traced to Russian Mafia.  I wouldn't be
+surprised if these adbots root there as well.
+
+4 - bots detected via other methods (my current bot code tries to detect
+other possibilities besides URL) or user interaction (plugins can add
+buttons) can be submitted to a central database.   Eventually they'll
+run out of IPs to use.  Anyone know someone that would host a global
+BOTRBL?
+
+While a general URL based scanner that watches public, private, and join
+messages can catch quite a bit of spam bots, I think if the individual
+protocols could communicate IP based information as well as any other
+information it finds, such as in a profile or something, I think we
+could really make this work well.
+
+-- Evan
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050711/e21073e8/attachment.html">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050711/e21073e8/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000024.html">[Qrc-devel] Bio is now available from Buddy List
+</A></li>
+	<LI>Next message: <A HREF="000026.html">[Qrc-devel] java properties
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

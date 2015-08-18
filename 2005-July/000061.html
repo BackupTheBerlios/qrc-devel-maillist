@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] chatsort / 690
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20chatsort%20/%20690&In-Reply-To=%3C1122080115.16892.71.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000060.html">
+   <LINK REL="Next"  HREF="000058.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] chatsort / 690</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20chatsort%20/%20690&In-Reply-To=%3C1122080115.16892.71.camel%40localhost%3E"
+       TITLE="[Qrc-devel] chatsort / 690">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Sat Jul 23 02:55:15 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000060.html">[Qrc-devel] Re: chatsort / 690 / thumbnail
+</A></li>
+        <LI>Next message: <A HREF="000058.html">[Qrc-devel] nightly build didn't run
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>This proposal still won't work. The problem is that it will still be
+calling ops-&gt;chat_add_user in the same order that it does anyway. The
+gui list structure is what is causing the problem, not the GList that
+the non-gui portion maintains. There is an op-&gt;chat_add_users function,
+but no op-&gt;chat_set_users. The only way to effect your idea is every
+time someone joins, call
+
+op-&gt;chat_remove_users on the old list
+op-&gt;chat_add_users on the new list. 
+
+I tried it, and it was *horribly* inefficient. Every time someone
+joined, there was massive blinking in the names list. :(
+
+Your idea was not in vain though, it's got me thinking in some different
+directions. Good suggestion!
+
+By the way, we wouldn't have to bypass the signals, we could just emit
+them ourselves, right?
+
+
+Jason
+
+&gt;<i> Here's what I would like to see...
+</I>&gt;<i> 
+</I>&gt;<i> 1.  Back out yesterday's chatsort-related changes in gaym/src
+</I>&gt;<i> 
+</I>&gt;<i> 2.  Copy this bit of code to the 690 process in msgs.c from
+</I>&gt;<i>     gaym_privacy_change() in conversation.c and use it instead of
+</I>&gt;<i>     invoking gaym_privacy_change() (change the names and move
+</I>&gt;<i>     gaim_conversation_get_ui_ops() as appropriate):
+</I>&gt;<i> 
+</I>&gt;<i>     gaim_conv_chat_set_users(chat,
+</I>&gt;<i>                 g_list_append(gaim_conv_chat_get_users(chat), cb));
+</I>&gt;<i> 
+</I>&gt;<i>     if (ops != NULL &amp;&amp; ops-&gt;chat_add_user != NULL)
+</I>&gt;<i>                 ops-&gt;chat_add_user(conv, user, new_arrival);
+</I>&gt;<i> 
+</I>&gt;<i> 3.  change g_list_append() above to g_list_prepend().
+</I>&gt;<i> 
+</I>&gt;<i> Done.  Simple and direct.  No race conditions or network calls.  And
+</I>&gt;<i> more efficient, since we all know that g_list_append() is a pig.
+</I>&gt;<i> 
+</I>&gt;<i> The downside is we bypass the signals.  But I don't think we need them
+</I>&gt;<i> anyway during the 690s.
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000060.html">[Qrc-devel] Re: chatsort / 690 / thumbnail
+</A></li>
+	<LI>Next message: <A HREF="000058.html">[Qrc-devel] nightly build didn't run
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

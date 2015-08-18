@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C1122011484.16892.61.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Re%3A%20%5BQrc-svn%5D%20r219%20-%20qrc/trunk/gaym/src&In-Reply-To=%3C1122011484.16892.61.camel%40localhost%3E"
+       TITLE="[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Fri Jul 22 07:51:24 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+        <LI>Next message: <A HREF="000059.html">[Qrc-devel] chatsort / 690
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The extra network command would *still* be necessary to tell when we are
+&quot;done&quot; joining the room so that the list can be reversed. There is no
+special message that indicates the end of the #690 messages. I don't
+think one extra PING is going to be &quot;unfair&quot; for dialup users. :)
+
+As for reversing the list, it's not trivial to simply reverse the gaim
+room namelist. it's a gtk element, a GtkListStore, which is displayed in
+a GtkTreeView, a sort of content/presentation split. I played around for
+a long time with various sorting options, and have not had much luck.
+There is no &quot;reverse&quot; function for a GtkListStore, unless it's already
+got a sort function applied to it. But if you apply a sort function to
+it, you lose the entry order, forever, as far as I can tell, since it's
+just the arbitrary way that items are put into the list initially.
+
+
+&gt;<i> And here is another option that involves no extra network stuff.
+</I>&gt;<i> 
+</I>&gt;<i> Reverse the list before the join and again after the join.  I know this
+</I>&gt;<i> sounds strange, but this way, there is never any worry about a race
+</I>&gt;<i> condition.  And there are no extra network calls.  To me, its an easy
+</I>&gt;<i> trade off to have c code that isn't fully optimized to save an
+</I>&gt;<i> extra network call to the server.  Especially if we are considerate to
+</I>&gt;<i> those who have dialup connections.
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[Qrc-devel] Re: [Qrc-svn] r219 - qrc/trunk/gaym/src
+</A></li>
+	<LI>Next message: <A HREF="000059.html">[Qrc-devel] chatsort / 690
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

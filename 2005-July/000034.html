@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] roomlist performance
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20roomlist%20performance&In-Reply-To=%3C1121511834.24325.4.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] roomlist performance</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20roomlist%20performance&In-Reply-To=%3C1121511834.24325.4.camel%40localhost%3E"
+       TITLE="[Qrc-devel] roomlist performance">gaym at jasonlebrun.info
+       </A><BR>
+    <I>Sat Jul 16 13:03:53 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[Qrc-devel] roomlist performance
+</A></li>
+        <LI>Next message: <A HREF="000035.html">[Qrc-devel] roomlist performance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> This is because these Gaim functions use g_list_append(), which gets
+</I>&gt;<i> slower and slower (linear) as the size of the GList increases: the end
+</I>&gt;<i> of the list is not saved and g_list append must start and the beginning
+</I>&gt;<i> of the list and walk through it to find the end so as to perform the
+</I>&gt;<i> append operation. And we have a large list of rooms.
+</I>
+I think that this wasn't a problem with roomlist because it normally
+added the rooms one at a time via callbacks, as IRC returned roomlist
+messages. If we could spawn a second thread thta populated the list, it
+would most likely solve the problem (at the expense of race conditions
+introduced by threading, since threading is basically non-existent in
+gaim.)
+
+
+
+
+&gt;<i> So I think what I'll do is interpret the roomlist literally, and then
+</I>&gt;<i> implement prpl_info-&gt;roomlist_expand_category(list, category) to build
+</I>&gt;<i> the individual instances when the user clicks to open a category to find
+</I>&gt;<i> the individual instances.
+</I>&gt;<i> 
+</I>
+That sounds like  a good idea to me.
+
+Jason
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[Qrc-devel] roomlist performance
+</A></li>
+	<LI>Next message: <A HREF="000035.html">[Qrc-devel] roomlist performance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

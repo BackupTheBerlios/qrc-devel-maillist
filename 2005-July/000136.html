@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Thumbnails
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Thumbnails&In-Reply-To=%3C1122603721.19563.25.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000135.html">
+   <LINK REL="Next"  HREF="000138.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Thumbnails</H1>
+    <B>Jason LeBrun</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Thumbnails&In-Reply-To=%3C1122603721.19563.25.camel%40localhost%3E"
+       TITLE="[Qrc-devel] Thumbnails">jason at jasonlebrun.info
+       </A><BR>
+    <I>Fri Jul 29 04:22:01 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000135.html">[Qrc-devel] Thumbnails
+</A></li>
+        <LI>Next message: <A HREF="000138.html">[Qrc-devel] Thumbnails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#136">[ date ]</a>
+              <a href="thread.html#136">[ thread ]</a>
+              <a href="subject.html#136">[ subject ]</a>
+              <a href="author.html#136">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> How about when someone joins the channel, grab the thumbnail URL and if its
+</I>&gt;<i> different from what is in cache, then fetch the new one.  Since this would
+</I>&gt;<i> cause a huge amount of network traffic when you first join a channel, don't do
+</I>
+You totally read my mind today. Right now, gaym-extras fetches a photo.
+I'm going to change it to gaym fetching the photo and chaching it in
+gaym/icons, and then gaym-extras *ONLY* working with photos. If anyone
+has a problem with that, then they obviously have a network pipe that
+*FAR* exceed their ability to cache a few megs of photos, and frankly, I
+would be bitter about that, and not change it, anyway.
+
+&gt;<i> It would also be nice to be able to force a reload of the thumbnail 
+</I>&gt;<i> even if the
+</I>&gt;<i> URL hasn't changed and there is no join, etc, in case the cache is old or the
+</I>
+I could do that. Have you verified any cases where the same url path
+points to a different jpg picture? 
+
+Jason
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000135.html">[Qrc-devel] Thumbnails
+</A></li>
+	<LI>Next message: <A HREF="000138.html">[Qrc-devel] Thumbnails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#136">[ date ]</a>
+              <a href="thread.html#136">[ thread ]</a>
+              <a href="subject.html#136">[ subject ]</a>
+              <a href="author.html#136">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

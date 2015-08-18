@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Diff Attached
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Diff%20Attached&In-Reply-To=%3C1126465913.29983.1.camel%40taro.coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000171.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Diff Attached</H1>
+    <B>Evan Langlois</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Diff%20Attached&In-Reply-To=%3C1126465913.29983.1.camel%40taro.coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] Diff Attached">Evan at CoolRunningConcepts.com
+       </A><BR>
+    <I>Sun Sep 11 21:11:52 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000171.html">[Qrc-devel] Display Patch + Thumbnail cache broken!
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, 2005-09-10 at 11:34 -0700, Jason LeBrun wrote: 
+&gt;<i> I'll apply it soon. Note about thumbnail code: I got a fix introduced
+</I>&gt;<i> into Gaim's CVS head so we can use their buddy icon code for gay.com
+</I>&gt;<i> thumbnails (in Gaim 2.0). So, I'm not going to put a whole lot of extra
+</I>&gt;<i> effort into making the current thumbnail code perfect.
+</I>
+Hmm ... Okay.  Is Gaim 2.0 CVS useable, and can gaym work with it at
+all?   I'm wondering if we've hit a plato where the code is useable
+enough that we should start concentrating on Gaim 2.0 instead.
+
+&gt;<i> &gt; Anyone working on the &quot;Get Info&quot; display?
+</I>&gt;<i> 
+</I>&gt;<i> Not me. It would be great if someone did, but I have a lot of other
+</I>&gt;<i> things I still need to fix, first.
+</I>
+OK .. The current code uses an &lt;img&gt; tag for the picture.  Can I do the
+same to load up every thumbnail in the mini-profile and attach some sort
+of callback to change the image data for the large picture when any of
+the smaller ones are clicked?  Thats kinda the plan, although I don't
+know the exact steps to do it just yet (looking into the existing code
+to figure out how).  Hints appreciated.
+
+Also, if I use the &lt;img&gt; tag inside the display plugin ... is there some
+easy function to call that to get the right thumbnail, caching it if its
+loaded and load one if not cached?   Basically, with such a large
+scrollback, we could be keeping thumbs around forever if they are in the
+chatroom message display (next to what they said), and I'm not sure when
+they would actually be removed from scrollback so we can free it.
+Ideas?  Comments?
+
+Ideally, I want clicking the name or thumb to do a Get Info as well, and
+change up the Get Info so that pulling up the whole profile is rarely
+necessary - as much info as the mini profile has should be in the
+dialog.
+
+This is the extent of the changes I care to make at the moment.
+
+Right now, I've made the following two hac^h^h^hchanges.
+* Using the /whois command actually does the same as &quot;Get Info&quot;.  The
+dialog appears
+* The profile &quot;heading&quot; is attached to the Get Info display.
+
+Diff is attached for these changes, please look over and add em.
+I should probably get an account so I can comitt these myself.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: newdiff
+Type: text/x-patch
+Size: 6255 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050911/7ca4a843/attachment.bin">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050911/7ca4a843/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000171.html">[Qrc-devel] Display Patch + Thumbnail cache broken!
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

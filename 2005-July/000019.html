@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] 0.34.0 release work
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%200.34.0%20release%20work&In-Reply-To=%3C20050705181145.GD7480%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000018.html">
+   <LINK REL="Next"  HREF="000020.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] 0.34.0 release work</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%200.34.0%20release%20work&In-Reply-To=%3C20050705181145.GD7480%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] 0.34.0 release work">deckrider at gmail.com
+       </A><BR>
+    <I>Tue Jul  5 20:11:46 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000018.html">[Qrc-devel] Re: Another Repository Reorg
+</A></li>
+        <LI>Next message: <A HREF="000020.html">[Qrc-devel] 004276 - Change Bio / Profile Mapping
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Greetings,
+
+I've heard of no additional bugs that were not already in prior interim
+releases, so I've tagged in svn, built the source dist for qrc-0.34.0,
+and deployed it.
+
+Based on this, I've also built and deployed the corresponding windows
+package (it is built from gaim-1.3.0 but works also with gaim-1.3.1).
+
+Additionally, I've built and uploaded corresponding debian/sarge
+packages.  The Debian work is managed separately under a debian
+subversion module within our berlios project's root.  It has also been
+appropriately tagged within svn.  The Debian source and binary packages
+are apt get-able as documented in qrc-debian.txt (on our project's
+files page).
+
+(Packaging is a distinctly separate activity from a source release.
+If a bug is found in the package source there should be no need to
+re-release the generic source.  I need to open a bug to separate windows
+packaging similarly, since it currently lives in the main generic source
+tree.)
+
+Previously, i386 and src rpms have been built, but I have no system from
+which to make this happen.  Have sent a note to Chris Weyl asking if he
+would do this again, since he was the author of the previous rpms.
+
+I'm not sure what system the original rpms were built for or anything,
+but if anyone else knows what other packages can/should be available,
+please let me know.
+
+Hopefully, we can have another interim release soon.  (I personally find
+bug 004424 -- and the overall cleanup of the &quot;.&quot; and &quot;|&quot; process --
+particularly urgent, since it currently causes communication/protocol
+interference under certain circumstances.)
+
+Pending a stable release (1.0.0), lets stick to an x.y.z notation where
+x = 0, y is incremented for new/changed user features and behavior (z =
+0 for these), and z is incremented when the release is strictly a bug
+fix.
+
+Thanks,
+Dave.
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050705/fa029a21/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050705/fa029a21/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000018.html">[Qrc-devel] Re: Another Repository Reorg
+</A></li>
+	<LI>Next message: <A HREF="000020.html">[Qrc-devel] 004276 - Change Bio / Profile Mapping
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] Configure scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Configure%20scripts&In-Reply-To=%3C20050723233008.GF18998%40elbert.is-a-geek.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000066.html">
+   <LINK REL="Next"  HREF="000068.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] Configure scripts</H1>
+    <B>David Everly</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20Configure%20scripts&In-Reply-To=%3C20050723233008.GF18998%40elbert.is-a-geek.org%3E"
+       TITLE="[Qrc-devel] Configure scripts">deckrider at gmail.com
+       </A><BR>
+    <I>Sun Jul 24 01:30:08 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000066.html">[Qrc-devel] Configure scripts
+</A></li>
+        <LI>Next message: <A HREF="000068.html">[Qrc-devel] Anonymous SVN Server Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#67">[ date ]</a>
+              <a href="thread.html#67">[ thread ]</a>
+              <a href="subject.html#67">[ subject ]</a>
+              <a href="author.html#67">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, Jul 23, 2005 at 05:30:35PM -0500, Jason LeBrun wrote:
+&gt;<i> When I type &quot;./configure --prefix=/usr/local&quot; it still installs
+</I>&gt;<i> in /usr/lib/gaim, when I do make install.
+</I>&gt;<i> 
+</I>&gt;<i> Did I miss an email about the correct way to adjust installation
+</I>&gt;<i> prefixes?
+</I>
+Since plugins have to be installed exactly where a certain gaim
+installation needs them to be installed, --prefix is useless.
+
+Gaim provides a pkg-config file that indicates where it is expecting to
+see its plugins and icons.  This is what we use.
+
+To see how to override the various gaim pkg-config values, run:
+
+   ./configure --help | grep -- pkg-config
+
+If you have more than one gaim installation that has provided pkg-config
+files in different places, check the pkg-config documentation, but I
+think you can set PKG_CONFIG_PATH to point to the oddly-located gaim
+pkg-config file that contains your settings.
+
+If you are creating a package and need a temporary location to install
+to after building the libraries, do something like:
+
+   ./configure
+   make
+   make install DESTDIR=/path/to/temporary/install/location
+
+-- 
+Encrypted Mail Preferred:
+    Key ID:  8527B9AF
+    Key Fingerprint:  E1B6 40B6 B73F 695E 0D3B  644E 6427 DD74 8527 B9AF
+    Information:  <A HREF="http://www.gnupg.org/">http://www.gnupg.org/</A>
+                                                                                
+ASCII ribbon campaign:
+()  against HTML email
+/\  against Microsoft attachments
+    Information:  <A HREF="http://www.expita.com/nomime.html">http://www.expita.com/nomime.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/qrc-devel/attachments/20050723/23f2e9b0/attachment.pgp">https://lists.berlios.de/pipermail/qrc-devel/attachments/20050723/23f2e9b0/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000066.html">[Qrc-devel] Configure scripts
+</A></li>
+	<LI>Next message: <A HREF="000068.html">[Qrc-devel] Anonymous SVN Server Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#67">[ date ]</a>
+              <a href="thread.html#67">[ thread ]</a>
+              <a href="subject.html#67">[ subject ]</a>
+              <a href="author.html#67">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>

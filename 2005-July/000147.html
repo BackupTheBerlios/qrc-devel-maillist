@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Qrc-devel] FIX for File Descriptor Leak
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/qrc-devel/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20FIX%20for%20File%20Descriptor%20Leak&In-Reply-To=%3C20050730204248.0t6thdxmtykowk4s%40coolrunningconcepts.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000146.html">
+   <LINK REL="Next"  HREF="000148.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Qrc-devel] FIX for File Descriptor Leak</H1>
+    <B>evan at coolrunningconcepts.com</B> 
+    <A HREF="mailto:qrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BQrc-devel%5D%20FIX%20for%20File%20Descriptor%20Leak&In-Reply-To=%3C20050730204248.0t6thdxmtykowk4s%40coolrunningconcepts.com%3E"
+       TITLE="[Qrc-devel] FIX for File Descriptor Leak">evan at coolrunningconcepts.com
+       </A><BR>
+    <I>Sun Jul 31 04:42:48 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000146.html">[Qrc-devel] File Descriptor Leak
+</A></li>
+        <LI>Next message: <A HREF="000148.html">[Qrc-devel] pop-up bug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Aha -- failed to create pipe - too many open files.  Looks like we 
+</I>&gt;<i> have a file
+</I>&gt;<i> descriptor leak!
+</I>
+Looks like in loopup_cached_thumbnail there is a g_dir_open() and no
+g_dir_close().
+I'm adding a g_dir_close(gdir); which I believe should replace g_free(gdir).
+I'm trying it right before the g_free() instead to make sure, but I believe
+that g_dir_close() should free the RAM as well (so I'll get a double 
+free and a
+crash).
+
+Yup - double free .. crash.  Just replace the g_free(gdir) with
+g_dir_close(gdir) on line 106.
+
+I don't know if this will fix the too many open handles problem, but 
+I'm betting
+it will.
+
+-- Evan
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000146.html">[Qrc-devel] File Descriptor Leak
+</A></li>
+	<LI>Next message: <A HREF="000148.html">[Qrc-devel] pop-up bug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/qrc-devel">More information about the Qrc-devel
+mailing list</a><br>
+</body></html>
